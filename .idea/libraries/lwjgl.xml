@@ -1,0 +1,28 @@
+<component name="libraryTable">
+  <library name="lwjgl">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Engine/libs/joml-1.9.4.jar!/" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl-glfw" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl-openal" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl-opengl" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/Engine/libs/joml-1.9.4-sources.jar!/" />
+      <root url="jar://$PROJECT_DIR$/Engine/libs/joml-1.9.4-sources.jar!/" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl-glfw" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl-openal" />
+      <root url="file://$PROJECT_DIR$/Engine/libs/lwjgl-opengl" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl-glfw" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl-openal" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl-opengl" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl-glfw" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl-openal" recursive="false" type="SOURCES" />
+    <jarDirectory url="file://$PROJECT_DIR$/Engine/libs/lwjgl-opengl" recursive="false" type="SOURCES" />
+  </library>
+</component>
