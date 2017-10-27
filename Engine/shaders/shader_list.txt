@@ -1,2 +1,4 @@
-default/vertex.default.shader
-default/fragment.default.shader
+default/sprite/vertex.default.shader
+default/sprite/fragment.default.shader
+default/background/vertex.default.shader
+default/background/fragment.default.shader
