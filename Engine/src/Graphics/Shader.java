@@ -15,12 +15,20 @@ public class Shader {
 	
 	private boolean enabled = false;
 	
-	private final int ID;
+	public final int ID;
 	private Map<String, Integer> locationCache = new HashMap<>();
 	
-	public Shader(String name)
+	public Shader(int[] shaders)
 	{
-		ID = Game.shaderProgramsList.getShaderProgram(name);
+        ID = glCreateProgram();
+        for (int shader:
+                shaders) {
+            glAttachShader(ID, shader);
+        }
+
+        glLinkProgram(ID);
+        System.out.println(glGetProgramInfoLog(ID));
+        glValidateProgram(ID);
 	}
 	
 	public int getUniform(String name)

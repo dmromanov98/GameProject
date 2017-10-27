@@ -2,6 +2,8 @@ package Main;
 
 import Graphics.ShaderCompiler;
 import Graphics.ShaderProgramsList;
+import Graphics.VertexArray;
+import Patterns.Background;
 import Utils.File;
 import Patterns.Sprite;
 
@@ -20,14 +22,15 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 //import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 
 public class Game {
+    private final String[] defaultClasses = {"sprite", "background"};
 
-    private int[] screenSize = {0, 0}; // [0] -- width; [1] -- height
+    private int[] screenSize = {0, 0}; // [0] -- WIDTH; [1] -- HEIGHT
     private long window;
 
-    public static Input input = new Input();
-    public static Mouse mouse;
-    public static Vector<Runnable> initQueue = new Vector<>();
-    public static ShaderProgramsList shaderProgramsList = new ShaderProgramsList();
+    public Input input;
+    public Mouse mouse;
+    public Vector<Runnable> initQueue = new Vector<>();
+    public TextureBank textureBank = new TextureBank();
 
     private Vector<Actor> actors;
     private Vector<Actor> actorsRemBuffer;
@@ -41,7 +44,24 @@ public class Game {
 
     private void initClasses()
     {
+        VertexArray.init();//preparing common meshes
         Sprite.init();
+        Background.init();
+    }
+
+    private void loadAndInitDefaultShaderPrograms()
+    {
+        ShaderCompiler.addShadersFromAList( File.loadTextfilesFromAList("Engine/shaders/shader_list.txt") );
+        ShaderCompiler.printAllShaders();
+        for (String className:
+             defaultClasses) {
+            int[] shaders = {
+                    ShaderCompiler.getShader("default/" + className + "/vertex.default"),
+                    ShaderCompiler.getShader("default/" + className + "/fragment.default")
+            };
+
+            ShaderProgramsList.CreateShaderProgram("default/" + className, shaders);
+        }
     }
 
     public void init() throws Error
@@ -50,6 +70,7 @@ public class Game {
             throw new Error("Could not initialize GLFW!");
         }
 
+        //creating a window
         glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
@@ -63,29 +84,37 @@ public class Game {
 
         System.out.println("Window is created.");
 
+        //initializing inputs
         mouse = new Mouse(window, screenSize);
+        input = new Input();
 
+        //moving the window to the window of the screen
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(window, (vidmode.width() - screenSize[0]) / 2,
                                  (vidmode.height() - screenSize[1]) / 2);
 
+        //another initializing of OpenGL
         glfwMakeContextCurrent(window);
         createCapabilities();
 
-        glfwSetKeyCallback(window, Game.input);
+        //setting up the keyboard
+        glfwSetKeyCallback(window, input);
         //glfwSetInputMode(window, GLFW_STICKY_KEYS, 1);
 
+        //TODO: delete this. render settings must be inside of "draw" methods
         glEnable(GL_DEPTH_TEST);
         glEnable(GL_ALPHA_TEST);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         System.out.println("OpenGL: " + glGetString(GL_VERSION));
 
+        //setting up the camera
         glViewport(0, 0, screenSize[0], screenSize[1]);
         Camera.initCamera(screenSize[0], screenSize[1]);
 
         //loading shaders
-        ShaderCompiler.addShadersFromAList( File.loadTextfilesFromAList("shader_list.txt") );
+        loadAndInitDefaultShaderPrograms();
 
         //initializing classes
         initClasses();

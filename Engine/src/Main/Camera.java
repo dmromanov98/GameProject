@@ -18,11 +18,9 @@ public class Camera
     {
         if (viewMatrixShouldBeUpdated)
         {
-            view = Matrix4f.resize(new Vector3f(transform.getScale(), 1f) )
-                    .multiply(Matrix4f.rotate(transform.getAngle()))
+            view = Matrix4f.rotate(transform.getAngle())
+                    .multiply(Matrix4f.resize(new Vector3f(transform.getScale(), 1f) ))
                     .multiply(Matrix4f.translate( new Vector3f(transform.getPosition(), 0f) ));
-
-
 
             viewMatrixShouldBeUpdated = false;
         }

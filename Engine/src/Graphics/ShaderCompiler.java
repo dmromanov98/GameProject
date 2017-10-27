@@ -5,9 +5,7 @@ import Utils.Textfile;
 import java.util.HashMap;
 import java.util.Vector;
 
-import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11.GL_FALSE;
-import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL20.GL_COMPILE_STATUS;
 import static org.lwjgl.opengl.GL20.GL_FRAGMENT_SHADER;
 import static org.lwjgl.opengl.GL20.GL_VERTEX_SHADER;
@@ -52,9 +50,12 @@ public class ShaderCompiler
         shaders.put(name, ID);
     }
 
-    public static int getShader(String name)
+    public static int getShader(String name) throws Error
     {
-        return shaders.getOrDefault(name, -1);
+        if (shaders.containsKey(name))
+            return shaders.get(name);
+        else
+            throw new Error("Shader called '" + name + "' is not exist.");
     }
 
     //if you have finished working with shaders, it's good if you delete them
@@ -68,17 +69,33 @@ public class ShaderCompiler
         shaders.clear();
     }
 
-    //TODO: shaderProgramsList loading from a list
+    public static void printAllShaders()
+    {
+        for (String s:
+             shaders.keySet()) {
+            System.out.print('"' + s + '"' + ", ");
+        }
+        System.out.println();
+    }
+
     public static void addShadersFromAList(Vector<Textfile> shaders)
     {
         for (Textfile file:
              shaders) {
-            switch ( file.name.substring(0, file.name.indexOf('.')).toLowerCase() ){
+            switch ( file.name.substring(file.name.lastIndexOf('/')+1, file.name.indexOf('.')).toLowerCase() ){
                 case "vertex":
                     vertexShader(file.name, file.data); break;
                 case "fragment":
                     fragmentShader(file.name, file.data); break;
             }
+        }
+    }
+
+    public static class ShaderCompilingError extends Error
+    {
+        public ShaderCompilingError(String message)
+        {
+            super(message);
         }
     }
 }

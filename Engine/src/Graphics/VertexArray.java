@@ -13,7 +13,12 @@ public class VertexArray {
 	
 	private int vao, vbo, ibo, tbo;
 	private int count;
-	
+
+	public static void init()
+    {
+        quad = new VertexArray(quad_vertices, quad_indices, quad_textureCords);
+    }
+
 	public VertexArray(int count) {
 		this.count = count;
 		vao = glGenVertexArrays();
@@ -71,4 +76,25 @@ public class VertexArray {
 		draw();
 	}
 
+	//--------------------------------------------------------------------------------------
+
+    public static VertexArray quad;
+        private final static float[] quad_vertices = {
+                0.5f,  0.5f, 0.0f,
+                0.5f, -0.5f, 0.0f,
+                -0.5f, -0.5f, 0.0f,
+                -0.5f,  0.5f, 0.0f
+        };
+
+        private final static float[] quad_textureCords ={
+                1f, 1f,
+                0f, 1f,
+                0f, 0f,
+                1f, 0f
+        };
+
+        private final static byte[] quad_indices = {
+                0, 1, 3,
+                1, 2, 3
+        };
 }
