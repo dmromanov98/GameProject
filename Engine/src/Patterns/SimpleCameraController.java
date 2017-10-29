@@ -16,8 +16,8 @@ public class SimpleCameraController extends Actor //TODO: обобщить эт�
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_S, Input.KEY_HOLD, ()-> moveDown()));
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_D, Input.KEY_HOLD, ()-> moveRigth()));
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_A, Input.KEY_HOLD, ()-> moveLeft()));
-        game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_Q, Input.KEY_HOLD, ()-> turnLeft()));
-        game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_E, Input.KEY_HOLD, ()-> turnRigth()));
+        //game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_Q, Input.KEY_HOLD, ()-> turnLeft()));
+        //game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_E, Input.KEY_HOLD, ()-> turnRigth()));
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_R, Input.KEY_HOLD, ()-> bringCloser()));
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_F, Input.KEY_HOLD, ()-> bringFarther()));
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_T, Input.KEY_PRESS, ()-> reset()));
