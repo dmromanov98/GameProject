@@ -10,7 +10,7 @@ import java.util.Random;
 public class Main implements Runnable {
     private Thread thread;
     private Game game;
-    private int WIDTH = 800, HEIGHT = 600;
+    private int WIDTH = 300, HEIGHT = 600;
 
     public void start() {
         thread = new Thread(this, "Game");

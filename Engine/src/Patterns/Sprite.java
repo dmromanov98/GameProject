@@ -3,9 +3,7 @@ package Patterns;
 import Graphics.*;
 import Main.Actor;
 import Main.Camera;
-import Main.Game;
 import Main.Transform;
-import Utils.File;
 import org.joml.Vector2f;
 
 public abstract class Sprite extends Actor
@@ -50,7 +48,7 @@ public abstract class Sprite extends Actor
     {
         shader.enable();
         Camera.toShader(shader);
-        transform.openGLOut().sendToShader(shader);
+        transform.spriteOpenGLOut().sendToShader(shader);
         texture.bind(shader);
         mesh.render();
         shader.disable();

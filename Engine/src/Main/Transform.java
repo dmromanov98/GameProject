@@ -1,7 +1,9 @@
 package Main;
 
 import Graphics.Shader;
+import MyMath.Matrix4f;
 import org.joml.Vector2f;
+import org.joml.Vector3f;
 
 /*
 нужно будет еще уточнить ебанину эту. трабла с непонятностью, как вообще нормальные люди сохраняют корды и прочее
@@ -16,7 +18,7 @@ public class Transform
     private float angle;
     public float layer;
 
-    public static class OpenGLSpecification
+    public static class SpriteSpecification
     {
         public float[] position = {0, 0, 0};
         public float[] angle = {0};
@@ -138,9 +140,9 @@ public class Transform
     }
 
     //структура такова: x, y, layer, angle, scale. Раскладываю на vector3  float  vector2
-    private OpenGLSpecification oglResult = new OpenGLSpecification();//чтобы не пересоздавать лишний раз
+    private SpriteSpecification oglResult = new SpriteSpecification();//чтобы не пересоздавать лишний раз
     //for OpenGL
-    public OpenGLSpecification openGLOut()
+    public SpriteSpecification spriteOpenGLOut()
     {
         oglResult.position[0] = position.x;
         oglResult.position[1] = position.y;
@@ -152,5 +154,13 @@ public class Transform
         //System.out.println(oglResult);
 
         return oglResult;
+    }
+
+    public void matrixOpenGLOut(Shader shader) //shader must have a 'model' uniform
+    {
+        Matrix4f mat = Matrix4f.rotate(angle)
+                .multiply(Matrix4f.resize(new Vector3f(scale, 1f) ))
+                .multiply(Matrix4f.translate( new Vector3f(position, layer) ));
+        shader.setUniformMat4f("model", mat);
     }
 }

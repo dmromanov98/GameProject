@@ -27,15 +27,21 @@ public abstract class Background extends Actor
     public Transform transform;
     public Texture texture;
     public Shader shader;
+    private final float[] scrollSpeed = {1};
 
     public Background(Texture texture)
     {
         visible = true;
         this.texture = texture;
         shader = defaultShader;
-        float max = Float.max(texture.WIDTH, texture.HEIGHT); //чтобы дважды не писать
-        transform = new Transform().setScale(new Vector2f( texture.WIDTH/max, texture.HEIGHT/max));
+        //float max = Float.max(texture.WIDTH, texture.HEIGHT); //чтобы дважды не писать
+        transform = new Transform().setScale(new Vector2f( texture.WIDTH, texture.HEIGHT));
         transform.layer = .99999f;
+    }
+
+    public void setScrollSpeed(float speed)
+    {
+        scrollSpeed[0] = speed;
     }
 
     @Override
@@ -43,7 +49,8 @@ public abstract class Background extends Actor
     {
         shader.enable();
         Camera.toShader(shader);
-        transform.openGLOut().sendToShader(shader);
+        transform.matrixOpenGLOut(shader);
+        shader.setUniform1f("scrollSpeed", scrollSpeed);
         texture.bind(shader);
         mesh.render();
         shader.disable();

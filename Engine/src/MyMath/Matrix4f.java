@@ -98,5 +98,16 @@ public class Matrix4f {
 	public FloatBuffer toFloatBuffer() {
 		return BufferUtils.createFloatBuffer(elements);
 	}
-	
+
+    @Override
+    public String toString() {
+	    StringBuilder out = new StringBuilder().append("{\n");
+	    for (int i = 0; i<4; i++) {
+            for (int j = 0; j < 4; j++)
+                out.append(elements[i + j * 4]).append(' ');
+            out.append('\n');
+        }
+        out.append('}');
+        return out.toString();
+    }
 }
