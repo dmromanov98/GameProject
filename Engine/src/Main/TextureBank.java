@@ -100,5 +100,13 @@ public class TextureBank
         }
     }
 
+    public void freeMemory()
+    {
+        for (TextureWrap wrap:
+             bank.values()) {
+            wrap.deleteFromRAM();
+        }
+    }
+
     private HashMap<String, TextureWrap> bank;
 }

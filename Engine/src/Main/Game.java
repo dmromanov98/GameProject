@@ -4,6 +4,7 @@ import Graphics.ShaderCompiler;
 import Graphics.ShaderProgramsList;
 import Graphics.VertexArray;
 import Patterns.Background;
+import Patterns.Map.Decal;
 import Utils.File;
 import Patterns.Sprite;
 
@@ -22,7 +23,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 //import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 
 public class Game {
-    private final String[] defaultClasses = {"sprite", "background"};
+    private final String[] defaultClasses = {"sprite", "background", "decal"};
 
     private int[] screenSize = {0, 0}; // [0] -- WIDTH; [1] -- HEIGHT
     private long window;
@@ -32,14 +33,16 @@ public class Game {
     public Vector<Runnable> initQueue = new Vector<>();
     public TextureBank textureBank = new TextureBank();
 
-    private Vector<Actor> actors;
-    private Vector<Actor> actorsRemBuffer;
+    public int fps = 60;
+
+    private Vector<Actor> actors = new Vector<>();
+    private Vector<Actor> actorsRemBuffer = new Vector<>();
+
+    private Render render = new Render();
 
     public Game(int width, int height)
     {
         this.screenSize[0] = width; this.screenSize[1] = height;
-        this.actors = new Vector<>();
-        this.actorsRemBuffer = new Vector<>();
     }
 
     private void initClasses()
@@ -47,6 +50,7 @@ public class Game {
         VertexArray.init();//preparing common meshes
         Sprite.init();
         Background.init();
+        Decal.init();
     }
 
     private void loadAndInitDefaultShaderPrograms()
@@ -143,16 +147,10 @@ public class Game {
             actors.removeAll(actorsRemBuffer);
     }
 
-    private void drawActors()
-    {
-        for (Actor actor : actors)
-            if (actor.visible)
-                actor.draw();
-    }
-
     public void addActor(Actor actor)
     {
         actors.add(actor);
+        render.addToRenderLine(actor);
     }
 
     private void update()
@@ -169,7 +167,7 @@ public class Game {
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        drawActors();
+        render.drawAll();
 
         int error = glGetError();
         if (error != GL_NO_ERROR)
@@ -178,7 +176,7 @@ public class Game {
         glfwSwapBuffers(window);
     }
 
-    public void mainloop(int fps)
+    public void mainloop()
     {
         glfwShowWindow(window);
         System.out.println("Window is showed.");

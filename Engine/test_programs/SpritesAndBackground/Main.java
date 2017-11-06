@@ -10,7 +10,7 @@ import java.util.Random;
 public class Main implements Runnable {
     private Thread thread;
     private Game game;
-    private int WIDTH = 300, HEIGHT = 600;
+    private final int WIDTH = 800, HEIGHT = 600;
 
     public void start() {
         thread = new Thread(this, "Game");
@@ -39,7 +39,7 @@ public class Main implements Runnable {
         game.init();
 
         try {
-            game.textureBank.addFromDisk("dick", "Engine/test_resources/dick.png");
+            game.textureBank.addFromDisk("dick", "Engine/test_resources/test.bmp");
             game.textureBank.addFromDisk("space", "Engine/test_resources/cassiopeia1280.jpeg");
         } catch (Exception e) { e.printStackTrace(); return;}
 
@@ -51,7 +51,8 @@ public class Main implements Runnable {
             createGuys(100, game.textureBank.Get("dick").getTexture());
         } catch (Exception e) {e.printStackTrace(); return;}
 
-        game.mainloop(30);
+        game.fps = 30;
+        game.mainloop();
     }
 
     public static void main(String[] args) {

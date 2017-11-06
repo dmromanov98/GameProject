@@ -163,4 +163,11 @@ public class Transform
                 .multiply(Matrix4f.translate( new Vector3f(position, layer) ));
         shader.setUniformMat4f("model", mat);
     }
+
+    public Matrix4f getMatrix()
+    {
+        return Matrix4f.rotate(angle)
+                .multiply(Matrix4f.resize(new Vector3f(scale, 1f) ))
+                .multiply(Matrix4f.translate( new Vector3f(position, layer) ));
+    }
 }

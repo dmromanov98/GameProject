@@ -31,7 +31,7 @@ public abstract class Background extends Actor
 
     public Background(Texture texture)
     {
-        visible = true;
+        renderIndex = 0;
         this.texture = texture;
         shader = defaultShader;
         //float max = Float.max(texture.WIDTH, texture.HEIGHT); //чтобы дважды не писать
