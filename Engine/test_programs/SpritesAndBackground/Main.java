@@ -27,7 +27,6 @@ public class Main implements Runnable {
     private Random random = new Random();
     private float scaleMul = 3;
 
-
     public Map createMap(int dickCount, int planetCount)
     {
         Map res = new Map();
@@ -104,7 +103,7 @@ public class Main implements Runnable {
 
         game.map = createMap(100, 300);
 
-        game.fps = 30;
+        game.fps = 60;
         game.mainloop();
         game.closeGame();
     }
