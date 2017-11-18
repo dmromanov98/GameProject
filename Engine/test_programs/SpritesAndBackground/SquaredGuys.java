@@ -2,26 +2,25 @@ package SpritesAndBackground;
 
 import Patterns.Sprite;
 import org.joml.Vector2f;
+import Main.Mouse;
 
 public class SquaredGuys extends Sprite
 {
     private static float scale = 50;
 
-    public SquaredGuys(Vector2f pos)
+    public static boolean mouseHold = false;
+
+    private Mouse mouse;
+
+    public SquaredGuys(Vector2f pos, Mouse mouse)
     {
         super(pos, 0);
         this.alive = true;
 
+        this.mouse = mouse;
+
         transform.setScale( new Vector2f( scale, scale));
         //this.setRotation(Math.PI);
-    }
-
-    private static float magnetSpeed = 1;
-    private void mouseMagnet(Vector2f pos)
-    {
-        Vector2f magnetVec = transform.getPosition().sub(pos);
-        magnetVec.normalize().mul(magnetSpeed);
-        this.transform.translate( magnetVec );
     }
 
     private void moveForward()
@@ -60,6 +59,14 @@ public class SquaredGuys extends Sprite
         if (frames == frames_in_state[state]){
             state++;
             frames = 0;
+        }
+
+        if (mouseHold && transform.getRectArea().inArea(mouse.getAbsoluteMousePos())) {
+            transform.setPosition(mouse.getAbsoluteMousePos());
+            transform.turn(.1f);
+            state = 2;
+            frames = 0;
+            mouseHold = false;
         }
     }
 }

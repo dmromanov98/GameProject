@@ -3,13 +3,11 @@ package Main;
 import Graphics.ShaderCompiler;
 import Graphics.ShaderProgramsList;
 import Graphics.VertexArray;
+import Map.Map;
 import Patterns.Background;
+import Map.Decal;
 import Utils.File;
 import Patterns.Sprite;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Vector;
 
 import org.lwjgl.glfw.GLFWVidMode;
 import static org.lwjgl.glfw.GLFW.*;
@@ -22,30 +20,30 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 //import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 
 public class Game {
-    private final String[] defaultClasses = {"sprite", "background"};
+    private final String[] defaultClasses = {"sprite", "background", "decal"};
 
     private int[] screenSize = {0, 0}; // [0] -- WIDTH; [1] -- HEIGHT
     private long window;
 
     public Input input;
     public Mouse mouse;
-    public Vector<Runnable> initQueue = new Vector<>();
     public TextureBank textureBank = new TextureBank();
 
-    private Vector<Actor> actors;
-    private Vector<Actor> actorsRemBuffer;
+    public int fps = 60;
+
+    public Map map;
+
 
     public Game(int width, int height)
     {
         this.screenSize[0] = width; this.screenSize[1] = height;
-        this.actors = new Vector<>();
-        this.actorsRemBuffer = new Vector<>();
     }
 
     private void initClasses()
     {
         VertexArray.init();//preparing common meshes
         Sprite.init();
+        Decal.init();
         Background.init();
     }
 
@@ -119,40 +117,8 @@ public class Game {
         //initializing classes
         initClasses();
 
-        //initializing customs
-        for (Runnable initMethod:
-             initQueue) {
-            initMethod.run();
-        }
-        initQueue.clear();
-
         //for beauty
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    }
-
-    private void updateActors()
-    {
-        for (Actor actor : actors) {
-            if (actor.alive)
-                actor.update();
-            if (actor.willBeRemoved())
-                actorsRemBuffer.add(actor);
-        }
-
-        if (!actorsRemBuffer.isEmpty())
-            actors.removeAll(actorsRemBuffer);
-    }
-
-    private void drawActors()
-    {
-        for (Actor actor : actors)
-            if (actor.visible)
-                actor.draw();
-    }
-
-    public void addActor(Actor actor)
-    {
-        actors.add(actor);
     }
 
     private void update()
@@ -160,16 +126,15 @@ public class Game {
         glfwPollEvents();
         input.updateInput();
         mouse.updateMouse();
-        updateActors();
+        map.update();
+        Camera.update();
     }
 
     private void render()
     {
-        Camera.update();
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        drawActors();
+        map.drawAll();
 
         int error = glGetError();
         if (error != GL_NO_ERROR)
@@ -178,30 +143,36 @@ public class Game {
         glfwSwapBuffers(window);
     }
 
-    public void mainloop(int fps)
+    public void mainloop()
     {
         glfwShowWindow(window);
         System.out.println("Window is showed.");
+
+        update();
+
+        if (map == null)
+            throw new Error("There is no map. Check your source code.");
 
         System.out.println("Mainloop started.");
         while (true){
             update();
             render();
+
             if (glfwWindowShouldClose(window)) {
                 System.out.println("Window is closed.");
                 break;
             }
-            //frames++;
             syncFrameRate(fps, System.nanoTime());
-            //if (frames % FPS == 0)
-            //    System.out.println("Frames from start: " + frames);
         }
+    }
 
+    public void closeGame()
+    {
         glfwDestroyWindow(window);
         glfwTerminate();
     }
 
-    private void syncFrameRate(float fps, long lastNanos) {
+    public static void syncFrameRate(float fps, long lastNanos) {
         long targetNanos = lastNanos + (long) (1_000_000_000.0f / fps) - 1_000_000L;  // subtract 1 ms to skip the last sleep call
         try {
             while (System.nanoTime() < targetNanos) {

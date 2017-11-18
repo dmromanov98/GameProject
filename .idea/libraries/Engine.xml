@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Engine">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/Editor/engine/Engine.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$PROJECT_DIR$/Editor/engine/Engine.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$PROJECT_DIR$/Editor/engine/Engine.jar!/" />
+    </SOURCES>
+  </library>
+</component>

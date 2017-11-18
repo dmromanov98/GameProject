@@ -7,13 +7,12 @@ out vec2 TexCoord;
 uniform mat4 projection;
 uniform mat4 view;
   
-uniform vec3 absolute_position;
-uniform float angle;
+uniform vec4 absolute_position; //vec3 pos + float angle
 uniform vec2 scale; 
 
 void main()
 {
-	float sin_res = sin(angle); float cos_res = cos(angle);
+	float sin_res = sin(absolute_position.w); float cos_res = cos(absolute_position.w);
 	
     vec4 general_pos = vec4( absolute_position.x + scale.x*(position.x*cos_res - position.y*sin_res), 
 						     absolute_position.y + scale.y*(position.x*sin_res + position.y*cos_res),

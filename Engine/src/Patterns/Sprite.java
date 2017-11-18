@@ -40,7 +40,14 @@ public abstract class Sprite extends Actor
         transform.translate(position);
         transform.layer = layer;
         shader = defaultShader;
-        this.visible = true;
+        this.renderIndex = 2;
+    }
+
+    public Sprite()
+    {
+        transform = new Transform();
+        shader = defaultShader;
+        this.renderIndex = 2;
     }
 
     @Override

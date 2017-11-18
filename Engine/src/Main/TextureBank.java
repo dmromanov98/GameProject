@@ -37,6 +37,13 @@ public class TextureBank
             this.path = path;
         }
 
+        public TextureWrap()//error
+        {
+            state = 2;
+            path = null;
+            texture = Texture.monoColor(255,255,255,255);//RED ALERT
+        }
+
         public final String path;
         private byte state; // 0 - on a disk, 1 - in RAM, 2 - ready to use
         private File.Image image;
@@ -100,5 +107,29 @@ public class TextureBank
         }
     }
 
+    public void freeMemory()
+    {
+        for (TextureWrap wrap:
+             bank.values()) {
+            wrap.deleteFromRAM();
+        }
+    }
+
     private HashMap<String, TextureWrap> bank;
+
+    @Override
+    public String toString() {
+        StringBuilder info = new StringBuilder();
+        for (String name:
+             bank.keySet()) {
+            TextureWrap wrap = bank.get(name);
+            info.append(name).append(":\n*path = ").append('"').append(wrap.path).append('"').append("\n*state = ");
+            switch (wrap.state){
+                case 0: info.append(" on a disk\n"); break;
+                case 1: info.append(" in RAM\n"); break;
+                case 2: info.append(" ready to use\n"); break;
+            }
+        }
+        return info.toString();
+    }
 }
