@@ -61,4 +61,6 @@ public abstract class Sprite extends Actor
         shader.disable();
     }
 
+    @Override
+    public Transform tryToGetTransform(){return transform;}
 }

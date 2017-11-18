@@ -59,4 +59,7 @@ public class Background extends Actor
 
     @Override
     public void update() {}
+
+    @Override
+    public Transform tryToGetTransform(){return transform;}
 }

@@ -99,4 +99,7 @@ public class SimpleCameraController extends Actor //TODO: обобщить эт�
 
     @Override
     public void draw() {}
+
+    @Override
+    public Transform tryToGetTransform(){return Camera.getTransform();}
 }
