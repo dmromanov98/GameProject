@@ -4,8 +4,10 @@ import org.joml.Vector2f;
 import org.lwjgl.glfw.GLFW;
 import org.lwjgl.glfw.GLFWCursorPosCallback;
 import org.lwjgl.glfw.GLFWMouseButtonCallback;
+import org.lwjgl.glfw.GLFWScrollCallback;
 
 import java.util.Vector;
+import java.util.function.Consumer;
 
 public class Mouse
 {
@@ -32,6 +34,12 @@ public class Mouse
         {
             this.pos.x = x;
             this.pos.y = y;
+            GLFW.glfwSetCursorPos(window, pos.x, pos.y);
+        }
+
+        public void setMousePos(Vector2f pos)
+        {
+            this.pos = pos;
             GLFW.glfwSetCursorPos(window, pos.x, pos.y);
         }
 
@@ -78,10 +86,22 @@ public class Mouse
         }
     }
 
+    static private class MouseWheel extends GLFWScrollCallback
+    {
+
+        float mouseWheel = 0;
+        float delta = 0;
+        @Override
+        public void invoke(long window, double xoffset, double yoffset)
+        {
+            delta += (float)yoffset;
+        }
+    }
+
     public static class MouseAction
     {
         public int button, action;
-        public Runnable mouseMethod;
+        public final Runnable mouseMethod;
 
         public MouseAction(int button, int action, Runnable mouseMethod)
         {
@@ -97,24 +117,57 @@ public class Mouse
         }
     }
 
+    public static final byte DELTA_WHEEL_ACTION = 0;
+    public static final byte ABSOLUTE_WHEEL_ACTION = 1;
+
+    public static class WheelAction
+    {
+        public final Consumer<Float> method;
+        public byte action;
+        public final float MIN_WHEEL_MOVEMENT = .0001f;
+
+        public WheelAction(byte action, Consumer<Float> method)
+        {
+            this.method = method;
+            this.action = action;
+        }
+
+        public void run(MouseWheel mouseWheel)
+        {
+            switch (action) {
+                case 0:
+                    if  (Math.abs(mouseWheel.delta) - MIN_WHEEL_MOVEMENT > 0)
+                        method.accept(mouseWheel.delta);
+                    break;
+                case 1:
+                    method.accept(mouseWheel.mouseWheel);
+                    break;
+            }
+        }
+    }
 
     private MousePos mousePos;
     private MouseButton mouseButton;
+    private MouseWheel mouseWheel;
     private int[] screenSize;
     private Vector<MouseAction> mouseActions;
     private Vector<MouseAction> mouseActionsBuffer;
+    private Vector<WheelAction> wheelActions;
 
     public Mouse(long window, int[] screenSize)
     {
         this.screenSize = screenSize;
         mouseActions = new Vector<>();
         mouseActionsBuffer = new Vector<>();
+        wheelActions = new Vector<>();
 
         mousePos = new MousePos(window, screenSize[0]/2, screenSize[1]/2);
         mouseButton = new MouseButton(mouseActions);
+        mouseWheel = new MouseWheel();
 
         GLFW.glfwSetMouseButtonCallback(window, mouseButton);
         GLFW.glfwSetCursorPosCallback(window, mousePos);
+        GLFW.glfwSetScrollCallback(window, mouseWheel);
     }
 
     public void addMouseAction(MouseAction mouseAction)
@@ -122,13 +175,40 @@ public class Mouse
         mouseActionsBuffer.add(mouseAction);
     }
 
-    public Vector2f getMousePos()
+    //TODO: захуярить через буфер, но пока поебать
+    public void addWheelAction(WheelAction wheelAction)
     {
-        return mousePos.pos;
+        wheelActions.add(wheelAction);
+    }
+
+    public Vector2f getAbsoluteMousePos() //returns cords with shift
+    {
+        Vector2f pos = Camera.getTransform().getPosition();
+
+        return getMousePos().add(-pos.x, -pos.y);
+    }
+
+    public Vector2f getMousePos() //returns cords on current window
+    {
+        Vector2f scale = Camera.getTransform().getScale();
+        return new Vector2f(
+                (mousePos.pos.x -.5f*screenSize[0])/scale.x,
+                (- mousePos.pos.y + .5f*screenSize[1])/scale.y);
+    }
+
+    public float getWheelPos()
+    {
+        return mouseWheel.mouseWheel;
+    }
+
+    public void setMousePos(Vector2f pos)
+    {
+        mousePos.setMousePos(pos.x + .5f*screenSize[0], pos.y + .5f*screenSize[1]);
     }
 
     public void updateMouse()
     {
+        //button hold
         for (MouseAction mouseAction:
                 mouseActions) {
             if (mouseAction.action == BUTTON_HOLD){
@@ -148,9 +228,18 @@ public class Mouse
                 }}
         }
 
+        //deleting
         if (!mouseActionsBuffer.isEmpty()){
             mouseActions.addAll(mouseActionsBuffer);
             mouseActionsBuffer.clear();
         }
+
+        //updating wheel
+        mouseWheel.mouseWheel += mouseWheel.delta;
+        for (WheelAction action:
+             wheelActions) {
+            action.run(mouseWheel);
+        }
+        mouseWheel.delta = 0;
     }
 }

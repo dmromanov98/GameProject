@@ -43,6 +43,13 @@ public abstract class Sprite extends Actor
         this.renderIndex = 2;
     }
 
+    public Sprite()
+    {
+        transform = new Transform();
+        shader = defaultShader;
+        this.renderIndex = 2;
+    }
+
     @Override
     public final void draw() //TODO: настраивать конфиги рендера в другом месте
     {

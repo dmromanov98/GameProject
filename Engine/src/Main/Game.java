@@ -3,14 +3,11 @@ package Main;
 import Graphics.ShaderCompiler;
 import Graphics.ShaderProgramsList;
 import Graphics.VertexArray;
+import Map.Map;
 import Patterns.Background;
-import Patterns.Map.Decal;
+import Map.Decal;
 import Utils.File;
 import Patterns.Sprite;
-
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.Vector;
 
 import org.lwjgl.glfw.GLFWVidMode;
 import static org.lwjgl.glfw.GLFW.*;
@@ -30,15 +27,12 @@ public class Game {
 
     public Input input;
     public Mouse mouse;
-    public Vector<Runnable> initQueue = new Vector<>();
     public TextureBank textureBank = new TextureBank();
 
     public int fps = 60;
 
-    private Vector<Actor> actors = new Vector<>();
-    private Vector<Actor> actorsRemBuffer = new Vector<>();
+    public Map map;
 
-    private Render render = new Render();
 
     public Game(int width, int height)
     {
@@ -49,8 +43,8 @@ public class Game {
     {
         VertexArray.init();//preparing common meshes
         Sprite.init();
-        Background.init();
         Decal.init();
+        Background.init();
     }
 
     private void loadAndInitDefaultShaderPrograms()
@@ -123,34 +117,8 @@ public class Game {
         //initializing classes
         initClasses();
 
-        //initializing customs
-        for (Runnable initMethod:
-             initQueue) {
-            initMethod.run();
-        }
-        initQueue.clear();
-
         //for beauty
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-    }
-
-    private void updateActors()
-    {
-        for (Actor actor : actors) {
-            if (actor.alive)
-                actor.update();
-            if (actor.willBeRemoved())
-                actorsRemBuffer.add(actor);
-        }
-
-        if (!actorsRemBuffer.isEmpty())
-            actors.removeAll(actorsRemBuffer);
-    }
-
-    public void addActor(Actor actor)
-    {
-        actors.add(actor);
-        render.addToRenderLine(actor);
     }
 
     private void update()
@@ -158,16 +126,15 @@ public class Game {
         glfwPollEvents();
         input.updateInput();
         mouse.updateMouse();
-        updateActors();
+        map.update();
+        Camera.update();
     }
 
     private void render()
     {
-        Camera.update();
-
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        render.drawAll();
+        map.drawAll();
 
         int error = glGetError();
         if (error != GL_NO_ERROR)
@@ -181,25 +148,31 @@ public class Game {
         glfwShowWindow(window);
         System.out.println("Window is showed.");
 
+        update();
+
+        if (map == null)
+            throw new Error("There is no map. Check your source code.");
+
         System.out.println("Mainloop started.");
         while (true){
             update();
             render();
+
             if (glfwWindowShouldClose(window)) {
                 System.out.println("Window is closed.");
                 break;
             }
-            //frames++;
             syncFrameRate(fps, System.nanoTime());
-            //if (frames % FPS == 0)
-            //    System.out.println("Frames from start: " + frames);
         }
+    }
 
+    public void closeGame()
+    {
         glfwDestroyWindow(window);
         glfwTerminate();
     }
 
-    private void syncFrameRate(float fps, long lastNanos) {
+    public static void syncFrameRate(float fps, long lastNanos) {
         long targetNanos = lastNanos + (long) (1_000_000_000.0f / fps) - 1_000_000L;  // subtract 1 ms to skip the last sleep call
         try {
             while (System.nanoTime() < targetNanos) {

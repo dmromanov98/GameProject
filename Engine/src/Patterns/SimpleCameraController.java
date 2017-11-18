@@ -1,9 +1,6 @@
 package Patterns;
 
-import Main.Actor;
-import Main.Camera;
-import Main.Game;
-import Main.Input;
+import Main.*;
 import org.joml.Vector2f;
 
 import static org.lwjgl.glfw.GLFW.*;
@@ -18,9 +15,14 @@ public class SimpleCameraController extends Actor //TODO: обобщить эт�
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_A, Input.KEY_HOLD, ()-> moveLeft()));
         //game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_Q, Input.KEY_HOLD, ()-> turnLeft()));
         //game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_E, Input.KEY_HOLD, ()-> turnRigth()));
-        game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_R, Input.KEY_HOLD, ()-> bringCloser()));
-        game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_F, Input.KEY_HOLD, ()-> bringFarther()));
+        //game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_R, Input.KEY_HOLD, ()-> bringCloser()));
+        //game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_F, Input.KEY_HOLD, ()-> bringFarther()));
         game.input.addKeyAction( new Input.KeyAction(GLFW_KEY_T, Input.KEY_PRESS, ()-> reset()));
+
+        game.mouse.addWheelAction( new Mouse.WheelAction( Mouse.DELTA_WHEEL_ACTION,
+                (Float delta)-> deltaSize+= delta/100f ));
+
+        deltaSize = 1f;
 
         Camera.getTransform().setPosition(0, 0);
 
@@ -89,10 +91,10 @@ public class SimpleCameraController extends Actor //TODO: обобщить эт�
     @Override
     public void update()
     {
-        Camera.getTransform().move(speedVec).turn(deltaAngle).setScale( new Vector2f(1+deltaSize ,1+deltaSize));
+        Camera.getTransform().move(speedVec).turn(deltaAngle).setScale( new Vector2f(deltaSize , deltaSize));
         speedVec.mul(resist);
         deltaAngle *= turnResist;
-        deltaSize *= resizeResist;
+        //deltaSize *= resizeResist;
     }
 
     @Override

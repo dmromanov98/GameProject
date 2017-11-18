@@ -1,7 +1,7 @@
 package Level;
 
 import Main.Actor;
-import Patterns.Map.Map;
+import Map.Map;
 
 import java.util.Vector;
 

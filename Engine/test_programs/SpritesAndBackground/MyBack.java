@@ -7,7 +7,7 @@ public class MyBack extends Background
 {
     public MyBack(Texture texture)
     {
-        super(texture);
+        super(texture, .9999f);
         setScrollSpeed(.25f);
     }
     @Override

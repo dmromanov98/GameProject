@@ -2,6 +2,7 @@ package Main;
 
 import Graphics.Shader;
 import MyMath.Matrix4f;
+import org.joml.Vector2f;
 import org.joml.Vector3f;
 
 public class Camera
@@ -18,9 +19,11 @@ public class Camera
     {
         if (viewMatrixShouldBeUpdated)
         {
-            view = //Matrix4f.rotate(transform.getAngle())
-                    Matrix4f.resize(new Vector3f(transform.getScale(), 1f) )
-                    .multiply(Matrix4f.translate( new Vector3f(transform.getPosition(), 0f) ));
+            view = Matrix4f.resize(new Vector3f(transform.getScale(), 1f)).
+                    multiply( Matrix4f.rotate(transform.getAngle()) ).
+                    multiply( Matrix4f.translate( new Vector3f(transform.getPosition(), transform.layer) ) );
+
+            //view = transform.getMatrix();
 
             viewMatrixShouldBeUpdated = false;
         }

@@ -9,7 +9,7 @@ import Main.Camera;
 import Main.Transform;
 import org.joml.Vector2f;
 
-public abstract class Background extends Actor
+public class Background extends Actor
 {
     public static Shader defaultShader;
     public static VertexArray mesh;
@@ -29,14 +29,15 @@ public abstract class Background extends Actor
     public Shader shader;
     private final float[] scrollSpeed = {1};
 
-    public Background(Texture texture)
+    public Background(Texture texture, float layer)
     {
         renderIndex = 0;
         this.texture = texture;
         shader = defaultShader;
         //float max = Float.max(texture.WIDTH, texture.HEIGHT); //чтобы дважды не писать
         transform = new Transform().setScale(new Vector2f( texture.WIDTH, texture.HEIGHT));
-        transform.layer = .99999f;
+        transform.layer = layer;
+        alive = false;
     }
 
     public void setScrollSpeed(float speed)
@@ -55,4 +56,7 @@ public abstract class Background extends Actor
         mesh.render();
         shader.disable();
     }
+
+    @Override
+    public void update() {}
 }

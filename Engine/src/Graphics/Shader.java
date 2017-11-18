@@ -86,6 +86,12 @@ public class Shader {
 		glUniform3f(getUniform(name), f[0], f[1], f[2]);
 	}
 
+	public void setUniform4f(String name, float[] f)
+	{
+		if (!enabled) enable();
+		glUniform4f(getUniform(name), f[0], f[1], f[2], f[3]);
+	}
+
 	public void setUniformMat4f(String name, Matrix4f matrix) {
 		if (!enabled) enable();
 		glUniformMatrix4fv(getUniform(name), false, matrix.toFloatBuffer());

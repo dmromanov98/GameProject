@@ -2,6 +2,8 @@ package Main;
 
 import Graphics.Shader;
 import MyMath.Matrix4f;
+import Physics.Circle;
+import Physics.Rectangle;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
 
@@ -20,14 +22,12 @@ public class Transform
 
     public static class SpriteSpecification
     {
-        public float[] position = {0, 0, 0};
-        public float[] angle = {0};
+        public float[] position = {0, 0, 0, 0};
         public float[] scale = {1, 1};
 
         public void sendToShader( Shader shader)
         {
-            shader.setUniform3f("absolute_position", position);
-            shader.setUniform1f("angle", angle);
+            shader.setUniform4f("absolute_position", position);
             shader.setUniform2f("scale", scale);
         }
 
@@ -35,7 +35,7 @@ public class Transform
         public String toString()
         {
             return "pos: {" + position[0] + ';' + position[1] + ';' + position[2] +
-                    "}, angle: " + angle[0] +
+                    "}, angle: " + position[3] +
                     ", size: {" + scale[0] + ';' + scale[1] + "}";
         }
     }
@@ -45,7 +45,7 @@ public class Transform
         position = new Vector2f(0, 0);
         layer = 0;
         angle = 0;
-        scale = new Vector2f(0, 0);
+        scale = new Vector2f(1f, 1f);
     }
 
     public Transform setPosition(Vector2f position)
@@ -147,7 +147,7 @@ public class Transform
         oglResult.position[0] = position.x;
         oglResult.position[1] = position.y;
         oglResult.position[2] = layer;
-        oglResult.angle[0] = angle;
+        oglResult.position[3] = angle;
         oglResult.scale[0] = scale.x;
         oglResult.scale[1] = scale.y;
 
@@ -158,16 +158,32 @@ public class Transform
 
     public void matrixOpenGLOut(Shader shader) //shader must have a 'model' uniform
     {
-        Matrix4f mat = Matrix4f.rotate(angle)
-                .multiply(Matrix4f.resize(new Vector3f(scale, 1f) ))
-                .multiply(Matrix4f.translate( new Vector3f(position, layer) ));
-        shader.setUniformMat4f("model", mat);
+        shader.setUniformMat4f("model", getMatrix());
     }
 
     public Matrix4f getMatrix()
     {
-        return Matrix4f.rotate(angle)
-                .multiply(Matrix4f.resize(new Vector3f(scale, 1f) ))
-                .multiply(Matrix4f.translate( new Vector3f(position, layer) ));
+        return Matrix4f.translate( new Vector3f(position, layer))
+                .multiply(Matrix4f.rotate(angle))
+                .multiply(Matrix4f.resize(new Vector3f(scale, 1f) ));
+
+    }
+
+    public Circle getCircleArea()
+    {
+        return new Circle( new Vector3f(position, layer), Float.min(scale.x, scale.y));
+    }
+
+    public Rectangle getRectArea()
+    {
+        return Rectangle.fromTransform(this);
+    }
+
+    public Transform(Transform transform)
+    {
+        this.angle = transform.angle;
+        this.layer = transform.layer;
+        this.position = new Vector2f(transform.position);
+        this.scale = new Vector2f(transform.scale);
     }
 }
