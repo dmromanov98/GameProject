@@ -1,7 +1,7 @@
 package CreatorMapJavaFx.ObjectsInJavaFXWindow;
 
-import Modules.CustomImage;
-import Modules.FilesPaths;
+import CreatorMapJavaFx.Modules.FilesPaths;
+import CreatorMapJavaFx.Modules.CustomImage;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
