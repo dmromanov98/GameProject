@@ -17,7 +17,7 @@ public class Transform
 {
     private Vector2f position;
     private Vector2f scale;
-    private float angle;
+    public float angle;
     public float layer;
 
     public static class SpriteSpecification

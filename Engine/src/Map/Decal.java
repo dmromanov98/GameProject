@@ -13,6 +13,7 @@ public class Decal extends Actor
 {
     private final Texture texture;
     private final Matrix4f matrix;
+    public final Transform sourceTransform;//чтобы восстановить изначальные данные
     private static VertexArray mesh;
 
     public static Shader shader;
@@ -29,6 +30,7 @@ public class Decal extends Actor
     {
         this.texture = texture;
         matrix = transform.getMatrix();
+        sourceTransform = transform;
         alive = false;
         renderIndex = 1;
     }
@@ -43,5 +45,10 @@ public class Decal extends Actor
         texture.bind(shader);
         mesh.draw();
         texture.unbind();
+    }
+
+    @Override
+    public Transform tryToGetTransform() {
+        return sourceTransform;
     }
 }
