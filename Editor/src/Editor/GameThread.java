@@ -62,7 +62,7 @@ public class GameThread extends Thread
     public void run()
     {
         super.run();
+        game.mainloop();
+        game.closeGame();
     }
-
-
 }
