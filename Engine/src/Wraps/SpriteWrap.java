@@ -20,6 +20,19 @@ public class SpriteWrap extends Wrap
         this.updateMeth = updateMeth;
     }
 
+    public SpriteWrap(SpriteWrap wrap)
+    {
+        this.transform = new Transform(wrap.transform);
+        this.texName = wrap.texName;
+        this.updateMeth = wrap.updateMeth;
+    }
+
+    @Override
+    public SpriteWrap copy()
+    {
+        return new SpriteWrap(this);
+    }
+
     @Override
     public Actor getActor(Game game) {
         Sprite res = new Sprite() {
