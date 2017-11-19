@@ -18,4 +18,6 @@ public abstract class Actor
     {
         return remFlag;
     }
+
+    public Transform tryToGetTransform(){return null;}
 }

@@ -20,7 +20,7 @@ public class Map
     }
 
     protected Vector<Actor> backgrounds;
-    protected Vector<Actor> decals;
+    protected Vector<Actor> decals, decalsRemBuffer;
     protected Vector<Actor> actors, actorsRemBuffer;
 
     public void update()
@@ -31,9 +31,6 @@ public class Map
             if (a.willBeRemoved())
                 actorsRemBuffer.add(a);
         }
-
-        if (!actorsRemBuffer.isEmpty())
-            actors.removeAll(actorsRemBuffer);
     }
 
     public void drawAll()
@@ -48,6 +45,8 @@ public class Map
         Camera.toShader(Decal.shader);
         for (Actor decal: decals) {
             decal.draw();
+            if (decal.willBeRemoved())
+                decalsRemBuffer.add(decal);
         }
         Decal.shader.disable();
 
@@ -55,6 +54,12 @@ public class Map
             if (a.renderIndex > -1)
                 a.draw();
 
+
+        if (!actorsRemBuffer.isEmpty())
+            actors.removeAll(actorsRemBuffer);
+
+        if (!decalsRemBuffer.isEmpty())
+            decals.removeAll(decalsRemBuffer);
     }
 
     public void addActor(Actor a)

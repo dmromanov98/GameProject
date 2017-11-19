@@ -10,6 +10,27 @@ public class TextureBank
     public TextureBank()
     {
         bank = new HashMap<>();
+        addDefaultTextures();
+    }
+
+    private void addDefaultTextures()
+    {
+        TextureWrap wrap = new TextureWrap();
+        wrap.state = 2;
+        wrap.texture = Texture.monoColor(255,255,255,0);
+        bank.put("none", wrap);
+    }
+
+    public void addTexturesFromList(String[] textures)
+    {
+        for (String str:
+             textures) {
+            String name = str.substring(0, str.lastIndexOf('|')+1),
+                   path = str.substring(str.lastIndexOf('|'));
+            try {
+                addFromDisk(name, path);
+            }catch (Exception e){e.printStackTrace();}
+        }
     }
 
     public void addFromDisk(String name, String path) throws ThisNameIsEngagedException
@@ -125,9 +146,9 @@ public class TextureBank
             TextureWrap wrap = bank.get(name);
             info.append(name).append(":\n*path = ").append('"').append(wrap.path).append('"').append("\n*state = ");
             switch (wrap.state){
-                case 0: info.append(" on a disk\n"); break;
-                case 1: info.append(" in RAM\n"); break;
-                case 2: info.append(" ready to use\n"); break;
+                case 0: info.append("on a disk\n"); break;
+                case 1: info.append("in RAM\n"); break;
+                case 2: info.append("ready to use\n"); break;
             }
         }
         return info.toString();
