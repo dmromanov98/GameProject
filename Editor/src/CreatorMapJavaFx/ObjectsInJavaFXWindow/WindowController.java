@@ -2,6 +2,10 @@ package CreatorMapJavaFx.ObjectsInJavaFXWindow;
 
 import CreatorMapJavaFx.Modules.*;
 import Editor.Brush;
+import Editor.GameThread;
+import Graphics.Texture;
+import Utils.File;
+import Wraps.BackgroundWrap;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -62,11 +66,23 @@ public class WindowController implements Initializable{
     @FXML
     private JFXTextField textPath;
 
+    private GameThread gt;
+    private String[] texture;
+    private Thread th = new Thread(gt);
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         BackgroundCreatorJavaFx.setBackgroundPaths();
         DekailsCreatorJavaFx.setDekailsPaths();
         SpritesCreatorJavaFx.setSpritesPaths();
+
+
+        texture = new String[6];
+        for(int i = 0;i<6;i++){
+            texture[i] = BackgroundCreatorJavaFx.getImages().get(i).getPath();
+        }
+        gt = new GameThread(800,800,60,texture);
+        th.start();
+
         updatePaths();
     }
 
@@ -110,14 +126,18 @@ public class WindowController implements Initializable{
     //добавление бэкграунда
     public void btnBackgroundAdd() {
         String path = "";
-        int layout;
+        float layout = 0;
+        CustomImage ci = null;
         try {
-            layout = Integer.parseInt(textBackgroundLayout.getText());
-            CustomImage ci = (CustomImage) listBackgroundPaths.getFocusModel().getFocusedItem();
+            layout = Float.parseFloat(textBackgroundLayout.getText());
+            ci = (CustomImage) listBackgroundPaths.getFocusModel().getFocusedItem();
             path = ci.getIdentify()+"|"+ci.getPath();
         }catch (Exception e){
             JOptionPane.showMessageDialog(null,"LAYOUT MUST BE A NUMBER!");
         }
+
+        BackgroundWrap backgroundWrap = new BackgroundWrap(ci.getIdentify(),layout);
+        GameThread.toMode1(backgroundWrap);
 
         System.out.println(path);
     }

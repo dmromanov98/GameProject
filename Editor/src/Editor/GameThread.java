@@ -16,7 +16,7 @@ public class GameThread extends Thread
         Editor.brushMode = 0;
     }
 
-    public void toMode1(BackgroundWrap wrap)
+    public static void toMode1(BackgroundWrap wrap)
     {
         Editor.currentBackgroundWrap = wrap;
         Editor.brushMode = 1;
