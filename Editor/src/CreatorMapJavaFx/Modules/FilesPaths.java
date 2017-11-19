@@ -36,18 +36,18 @@ public class FilesPaths {
 
         images.clear();
 
-        for(String s: paths) {
-            try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(s))) {
-                for (Path file: stream) {
-                    if(!file.toFile().isDirectory() ) {
-                        String path = "file:"+ file.getParent()+"\\"+file.getFileName();
-                        images.add(new CustomImage(path));
-                    }
-                }
-            } catch (IOException | DirectoryIteratorException x) {
-                JOptionPane.showMessageDialog(null,(x.getMessage()+"Directory of path is incorrect"));
-            }
-        }
+//        for(String s: paths) {
+//            try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(s))) {
+//                for (Path file: stream) {
+//                    if(!file.toFile().isDirectory() ) {
+//                        String path = "file:"+ file.getParent()+"\\"+file.getFileName();
+//                        images.add(new CustomImage(path,));
+//                    }
+//                }
+//            } catch (IOException | DirectoryIteratorException x) {
+//                JOptionPane.showMessageDialog(null,(x.getMessage()+"Directory of path is incorrect"));
+//            }
+//        }
     }
 
     public static void deleteFromListAndFile(String s){

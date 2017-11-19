@@ -13,7 +13,7 @@
    <children>
       <TabPane prefHeight="400.0" prefWidth="572.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-            <Tab text="Edit existing\make new\save">
+            <Tab onSelectionChanged="#setModeNull" text="Edit existing\make new\save">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -24,18 +24,18 @@
                      </children></AnchorPane>
                 </content>
             </Tab>
-            <Tab text="Background">
+            <Tab onSelectionChanged="#setModeOne" text="Background">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="listBackgroundPaths" layoutX="14.0" layoutY="14.0" prefHeight="345.0" prefWidth="262.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0" />
+                        <ListView fx:id="listBackgroundPaths" layoutX="14.0" layoutY="14.0"  prefHeight="345.0" prefWidth="262.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0" />
                         <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="14.0" onAction="#btnBackgroundDelete" style="-fx-background-color: ffffff;" text="Delete all" />
-                        <JFXTextField fx:id="textBackgroundLayout" labelFloat="true" layoutX="286.0" layoutY="73.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:" unFocusColor="#00ff40" />
+                        <JFXTextField fx:id="textBackgroundLayout"  labelFloat="true" layoutX="286.0" layoutY="73.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:" unFocusColor="#00ff40" />
                         <JFXButton buttonType="RAISED" layoutX="431.0" layoutY="73.0" onAction="#btnBackgroundAdd" style="-fx-background-color: ffffff;" text="Add to background" />
                      </children></AnchorPane>
                 </content>
             </Tab>
-            <Tab text="Dekails">
+            <Tab onSelectionChanged="#setModeTwo" text="Dekails">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -47,7 +47,7 @@
                      </children></AnchorPane>
                 </content>
             </Tab>
-            <Tab text="Sprites">
+            <Tab onSelectionChanged="#setModeThree" text="Sprites">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
