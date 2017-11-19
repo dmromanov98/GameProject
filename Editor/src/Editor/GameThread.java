@@ -37,11 +37,13 @@ public class GameThread extends Thread
     public GameThread(int width, int height, int fps, String[] textureList) //создание новой карты
     {
         super("Editor");
+        setPriority(MAX_PRIORITY);
+        setDaemon(true);
         game = new Game(width, height);
         game.init();
         game.fps = fps;
-        Brush.init(game);
         game.textureBank.addTexturesFromList(textureList);
+        Brush.init(game);
         editor = new Editor(game);
         game.map = editor;
     }
@@ -52,9 +54,9 @@ public class GameThread extends Thread
         game = new Game(width, height);
         game.init();
         game.fps = fps;
-        Brush.init(game);
         game.textureBank.addTexturesFromList(textureList);
         editor = Editor.fromWraps(wraps, game);
+        Brush.init(game);
         game.map = editor;
     }
 
@@ -65,4 +67,5 @@ public class GameThread extends Thread
         game.mainloop();
         game.closeGame();
     }
+
 }

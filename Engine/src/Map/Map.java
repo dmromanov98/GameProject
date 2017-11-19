@@ -17,6 +17,7 @@ public class Map
         decals = new Vector<>();
         actors = new Vector<>();
         actorsRemBuffer = new Vector<>();
+        decalsRemBuffer = new Vector<>();
     }
 
     protected Vector<Actor> backgrounds;

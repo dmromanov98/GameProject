@@ -14,7 +14,7 @@ import org.joml.Vector2f;
 public class Brush {
     public static void init(Game game) {
         try {
-            game.textureBank.addFromDisk("shape", "Engine\\src\\Map\\shape.png");
+            game.textureBank.addFromDisk("shape", "Editor\\src\\Editor\\shape.png");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -22,7 +22,7 @@ public class Brush {
 
     public static class Shape extends Sprite {
         public Shape() {
-            super(new Vector2f(0, 0), 0);
+            super(new Vector2f(0, 0), 0f);
         }
 
         public void circle(Rectangle rect) {
@@ -34,6 +34,7 @@ public class Brush {
 
         public void circle(Transform transform) {
             this.transform = new Transform(transform);
+            this.transform.layer = 0f;
             if (renderIndex == -1) {
                 renderIndex = 2;
             }
@@ -65,11 +66,15 @@ public class Brush {
             objectIsDecal = false,
             haveToFindObject = false,
             haveToDeleteObject = false,
-            objectIsRotating = false;
+            objectIsRotating = false,
+            objectIsMoving = false;
 
-    public Brush()
+    public Brush(Game game)
     {
         shape = new Shape();
+        try {
+            shape.texture = game.textureBank.Get("shape").getTexture();
+        } catch (Exception e){e.printStackTrace();}
     }
 
     public void initControls(Game game)
@@ -125,6 +130,7 @@ public class Brush {
         mode = 0;
         layerShift = 0;
         shape.hide();
+        objectIsMoving = false;
     }
 
     private void changeMode(byte targetMode, Game game)
@@ -155,12 +161,15 @@ public class Brush {
                 if (objectIsChosen) { //что-то выделяли??
                     if (currentActor == null) { //на самом деле ничего не выделили? исправляем.
                         objectIsChosen = false;
+                        haveToDeleteObject = false;
                     } else {
                         if (objectIsRotating) {
                             Vector2f pos = game.mouse.getAbsoluteMousePos(),
                                      dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
                             if (!objectIsDecal) {
-                                currentActor.tryToGetTransform().angle = (float) Math.atan2(dif.y, dif.x);
+                                Transform transform = currentActor.tryToGetTransform();
+                                transform.angle = (float) Math.atan2(dif.y, dif.x);
+                                shape.circle(transform);
                             }
                             break; //вертим? ну тогда нам явно не стоит объект перемещать
                         }
@@ -168,7 +177,7 @@ public class Brush {
                         if (haveToFindObject || haveToDeleteObject) {
                             Transform transform = currentActor.tryToGetTransform();
                             Vector2f mousePos = game.mouse.getAbsoluteMousePos();
-                            if (transform.getRectArea().inArea(mousePos)) { //попали курсором?
+                            if (transform.getRectArea().inArea(mousePos) || objectIsMoving) { //попали курсором?
                                 if (haveToDeleteObject) { //объект надо удалить? ну ок :(
                                     currentActor.delete();
                                     currentActor = null;
@@ -176,15 +185,20 @@ public class Brush {
                                 }
                                 if (!objectIsDecal) { //объект простой спрайт? ну тогда все просто
                                     transform.translate(mousePos.add(-lastMousePos.x, -lastMousePos.y)); //ок, мы опять попали мышкой в объект и его передвинули
+                                    shape.circle(transform);
+                                    objectIsMoving = true;
                                 }
                                 break; //все хорошо. пока до следующей итерации
                             } else { //не попали? ладно. идем ниже и ищем
                                 shape.hide();
                             }
+                        } else {
+                            objectIsMoving = false;
                         }
                     }
                 }
 
+                shape.hide();
                 currentActor = null; //пытаюсь найти новый объект
                 for (Actor a :
                         editor.getActors()) { //ищу среди живых объектов
@@ -212,7 +226,7 @@ public class Brush {
 
                 if (currentActor != null) { //если нашел, сообщаю об этом
                     shape.circle(currentActor.tryToGetTransform());
-                    if (haveToFindObject){
+                    if (haveToFindObject || haveToDeleteObject){
                         objectIsChosen = true;
                     }
                 } else {
@@ -275,10 +289,11 @@ public class Brush {
 
         }
         lastMousePos = game.mouse.getAbsoluteMousePos();//для рассчета дельты
-        haveToFindObject = false; //очищаю клик мышки
+        haveToFindObject = false; //очищаю клик мышкb
     }
 
     public void draw() {
-        shape.draw();
+        if (shape.renderIndex > -1)
+            shape.draw();
     }
 }
