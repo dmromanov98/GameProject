@@ -16,7 +16,7 @@ public class GettingImagesObj {
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directoryPath))) {
             for (Path file: stream) {
                 if(!file.toFile().isDirectory() ) {
-                    String path = "file:Editor\\resources\\backgrounds\\"+file.getFileName();
+                    String path = "file:"+directoryPath+"\\"+file.getFileName();
                     images.add(new CustomImage(path,"background\\"+file.getFileName()));
                 }
             }

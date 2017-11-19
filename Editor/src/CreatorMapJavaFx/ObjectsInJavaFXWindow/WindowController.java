@@ -1,9 +1,6 @@
 package CreatorMapJavaFx.ObjectsInJavaFXWindow;
 
-import CreatorMapJavaFx.Modules.BackgroundCreatorJavaFx;
-import CreatorMapJavaFx.Modules.CustomImage ;
-import CreatorMapJavaFx.Modules.DekailsCreatorJavaFx;
-import CreatorMapJavaFx.Modules.FilesPaths ;
+import CreatorMapJavaFx.Modules.*;
 import Editor.Brush;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.Event;
@@ -69,24 +66,24 @@ public class WindowController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         BackgroundCreatorJavaFx.setBackgroundPaths();
         DekailsCreatorJavaFx.setDekailsPaths();
+        SpritesCreatorJavaFx.setSpritesPaths();
         updatePaths();
     }
 
     public void updatePaths(){
         listBackgroundPaths.setItems(BackgroundCreatorJavaFx.getImages());
         listDekailsPaths.setItems(DekailsCreatorJavaFx.getImages());
+        listSpritesTextures.setItems(SpritesCreatorJavaFx.getImages());
 
 //        list.setItems(FilesPaths.getImages());
 //        pathsList.setItems(FilesPaths.getPathsObs());
     }
 
     public void getInfoAboutObject() {
-        CustomImage ci = (CustomImage) list.getFocusModel().getFocusedItem();
-        String path = ci.getPath();
-
-        //TODO: вывод path
-
-        //System.out.println(ci.getPath());
+//        CustomImage ci = (CustomImage) list.getFocusModel().getFocusedItem();
+//        String path = ci.getPath();
+//        TODO: вывод path
+//        System.out.println(ci.getPath());
     }
 
     public void deletePath() {
@@ -142,7 +139,19 @@ public class WindowController implements Initializable{
     }
 
     public void btnSpritesAdd() {
+        String path = "";
+        int layout;
+        try {
+            layout = Integer.parseInt(textSpritesLayout.getText());
+            CustomImage ci = (CustomImage) listSpritesTextures.getFocusModel().getFocusedItem();
+            float height = (float) ci.getImage().getHeight();
+            float width = (float) ci.getImage().getWidth();
+            path = ci.getIdentify()+"|"+ci.getPath();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"LAYOUT MUST BE A NUMBER!");
+        }
 
+        System.out.println(path);
     }
 
     public void btnEditSaveMap() {
@@ -170,5 +179,13 @@ public class WindowController implements Initializable{
         float width = (float) ci.getImage().getWidth();
         textDekailsHeight.setText(String.valueOf(height));
         textDekailsWidth.setText(String.valueOf(width));
+    }
+
+    public void listSpritesTextureClick() {
+        CustomImage ci = (CustomImage) listSpritesTextures.getFocusModel().getFocusedItem();
+        float height = (float) ci.getImage().getHeight();
+        float width = (float) ci.getImage().getWidth();
+        textSpritesHeight.setText(String.valueOf(height));
+        textSpritesWidth.setText(String.valueOf(width));
     }
 }
