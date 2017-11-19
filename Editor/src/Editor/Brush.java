@@ -48,6 +48,9 @@ public class Brush {
         }
     }
 
+    private static final float deltaLayer = 0.0001f;
+    private float layerShift = 0; //при множественном создании объектов
+
     private Shape shape;
 
     private Actor currentActor;
@@ -67,6 +70,21 @@ public class Brush {
     public Brush()
     {
         shape = new Shape();
+    }
+
+    public void initControls(Game game)
+    {
+        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_HOLD,
+                () -> leftMouseHold() ) );
+
+        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_RIGHT, Mouse.BUTTON_PRESS,
+                () -> rightMouseClick() ) );
+
+        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_MIDDLE, Mouse.BUTTON_PRESS,
+                () -> middleMouseClick( game.mouse.getAbsoluteMousePos() ) ) );
+
+        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_MIDDLE, Mouse.BUTTON_RELEASE,
+                () -> middleMouseRelease() ) );
     }
 
     public void leftMouseHold()
@@ -105,16 +123,21 @@ public class Brush {
         actorWrap = null;
         backgroundWrap = null;
         mode = 0;
+        layerShift = 0;
+        shape.hide();
     }
 
-    private void changeMode(byte targetMode)
+    private void changeMode(byte targetMode, Game game)
     {
         cleanBrush();
         switch (targetMode){
             case 0: break;
             case 1: backgroundWrap = Editor.currentBackgroundWrap.copy(); break;
             case 2: decalWrap = Editor.currentDecalWrap.copy(); break;
-            case 3: actorWrap = Editor.currentWrap.copy(); break;
+            case 3:
+                actorWrap = Editor.currentWrap.copy();
+                currentActor = actorWrap.getActor(game);
+                break;
         }
         mode = targetMode;
     }
@@ -124,7 +147,7 @@ public class Brush {
     public void update(Editor editor, Game game)
     {
         if (mode != Editor.brushMode) {
-            changeMode(Editor.brushMode);
+            changeMode(Editor.brushMode, game);
         }
 
         switch (mode) {
@@ -139,6 +162,7 @@ public class Brush {
                             if (!objectIsDecal) {
                                 currentActor.tryToGetTransform().angle = (float) Math.atan2(dif.y, dif.x);
                             }
+                            break; //вертим? ну тогда нам явно не стоит объект перемещать
                         }
 
                         if (haveToFindObject || haveToDeleteObject) {
@@ -151,7 +175,7 @@ public class Brush {
                                     break;
                                 }
                                 if (!objectIsDecal) { //объект простой спрайт? ну тогда все просто
-                                    transform.move(mousePos.add(-lastMousePos.x, -lastMousePos.y)); //ок, мы опять попали мышкой в объект и его передвинули
+                                    transform.translate(mousePos.add(-lastMousePos.x, -lastMousePos.y)); //ок, мы опять попали мышкой в объект и его передвинули
                                 }
                                 break; //все хорошо. пока до следующей итерации
                             } else { //не попали? ладно. идем ниже и ищем
@@ -203,7 +227,6 @@ public class Brush {
                 break;
             case 2:
                 if (decalWrap != null){
-
                     if (objectIsRotating) { //вращаем?
                         Vector2f pos = game.mouse.getAbsoluteMousePos(),
                                  dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
@@ -212,11 +235,43 @@ public class Brush {
                         break; //когда крутим нам не нужно перемещать объект
                     }
 
-                    decalWrap.transform.move(game.mouse.getAbsoluteMousePos().add(-lastMousePos.x, -lastMousePos.y));
+                    decalWrap.transform.translate(game.mouse.getAbsoluteMousePos().add(-lastMousePos.x, -lastMousePos.y));
                     shape.circle(decalWrap.transform);
+
+                    if (haveToFindObject) {
+                        decalWrap.transform.layer += layerShift; //чтобы при множественном создании объектов они не были как говно
+                        editor.getDecals().add( decalWrap.getActor(game) );
+                        layerShift -= deltaLayer;
+                    }
                 }
                 break;
-            case 3: break;
+            case 3:
+                if (actorWrap != null && currentActor != null){
+                    Transform transform  = currentActor.tryToGetTransform();
+                    if (objectIsRotating) { //вращаем?
+                        Vector2f pos = game.mouse.getAbsoluteMousePos(),
+                                dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
+
+                        transform.angle = (float) Math.atan2(dif.y, dif.x);
+                        shape.circle(transform);
+                        break; //когда крутим нам не нужно перемещать объект
+                    }
+
+                    transform.translate(game.mouse.getAbsoluteMousePos().add(-lastMousePos.x, -lastMousePos.y));
+
+                    if (haveToFindObject) {
+                        transform.layer += layerShift; //чтобы при множественном создании объектов они не были как говно
+                        Actor actor = actorWrap.getActor(game);
+                        actor.tryToGetTransform().
+                                setPosition(transform.getPosition()).
+                                setScale(transform.getScale()).
+                                setAngle(transform.angle).
+                                setLayer(transform.layer);
+                        editor.getActors().add( actor );
+                        layerShift -= deltaLayer;
+                    }
+                }
+                break;
 
         }
         lastMousePos = game.mouse.getAbsoluteMousePos();//для рассчета дельты

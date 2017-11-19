@@ -22,7 +22,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 public class Game {
     private final String[] defaultClasses = {"sprite", "background", "decal"};
 
-    private int[] screenSize = {0, 0}; // [0] -- WIDTH; [1] -- HEIGHT
+    public final int[] screenSize = {0, 0}; // [0] -- WIDTH; [1] -- HEIGHT
     private long window;
 
     public Input input;
