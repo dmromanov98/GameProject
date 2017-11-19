@@ -11,8 +11,8 @@ public class CameraController
 {
     private final Game game;
 
-    public static final float thickness = 80f, //in pixels
-                              scrollSpeed = 10f,
+    public static final float thickness = 60f, //in pixels
+                              scrollSpeed = 3.5f,
                               maxRescaleSpeed = 20f;
 
     private Rectangle leftRect, ceilRect, rightRect, floorRect;
@@ -38,21 +38,21 @@ public class CameraController
                 new Vector2f(-game.screenSize[0], 0));
 
         game.mouse.addWheelAction(new Mouse.WheelAction(Mouse.DELTA_WHEEL_ACTION,
-                (Float f) -> Camera.getTransform().rescale( (maxRescaleSpeed - f) / maxRescaleSpeed )));
+                (Float f) -> Camera.getTransform().rescale( (maxRescaleSpeed + f) / maxRescaleSpeed )));
     }
 
     public void update()
     {
-        Vector2f mousePos = game.mouse.getMousePos();
+        Vector2f mousePos = game.mouse.getRawMousePos();
         Transform transform = Camera.getTransform();
 
         if (leftRect.inArea(mousePos))
-            transform.translate(-scrollSpeed, 0);
-        if (ceilRect.inArea(mousePos))
-            transform.translate(0, scrollSpeed);
-        if (rightRect.inArea(mousePos))
             transform.translate(scrollSpeed, 0);
         if (ceilRect.inArea(mousePos))
             transform.translate(0, -scrollSpeed);
+        if (rightRect.inArea(mousePos))
+            transform.translate(-scrollSpeed, 0);
+        if (floorRect.inArea(mousePos))
+            transform.translate(0, scrollSpeed);
     }
 }

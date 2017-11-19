@@ -61,6 +61,12 @@ public class Transform
         return this;
     }
 
+    public Transform incLayer(float delta)
+    {
+        this.layer += delta;
+        return this;
+    }
+
     public Transform setPosition(float x, float y)
     {
         this.position.set(x, y);

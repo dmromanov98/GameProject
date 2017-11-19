@@ -54,4 +54,16 @@ public class Rectangle extends CollideArea
 
         return (P0&&P1&&P2&&P3) == (P0||P1||P2||P3);
     }
+
+    @Override
+    public String toString() {
+        float   Dx = shift.x, Dy = shift.y,
+                Ax = Dx + rectA.x, Ay = Dy + rectA.y,
+                Cx = Dx + rectB.x, Cy = Dy + rectB.y,
+                Bx = Ax + Cx - Dx, By = Ay + Cy - Dy;
+        return "A = (" + Ax + " " + Ay + ")\n" +
+               "B = (" + Bx + " " + By + ")\n" +
+               "C = (" + Cx + " " + Cy + ")\n" +
+               "D = (" + Dx + " " + Dy + ")";
+    }
 }

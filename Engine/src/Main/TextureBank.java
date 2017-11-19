@@ -10,7 +10,7 @@ public class TextureBank
     public TextureBank()
     {
         bank = new HashMap<>();
-        addDefaultTextures();
+        //addDefaultTextures();
     }
 
     private void addDefaultTextures()

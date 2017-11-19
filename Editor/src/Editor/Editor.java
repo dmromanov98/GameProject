@@ -1,6 +1,8 @@
 package Editor;
 
+import Graphics.Texture;
 import Main.Actor;
+import Main.Camera;
 import Main.Game;
 import Map.Map;
 import Map.Decal;
@@ -24,8 +26,9 @@ public class Editor extends Map
     {
         super();
         this.game = game;
-        brush = new Brush();
+        brush = new Brush(game);
         brush.initControls(game);
+        backgrounds.add(new Background(Texture.monoColor(200,255,255,255), .9999f));
         cameraController = new CameraController(game);
     }
 
@@ -53,8 +56,33 @@ public class Editor extends Map
 
     @Override
     public void drawAll() {
+        for (Actor back: backgrounds) {
+            if (back.renderIndex > -1)
+                back.draw();
+        }
+
         brush.draw();
-        super.drawAll();
+
+        //decals
+        Decal.shader.enable();
+        Camera.toShader(Decal.shader);
+        for (Actor decal: decals) {
+            decal.draw();
+            if (decal.willBeRemoved())
+                decalsRemBuffer.add(decal);
+        }
+        Decal.shader.disable();
+
+        for (Actor a: actors)
+            if (a.renderIndex > -1)
+                a.draw();
+
+
+        if (!actorsRemBuffer.isEmpty())
+            actors.removeAll(actorsRemBuffer);
+
+        if (!decalsRemBuffer.isEmpty())
+            decals.removeAll(decalsRemBuffer);
     }
 
     public static Editor fromWraps(Wrap wraps[], Game game)

@@ -76,14 +76,19 @@ public class WindowController implements Initializable{
         SpritesCreatorJavaFx.setSpritesPaths();
 
 
-        texture = new String[6];
+        /*texture = new String[6];
         for(int i = 0;i<6;i++){
-            texture[i] = BackgroundCreatorJavaFx.getImages().get(i).getPath();
+            texture[i] = BackgroundCreatorJavaFx.getImages().get(i).getIdentify()+"|"+BackgroundCreatorJavaFx.getImages().get(i).getPath();
         }
-        gt = new GameThread(800,800,60,texture);
-        th.start();
+
+        gt = new GameThread(800,600,60,texture);*/
 
         updatePaths();
+
+        //gt.start();
+        //th.start();
+
+
     }
 
     public void updatePaths(){
