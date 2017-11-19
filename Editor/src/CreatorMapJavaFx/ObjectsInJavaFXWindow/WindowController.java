@@ -1,7 +1,7 @@
 package CreatorMapJavaFx.ObjectsInJavaFXWindow;
 
-import CreatorMapJavaFx.Modules.FilesPaths;
-import CreatorMapJavaFx.Modules.CustomImage;
+import Modules.CustomImage;
+import Modules.FilesPaths;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -12,6 +12,42 @@ import java.util.ResourceBundle;
 
 
 public class WindowController implements Initializable{
+
+    @FXML
+    private JFXTextField textEditMapPath;
+
+    @FXML
+    private ListView listBackgroundPaths;
+
+    @FXML
+    private JFXTextField textBackgroundLayout;
+
+    @FXML
+    private ListView listDetailsPaths;
+
+    @FXML
+    private JFXTextField textDetailsLayout;
+
+    @FXML
+    private JFXTextField textDetailsHeight;
+
+    @FXML
+    private JFXTextField textDetailsWidth;
+
+    @FXML
+    private ListView listSpritesClasses;
+
+    @FXML
+    private ListView listSpritesTextures;
+
+    @FXML
+    private JFXTextField textSpritesLayout;
+
+    @FXML
+    private JFXTextField textSpritesHeight;
+
+    @FXML
+    private JFXTextField textSpritesWidth;
 
     @FXML
     private ListView list;
@@ -54,4 +90,21 @@ public class WindowController implements Initializable{
         updatePaths();
     }
 
+    public void btnEditMapOpen() {
+    }
+
+    public void btnEditMapNewMap() {
+    }
+
+    public void btnBackgroundDelete() {
+    }
+
+    public void btnBackgroundAdd() {
+    }
+
+    public void btnDetailsAdd() {
+    }
+
+    public void btnSpritesAdd() {
+    }
 }

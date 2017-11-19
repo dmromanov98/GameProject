@@ -33,6 +33,9 @@ public class FilesPaths {
     }
 
     public static void getFilesFromPackage(){
+
+        images.clear();
+
         for(String s: paths) {
             try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(s))) {
                 for (Path file: stream) {
@@ -48,6 +51,7 @@ public class FilesPaths {
     }
 
     public static void deleteFromListAndFile(String s){
+
         for(int i = 0;i<paths.size();i++)
             if (paths.get(i).equals(s))
                 paths.remove(i);
