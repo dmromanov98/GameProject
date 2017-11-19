@@ -10,6 +10,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
 import java.net.URL;
@@ -29,16 +30,16 @@ public class WindowController implements Initializable{
     private JFXTextField textBackgroundLayout;
 
     @FXML
-    private ListView listDetailsPaths;
+    private ListView listDekailsPaths;
 
     @FXML
-    private JFXTextField textDetailsLayout;
+    private JFXTextField textDekailsLayout;
 
     @FXML
-    private JFXTextField textDetailsHeight;
+    private JFXTextField textDekailsHeight;
 
     @FXML
-    private JFXTextField textDetailsWidth;
+    private JFXTextField textDekailsWidth;
 
     @FXML
     private ListView listSpritesClasses;
@@ -64,13 +65,6 @@ public class WindowController implements Initializable{
     @FXML
     private JFXTextField textPath;
 
-    private HashMap<String,Boolean> mode=new HashMap<>(){{
-        put("edit",false);
-        put("background",false);
-        put("dekails",false);
-        put("sprites",false);
-    }};
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         BackgroundCreatorJavaFx.setBackgroundPaths();
@@ -80,9 +74,7 @@ public class WindowController implements Initializable{
 
     public void updatePaths(){
         listBackgroundPaths.setItems(BackgroundCreatorJavaFx.getImages());
-        listDetailsPaths.setItems(DekailsCreatorJavaFx.getImages());
-
-
+        listDekailsPaths.setItems(DekailsCreatorJavaFx.getImages());
 
 //        list.setItems(FilesPaths.getImages());
 //        pathsList.setItems(FilesPaths.getPathsObs());
@@ -98,9 +90,9 @@ public class WindowController implements Initializable{
     }
 
     public void deletePath() {
-        String s = (String) pathsList.getFocusModel().getFocusedItem();
-        FilesPaths.deleteFromListAndFile(s);
-        updatePaths();
+//        String s = (String) pathsList.getFocusModel().getFocusedItem();
+//        FilesPaths.deleteFromListAndFile(s);
+//        updatePaths();
     }
 
     public void addPath() {
@@ -122,7 +114,6 @@ public class WindowController implements Initializable{
     public void btnBackgroundAdd() {
         String path = "";
         int layout;
-
         try {
             layout = Integer.parseInt(textBackgroundLayout.getText());
             CustomImage ci = (CustomImage) listBackgroundPaths.getFocusModel().getFocusedItem();
@@ -134,52 +125,50 @@ public class WindowController implements Initializable{
         System.out.println(path);
     }
 
-    public void btnDetailsAdd() {
+    public void btnDekailsAdd() {
+        String path = "";
+        int layout;
+        try {
+            layout = Integer.parseInt(textDekailsLayout.getText());
+            CustomImage ci = (CustomImage) listDekailsPaths.getFocusModel().getFocusedItem();
+            float height = (float) ci.getImage().getHeight();
+            float width = (float) ci.getImage().getWidth();
+            path = ci.getIdentify()+"|"+ci.getPath();
+        }catch (Exception e){
+            JOptionPane.showMessageDialog(null,"LAYOUT MUST BE A NUMBER!");
+        }
+
+        System.out.println(path);
     }
 
     public void btnSpritesAdd() {
+
     }
 
     public void btnEditSaveMap() {
     }
 
-    private void updateHash(){
-        mode.put("edit",false);
-        mode.put("background",false);
-        mode.put("dekails",false);
-        mode.put("sprites",false);
-    }
-
-
     public void setModeNull() {
-        updateHash();
-        if(!mode.get("edit")){
-            System.out.println(0);
-            mode.put("edit",true);
-        }
+
     }
 
     public void setModeOne() {
-        updateHash();
-        if(!mode.get("background")){
-            System.out.println(1);
-            mode.put("background",true);
-        }
+
     }
 
     public void setModeTwo() {
-        updateHash();
-        if(!mode.get("dekails")){
-            System.out.println(2);
-            mode.put("background",true);
-        }
+
     }
 
     public void setModeThree() {
-        updateHash();
-        if(!mode.get("sprites")){
-            System.out.println(3);
-            mode.put("sprites",true);
-        }
+
+    }
+
+    public void listDekailsClick() {
+        CustomImage ci = (CustomImage) listDekailsPaths.getFocusModel().getFocusedItem();
+        float height = (float) ci.getImage().getHeight();
+        float width = (float) ci.getImage().getWidth();
+        textDekailsHeight.setText(String.valueOf(height));
+        textDekailsWidth.setText(String.valueOf(width));
     }
 }
