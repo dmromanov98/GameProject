@@ -1,6 +1,6 @@
 package CreatorMapJavaFx;
 
-import ObjectsInJavaFXWindow.WindowPathsCreator;
+import CreatorMapJavaFx.ObjectsInJavaFXWindow.WindowPathsCreator ;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
