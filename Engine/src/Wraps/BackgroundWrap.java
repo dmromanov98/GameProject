@@ -18,6 +18,18 @@ public class BackgroundWrap extends Wrap
         this.layer = layer;
     }
 
+    public BackgroundWrap(BackgroundWrap wrap)
+    {
+        this.texName = wrap.texName;
+        this.layer = wrap.layer;
+    }
+
+    @Override
+    public BackgroundWrap copy()
+    {
+        return new BackgroundWrap(this);
+    }
+
     @Override
     public Actor getActor(Game game) {
         Texture texture;

@@ -19,6 +19,18 @@ public class DecalWrap extends Wrap
         this.texName = texName;
     }
 
+    public DecalWrap(DecalWrap wrap)
+    {
+        this.transform = new Transform(wrap.transform);
+        this.texName = wrap.texName;
+    }
+
+    @Override
+    public DecalWrap copy()
+    {
+        return new DecalWrap(this);
+    }
+
     @Override
     public Actor getActor(Game game) {
         Texture texture;

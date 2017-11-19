@@ -48,6 +48,13 @@ public class Transform
         scale = new Vector2f(1f, 1f);
     }
 
+    public Transform(float layer, float scaleX, float scaleY)
+    {
+        position = new Vector2f(0,0);
+        this.layer = layer;
+        scale = new Vector2f(scaleX, scaleY);
+    }
+
     public Transform setPosition(Vector2f position)
     {
         this.position = new Vector2f(position);
@@ -136,6 +143,12 @@ public class Transform
     public Transform setScale(Vector2f scale)
     {
         this.scale = scale;
+        return this;
+    }
+
+    public Transform setScale(float x, float y)
+    {
+        this.scale = new Vector2f(x,y);
         return this;
     }
 
