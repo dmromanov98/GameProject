@@ -107,4 +107,7 @@ public class WindowController implements Initializable{
 
     public void btnSpritesAdd() {
     }
+
+    public void btnEditSaveMap() {
+    }
 }
