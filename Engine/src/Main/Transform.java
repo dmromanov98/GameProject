@@ -146,6 +146,18 @@ public class Transform
         return this;
     }
 
+    public Transform setLayer(float layer)
+    {
+        this.layer = layer;
+        return this;
+    }
+
+    public Transform setAngle(float angle)
+    {
+        this.angle = angle;
+        return this;
+    }
+
     public Transform setScale(float x, float y)
     {
         this.scale = new Vector2f(x,y);
