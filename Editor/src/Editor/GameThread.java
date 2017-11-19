@@ -34,24 +34,34 @@ public class GameThread extends Thread
         Editor.brushMode = 3;
     }
 
-    public GameThread(int width, int height, int fps, String[] textureList)
+    public GameThread(int width, int height, int fps, String[] textureList) //создание новой карты
     {
         super("Editor");
         game = new Game(width, height);
         game.init();
         game.fps = fps;
-        editor = new Editor();
-        game.map = editor;
+        Brush.init(game);
         game.textureBank.addTexturesFromList(textureList);
+        editor = new Editor(game);
+        game.map = editor;
     }
 
-
+    public GameThread(int width, int height, int fps, String[] textureList, Wrap[] wraps) //загрузка карты
+    {
+        super("Editor");
+        game = new Game(width, height);
+        game.init();
+        game.fps = fps;
+        Brush.init(game);
+        game.textureBank.addTexturesFromList(textureList);
+        editor = Editor.fromWraps(wraps, game);
+        game.map = editor;
+    }
 
     @Override
     public void run()
     {
         super.run();
-
     }
 
 

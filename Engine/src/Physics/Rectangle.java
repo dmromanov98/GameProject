@@ -1,9 +1,7 @@
 package Physics;
 
 import Main.Transform;
-import org.joml.Matrix3f;
 import org.joml.Vector2f;
-import org.joml.Vector3f;
 
 public class Rectangle extends CollideArea
 {
