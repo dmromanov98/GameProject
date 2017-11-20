@@ -35,15 +35,15 @@
                      </children></AnchorPane>
                 </content>
             </Tab>
-            <Tab onSelectionChanged="#setModeTwo" text="Dekails">
+            <Tab onSelectionChanged="#setModeTwo" text="Decals">
                 <content>
                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
-                        <ListView fx:id="listDekailsPaths" layoutX="14.0" layoutY="13.0" onMouseClicked="#listDekailsClick" prefHeight="345.0" prefWidth="262.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0" />
-                        <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="159.0" onAction="#btnDekailsAdd" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: ffffff;" text="Add" />
-                        <JFXTextField fx:id="textDekailsLayout" labelFloat="true" layoutX="286.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:" unFocusColor="#00ff40" />
-                        <JFXTextField fx:id="textDekailsHeight" labelFloat="true" layoutX="286.0" layoutY="61.0" prefHeight="25.0" prefWidth="122.0" promptText="Height:" unFocusColor="#00ff40" />
-                        <JFXTextField fx:id="textDekailsWidth" labelFloat="true" layoutX="286.0" layoutY="110.0" prefHeight="25.0" prefWidth="122.0" promptText="Width:" unFocusColor="#00ff40" />
+                        <ListView fx:id="listDecalsPaths" layoutX="14.0" layoutY="13.0" onMouseClicked="#listDecalsClick" prefHeight="345.0" prefWidth="262.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0" />
+                        <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="159.0" onAction="#btnDecalsAdd" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: ffffff;" text="Add" />
+                        <JFXTextField fx:id="textDecalsLayout" labelFloat="true" layoutX="286.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:" unFocusColor="#00ff40" />
+                        <JFXTextField fx:id="textDecalsHeight" labelFloat="true" layoutX="286.0" layoutY="61.0" prefHeight="25.0" prefWidth="122.0" promptText="Height:" unFocusColor="#00ff40" />
+                        <JFXTextField fx:id="textDecalsWidth" labelFloat="true" layoutX="286.0" layoutY="110.0" prefHeight="25.0" prefWidth="122.0" promptText="Width:" unFocusColor="#00ff40" />
                      </children></AnchorPane>
                 </content>
             </Tab>

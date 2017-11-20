@@ -5,9 +5,6 @@ import javafx.collections.ObservableList;
 
 public class BackgroundCreatorJavaFx {
 
-    //private ObservableList<String> backgroundPaths;
-    //private static List<String> paths;
-
     private static ObservableList<CustomImage> images = FXCollections.observableArrayList();
 
     private static final String backgroundPath = "Editor/resources/backgrounds";

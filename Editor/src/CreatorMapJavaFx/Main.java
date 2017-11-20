@@ -1,6 +1,6 @@
 package CreatorMapJavaFx;
 
-        import CreatorMapJavaFx.Modules.BackgroundCreatorJavaFx;
+        import CreatorMapJavaFx.Modules.TexturesInfo;
         import CreatorMapJavaFx.ObjectsInJavaFXWindow.WindowPathsCreator ;
         import Editor.GameThread;
         import javafx.application.Application;
@@ -12,17 +12,10 @@ public class Main extends Application{
 
     public static void main(String[] args) {
         thread = new Thread(()-> launch(WindowPathsCreator.class, args));
-        //thread.start();
-        //launch(WindowPathsCreator.class, args);
-        BackgroundCreatorJavaFx.setBackgroundPaths();
+
         GameThread gt;
+        gt = new GameThread(800,600,60, TexturesInfo.getAllTextures());
 
-        String[] texture = new String[6];
-        for(int i = 0;i<6;i++){
-            texture[i] = BackgroundCreatorJavaFx.getImages().get(i).getIdentify()+"|"+BackgroundCreatorJavaFx.getImages().get(i).getPath();
-        }
-
-        gt = new GameThread(800,600,60,texture);
         thread.start();
         gt.run();
     }

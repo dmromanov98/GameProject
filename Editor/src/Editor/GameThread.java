@@ -22,7 +22,7 @@ public class GameThread extends Thread
         Editor.brushMode = 1;
     }
 
-    public void toMode2(DecalWrap wrap)
+    public static void toMode2(DecalWrap wrap)
     {
         Editor.currentDecalWrap = wrap;
         Editor.brushMode = 2;

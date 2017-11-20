@@ -4,8 +4,10 @@ import CreatorMapJavaFx.Modules.*;
 import Editor.Brush;
 import Editor.GameThread;
 import Graphics.Texture;
+import Main.Transform;
 import Utils.File;
 import Wraps.BackgroundWrap;
+import Wraps.DecalWrap;
 import com.jfoenix.controls.JFXTextField;
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -19,7 +21,7 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 
-public class WindowController implements Initializable{
+public class WindowController implements Initializable {
 
     @FXML
     private JFXTextField textEditMapPath;
@@ -31,16 +33,16 @@ public class WindowController implements Initializable{
     private JFXTextField textBackgroundLayout;
 
     @FXML
-    private ListView listDekailsPaths;
+    private ListView listDecalsPaths;
 
     @FXML
-    private JFXTextField textDekailsLayout;
+    private JFXTextField textDecalsLayout;
 
     @FXML
-    private JFXTextField textDekailsHeight;
+    private JFXTextField textDecalsHeight;
 
     @FXML
-    private JFXTextField textDekailsWidth;
+    private JFXTextField textDecalsWidth;
 
     @FXML
     private ListView listSpritesClasses;
@@ -66,34 +68,15 @@ public class WindowController implements Initializable{
     @FXML
     private JFXTextField textPath;
 
-    private GameThread gt;
-    private String[] texture;
-    private Thread th = new Thread(gt);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        BackgroundCreatorJavaFx.setBackgroundPaths();
-        DekailsCreatorJavaFx.setDekailsPaths();
-        SpritesCreatorJavaFx.setSpritesPaths();
-
-
-        /*texture = new String[6];
-        for(int i = 0;i<6;i++){
-            texture[i] = BackgroundCreatorJavaFx.getImages().get(i).getIdentify()+"|"+BackgroundCreatorJavaFx.getImages().get(i).getPath();
-        }
-
-        gt = new GameThread(800,600,60,texture);*/
-
         updatePaths();
-
-        //gt.start();
-        //th.start();
-
-
     }
 
-    public void updatePaths(){
+    public void updatePaths() {
         listBackgroundPaths.setItems(BackgroundCreatorJavaFx.getImages());
-        listDekailsPaths.setItems(DekailsCreatorJavaFx.getImages());
+        listDecalsPaths.setItems(DecalsCreatorJavaFx.getImages());
         listSpritesTextures.setItems(SpritesCreatorJavaFx.getImages());
 
 //        list.setItems(FilesPaths.getImages());
@@ -127,40 +110,61 @@ public class WindowController implements Initializable{
     public void btnBackgroundDelete() {
     }
 
-
     //добавление бэкграунда
     public void btnBackgroundAdd() {
-        String path = "";
         float layout = 0;
         CustomImage ci = null;
         try {
             layout = Float.parseFloat(textBackgroundLayout.getText());
-            ci = (CustomImage) listBackgroundPaths.getFocusModel().getFocusedItem();
-            path = ci.getIdentify()+"|"+ci.getPath();
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null,"LAYOUT MUST BE A NUMBER!");
+            if (layout < 1 && layout > -1) {
+
+                textSpritesLayout.setText(String.valueOf(layout));
+                textDecalsLayout.setText(String.valueOf(layout));
+
+                System.out.println(layout);
+                System.out.println(layout + " LAYOUT");
+
+                ci = (CustomImage) listBackgroundPaths.getFocusModel().getFocusedItem();
+
+                BackgroundWrap backgroundWrap = new BackgroundWrap(ci.getKey(), layout);
+                GameThread.toMode1(backgroundWrap);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");
         }
-
-        BackgroundWrap backgroundWrap = new BackgroundWrap(ci.getIdentify(),layout);
-        GameThread.toMode1(backgroundWrap);
-
-        System.out.println(path);
     }
 
-    public void btnDekailsAdd() {
-        String path = "";
-        int layout;
+    public void btnDecalsAdd() {
+        float layout;
         try {
-            layout = Integer.parseInt(textDekailsLayout.getText());
-            CustomImage ci = (CustomImage) listDekailsPaths.getFocusModel().getFocusedItem();
-            float height = (float) ci.getImage().getHeight();
-            float width = (float) ci.getImage().getWidth();
-            path = ci.getIdentify()+"|"+ci.getPath();
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null,"LAYOUT MUST BE A NUMBER!");
+            layout = Float.parseFloat(textDecalsLayout.getText());
+            if (layout < 1 && layout > -1) {
+
+                textSpritesLayout.setText(String.valueOf(layout));
+                textBackgroundLayout.setText(String.valueOf(layout));
+
+                System.out.println(textDecalsLayout.getText());
+                System.out.println(layout + " LAYOUT");
+
+                CustomImage ci = (CustomImage) listDecalsPaths.getFocusModel().getFocusedItem();
+                float height = (float) ci.getImage().getHeight();
+                float width = (float) ci.getImage().getWidth();
+
+
+                Transform transform = new Transform(layout, width, height);
+                DecalWrap wrap = new DecalWrap(transform, ci.getKey());
+                GameThread.toMode2(wrap);
+
+            } else {
+                JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");
         }
 
-        System.out.println(path);
     }
 
     public void btnSpritesAdd() {
@@ -168,12 +172,22 @@ public class WindowController implements Initializable{
         int layout;
         try {
             layout = Integer.parseInt(textSpritesLayout.getText());
-            CustomImage ci = (CustomImage) listSpritesTextures.getFocusModel().getFocusedItem();
-            float height = (float) ci.getImage().getHeight();
-            float width = (float) ci.getImage().getWidth();
-            path = ci.getIdentify()+"|"+ci.getPath();
-        }catch (Exception e){
-            JOptionPane.showMessageDialog(null,"LAYOUT MUST BE A NUMBER!");
+            if (layout < 1 && layout > -1) {
+
+                textBackgroundLayout.setText(String.valueOf(layout));
+                textBackgroundLayout.setText(String.valueOf(layout));
+
+                CustomImage ci = (CustomImage) listSpritesTextures.getFocusModel().getFocusedItem();
+                float height = (float) ci.getImage().getHeight();
+                float width = (float) ci.getImage().getWidth();
+
+                path = ci.getKey() + "|" + ci.getPath();
+
+            } else {
+                JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");
         }
 
         System.out.println(path);
@@ -198,12 +212,12 @@ public class WindowController implements Initializable{
 
     }
 
-    public void listDekailsClick() {
-        CustomImage ci = (CustomImage) listDekailsPaths.getFocusModel().getFocusedItem();
+    public void listDecalsClick() {
+        CustomImage ci = (CustomImage) listDecalsPaths.getFocusModel().getFocusedItem();
         float height = (float) ci.getImage().getHeight();
         float width = (float) ci.getImage().getWidth();
-        textDekailsHeight.setText(String.valueOf(height));
-        textDekailsWidth.setText(String.valueOf(width));
+        textDecalsHeight.setText(String.valueOf(height));
+        textDecalsWidth.setText(String.valueOf(width));
     }
 
     public void listSpritesTextureClick() {

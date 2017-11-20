@@ -25,8 +25,16 @@ public class TextureBank
     {
         for (String str:
              textures) {
-            String name = str.substring(0, str.lastIndexOf('|')+1),
-                   path = str.substring(str.lastIndexOf('|'));
+
+            //ЭТО ИЗМЕНЕНО НА ТО ЧТО НИЖЕ!
+            //String name = str.substring(0, str.lastIndexOf('|')+1),
+            //path = str.substring(str.lastIndexOf('|'));
+
+            String name = str.substring(0, str.lastIndexOf('|')),
+                   path = str.substring(str.lastIndexOf('|')+1);
+
+            //System.out.println("Name : "+name+" Path : "+path);
+
             try {
                 addFromDisk(name, path);
             }catch (Exception e){e.printStackTrace();}
@@ -44,8 +52,10 @@ public class TextureBank
 
     public TextureWrap Get(String name) throws NonExistentTextureException
     {
-        if (bank.containsKey(name))
+        if (bank.containsKey(name)) {
+            System.out.println(bank.get(name).path);
             return bank.get(name);
+        }
         else
             throw new NonExistentTextureException("Texture called '" + name + "' is not exist.");
     }

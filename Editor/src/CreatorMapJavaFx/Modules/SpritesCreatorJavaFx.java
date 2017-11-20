@@ -4,8 +4,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class SpritesCreatorJavaFx {
-    //private ObservableList<String> backgroundPaths;
-    //private static List<String> paths;
 
     private static ObservableList<CustomImage> images = FXCollections.observableArrayList();
 

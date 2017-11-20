@@ -7,16 +7,16 @@ import javafx.scene.image.ImageView;
 public class CustomImage extends ImageView {
 
     private String path;
-    private String identify;
+    private String key;
 
-    public CustomImage(String path,String identify) {
-        super(new Image(path));
+    public CustomImage(String path,String key) {
+        super(new Image("file:"+path));
         this.path = path;
-        this.identify = identify;
+        this.key = key;
     }
 
-    public String getIdentify() {
-        return identify;
+    public String getKey() {
+        return key;
     }
 
     public String getPath() {

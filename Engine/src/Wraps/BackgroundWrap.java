@@ -32,6 +32,7 @@ public class BackgroundWrap extends Wrap
 
     @Override
     public Actor getActor(Game game) {
+
         Texture texture;
         try {
             texture = game.textureBank.Get(texName).getTexture();
