@@ -38,6 +38,6 @@ public class DecalWrap extends Wrap
             texture = game.textureBank.Get(texName).getTexture();
         } catch (Exception e){e.printStackTrace(); texture = Texture.monoColor(255,255,255,255);}
 
-        return new Decal(transform, texture);
+        return new Decal(new Transform(transform), texture).setSource(this);
     }
 }

@@ -45,6 +45,6 @@ public class SpriteWrap extends Wrap
         try {
             res.texture = game.textureBank.Get(texName).getTexture();
         } catch (Exception e){e.printStackTrace();}
-        return res;
+        return res.setSource(this);
     }
 }

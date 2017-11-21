@@ -38,6 +38,6 @@ public class BackgroundWrap extends Wrap
             texture = game.textureBank.Get(texName).getTexture();
         } catch (Exception e){e.printStackTrace(); texture = Texture.monoColor(255,255,255,255);}
 
-        return new Background(texture, layer);
+        return new Background(texture, layer).setSource(this);
     }
 }

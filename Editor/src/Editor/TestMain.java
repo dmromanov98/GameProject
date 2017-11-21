@@ -1,16 +1,11 @@
 package Editor;
 
-import Main.Game;
-import Main.Transform;
-import Map.Decal;
-import Patterns.Sprite;
-
 public class TestMain
 {
 
     public static void main(String[] args) {
         String[] strings = {};
-        GameThread gt = new GameThread(800, 600, 60, strings);
+        EditorThread gt = new EditorThread(800, 600, 60, strings);
 
         /*Game game = gt.game;
         try {
