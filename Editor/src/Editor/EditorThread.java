@@ -60,6 +60,8 @@ public class EditorThread extends Thread
             Editor.brushMode = 4;
     }
 
+    public static MapWrap outputMapWrap;
+
     private int fps;
     private int width, height;
     private String[] textureList;
@@ -107,6 +109,7 @@ public class EditorThread extends Thread
         super.run();
         init();
         game.mainloop();
+        outputMapWrap = editor.getMapWrap();
         game.closeGame();
     }
 
