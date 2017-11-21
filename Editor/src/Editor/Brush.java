@@ -49,7 +49,7 @@ public class Brush {
         }
     }
 
-    private static final float deltaLayer = 0.0001f;
+    private static final float deltaLayer = -0.00001f;
     private float layerShift = 0; //при множественном создании объектов
 
     private Shape shape;
@@ -60,7 +60,7 @@ public class Brush {
     private DecalWrap decalWrap;
     private BackgroundWrap backgroundWrap;
 
-    private byte mode = 0; //чтобы кэшировать при работе с обработкой клавиатуры и мыши
+    private short mode = 0; //чтобы кэшировать при работе с обработкой клавиатуры и мыши
 
     private boolean objectIsChosen = false,
             objectIsDecal = false,
@@ -79,7 +79,7 @@ public class Brush {
 
     public void initControls(Game game)
     {
-        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_HOLD,
+        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_PRESS,
                 () -> leftMouseHold() ) );
 
         game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_RIGHT, Mouse.BUTTON_PRESS,
@@ -133,9 +133,12 @@ public class Brush {
         objectIsMoving = false;
     }
 
-    private void changeMode(byte targetMode, Game game)
+    private void changeMode(short targetMode, Game game)
     {
         cleanBrush();
+        mode = targetMode;
+        System.out.println(mode);
+        targetMode = (short)Math.abs(targetMode);
         switch (targetMode){
             case 0: break;
             case 1: backgroundWrap = Editor.currentBackgroundWrap.copy(); break;
@@ -145,7 +148,6 @@ public class Brush {
                 currentActor = actorWrap.getActor(game);
                 break;
         }
-        mode = targetMode;
     }
 
     Vector2f lastMousePos = new Vector2f(0,0);
@@ -156,7 +158,7 @@ public class Brush {
             changeMode(Editor.brushMode, game);
         }
 
-        switch (mode) {
+        switch (Math.abs(mode)) {
             case 0: //перетаскиваем объекты
                 if (objectIsChosen) { //что-то выделяли??
                     if (currentActor == null) { //на самом деле ничего не выделили? исправляем.
@@ -249,7 +251,7 @@ public class Brush {
                         break; //когда крутим нам не нужно перемещать объект
                     }
 
-                    decalWrap.transform.translate(game.mouse.getAbsoluteMousePos().add(-lastMousePos.x, -lastMousePos.y));
+                    decalWrap.transform.setPosition(game.mouse.getAbsoluteMousePos());
                     shape.circle(decalWrap.transform);
 
                     if (haveToFindObject) {

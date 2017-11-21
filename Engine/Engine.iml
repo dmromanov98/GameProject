@@ -8,7 +8,7 @@
       <sourceFolder url="file://$MODULE_DIR$/test_programs" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/shaders" type="java-resource" />
     </content>
-    <orderEntry type="jdk" jdkName="9" jdkType="JavaSDK" />
+    <orderEntry type="jdk" jdkName="9.0" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="lwjgl" level="project" />
   </component>

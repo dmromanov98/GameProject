@@ -18,7 +18,7 @@ public class Editor extends Map
     public static Wrap currentWrap = null;
     public static DecalWrap currentDecalWrap = null;
     public static BackgroundWrap currentBackgroundWrap = null;
-    public static byte brushMode = 0; //0 -- редачим то, что видим, 1 -- создать бэкграунд, 2 -- ставить спрайты, 3 -- ставить декали
+    public static short brushMode = 0; //0 -- редачим то, что видим, 1 -- создать бэкграунд, 2 -- ставить спрайты, 3 -- ставить декали
 
     private final Game game;
 

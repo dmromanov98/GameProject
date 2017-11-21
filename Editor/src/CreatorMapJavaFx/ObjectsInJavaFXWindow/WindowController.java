@@ -150,8 +150,8 @@ public class WindowController implements Initializable {
                 System.out.println(layout + " LAYOUT");
 
                 CustomImage ci = (CustomImage) listDecalsPaths.getFocusModel().getFocusedItem();
-                float height = (float) ci.getImage().getHeight();
-                float width = (float) ci.getImage().getWidth();
+                float height = Float.parseFloat( textDecalsHeight.getText() );//ci.getImage().getHeight();
+                float width = Float.parseFloat( textDecalsWidth.getText() ); //ci.getImage().getWidth();
 
 
                 Transform transform = new Transform(layout, width, height);
