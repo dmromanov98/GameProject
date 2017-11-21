@@ -47,12 +47,12 @@ public class CameraController
         Transform transform = Camera.getTransform();
 
         if (leftRect.inArea(mousePos))
-            transform.translate(scrollSpeed, 0);
+            transform.translate(scrollSpeed/transform.getScale().x, 0);
         if (ceilRect.inArea(mousePos))
-            transform.translate(0, -scrollSpeed);
+            transform.translate(0, -scrollSpeed/transform.getScale().y);
         if (rightRect.inArea(mousePos))
-            transform.translate(-scrollSpeed, 0);
+            transform.translate(-scrollSpeed/transform.getScale().x, 0);
         if (floorRect.inArea(mousePos))
-            transform.translate(0, scrollSpeed);
+            transform.translate(0, scrollSpeed/transform.getScale().y);
     }
 }

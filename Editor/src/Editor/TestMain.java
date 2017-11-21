@@ -12,7 +12,7 @@ public class TestMain
         String[] strings = {};
         GameThread gt = new GameThread(800, 600, 60, strings);
 
-        Game game = gt.game;
+        /*Game game = gt.game;
         try {
             game.textureBank.addFromDisk("dick", "Engine/test_resources/dick.png");
             game.textureBank.addFromDisk("space", "Engine/test_resources/cassiopeia1280.jpeg");
@@ -32,7 +32,8 @@ public class TestMain
             sprite.transform.setLayer(.51f).setScale(50,50).setPosition(20, 20);
             sprite.texture = game.textureBank.Get("dick").getTexture();
             gt.editor.addActor(sprite);
-        } catch (Exception e){e.printStackTrace();}
+        } catch (Exception e){e.printStackTrace();}*/
+
         gt.start();
     }
 }
