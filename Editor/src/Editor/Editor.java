@@ -6,6 +6,7 @@ import Main.Camera;
 import Main.Game;
 import Map.Map;
 import Map.Decal;
+import Map.MapWrap;
 import Patterns.Background;
 import Wraps.DecalWrap;
 import Wraps.Wrap;
@@ -18,6 +19,7 @@ public class Editor extends Map
     public static Wrap currentWrap = null;
     public static DecalWrap currentDecalWrap = null;
     public static BackgroundWrap currentBackgroundWrap = null;
+    public static String currentCollisionArea = null;
     public static short brushMode = 0; //0 -- редачим то, что видим, 1 -- создать бэкграунд, 2 -- ставить спрайты, 3 -- ставить декали
 
     private final Game game;
@@ -25,6 +27,16 @@ public class Editor extends Map
     public Editor(Game game)
     {
         super();
+        this.game = game;
+        brush = new Brush(game);
+        brush.initControls(game);
+        backgrounds.add(new Background(Texture.monoColor(200,255,255,255), .9999f));
+        cameraController = new CameraController(game);
+    }
+
+    public Editor(Game game, MapWrap wrap)
+    {
+        super(game, wrap);
         this.game = game;
         brush = new Brush(game);
         brush.initControls(game);
@@ -97,6 +109,36 @@ public class Editor extends Map
             else res.addActor( w.getActor(game) );
         }
         return res;
+    }
+
+    public Vector<Wrap> getWraps()
+    {
+        Vector<Wrap> res = new Vector<>();
+
+        for (Actor a:
+             actors) {
+            if (a.source != null)
+                res.add(a.source);
+        }
+
+        for (Actor a:
+                decals) {
+            if (a.source != null)
+                res.add(a.source);
+        }
+
+        for (Actor a:
+                backgrounds) {
+            if (a.source != null)
+                res.add(a.source);
+        }
+
+        return res;
+    }
+
+    public MapWrap getMapWrap()
+    {
+        return new MapWrap(getWraps(), collisionSpaces);
     }
 
     private Brush brush;

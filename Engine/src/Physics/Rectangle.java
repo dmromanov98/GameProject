@@ -66,4 +66,14 @@ public class Rectangle extends CollideArea
                "C = (" + Cx + " " + Cy + ")\n" +
                "D = (" + Dx + " " + Dy + ")";
     }
+
+    @Override
+    public CollideArea copy()
+    {
+        return new Rectangle(
+                new Vector2f(shift),
+                new Vector2f(rectA),
+                new Vector2f(rectB)
+        );
+    }
 }

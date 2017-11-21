@@ -1,22 +1,25 @@
 package Editor;
 
 import Main.Game;
+import Map.MapWrap;
 import Wraps.BackgroundWrap;
 import Wraps.DecalWrap;
 import Wraps.Wrap;
 
-public class GameThread extends Thread
+import java.util.Vector;
+
+public class EditorThread extends Thread
 {
     public Game game;
     public Editor editor;
 
     //TODO: гавно моча с этим моментом. но продумывать что-то лучше времени нет
-    public void toMode0()
+    public static synchronized void toMode0()
     {
         Editor.brushMode = 0;
     }
 
-    public static void toMode1(BackgroundWrap wrap)
+    public static synchronized  void toMode1(BackgroundWrap wrap)
     {
         Editor.currentBackgroundWrap = wrap;
         if (Editor.brushMode == 1){
@@ -26,7 +29,7 @@ public class GameThread extends Thread
             Editor.brushMode = 1;
     }
 
-    public static void toMode2(DecalWrap wrap)
+    public static synchronized void toMode2(DecalWrap wrap)
     {
         Editor.currentDecalWrap = wrap;
         if (Editor.brushMode == 2){
@@ -37,7 +40,7 @@ public class GameThread extends Thread
 
     }
 
-    public void toMode3(Wrap wrap)
+    public static synchronized  void toMode3(Wrap wrap)
     {
         Editor.currentWrap = wrap;
         if (Editor.brushMode == 3){
@@ -47,12 +50,22 @@ public class GameThread extends Thread
             Editor.brushMode = 3;
     }
 
+    public static synchronized  void toMode4(String nameOfCollisionSpace)
+    {
+        Editor.currentCollisionArea = nameOfCollisionSpace;
+        if (Editor.brushMode == 4){
+            Editor.brushMode = -4;
+        }
+        else
+            Editor.brushMode = 4;
+    }
+
     private int fps;
     private int width, height;
     private String[] textureList;
-    private Wrap[] wraps;
+    private MapWrap mapWrap;
 
-    public GameThread(int width, int height, int fps, String[] textureList) //создание новой карты
+    public EditorThread(int width, int height, int fps, String[] textureList) //создание новой карты
     {
         super("Editor");
         setPriority(MAX_PRIORITY);
@@ -60,7 +73,7 @@ public class GameThread extends Thread
         this.width = width;
         this.height = height;
         this.textureList = textureList;
-        wraps = null;
+        mapWrap = null;
     }
 
     private void init()
@@ -70,14 +83,14 @@ public class GameThread extends Thread
         game.fps = fps;
         game.textureBank.addTexturesFromList(textureList);
         Brush.init(game);
-        if (wraps == null)
+        if (mapWrap == null)
             editor = new Editor(game);
         else
-            editor = Editor.fromWraps(wraps,game);
+            editor = new Editor(game, mapWrap);
         game.map = editor;
     }
 
-    public GameThread(int width, int height, int fps, String[] textureList, Wrap[] wraps) //загрузка карты
+    public EditorThread(int width, int height, int fps, String[] textureList, MapWrap wrap) //загрузка карты
     {
         super("Editor");
         setPriority(MAX_PRIORITY);
@@ -85,7 +98,7 @@ public class GameThread extends Thread
         this.width = width;
         this.height = height;
         this.textureList = textureList;
-        this.wraps = wraps;
+        this.mapWrap = wrap;
     }
 
     @Override

@@ -15,8 +15,8 @@ import org.joml.Vector3f;
 */
 public class Transform
 {
-    private Vector2f position;
-    private Vector2f scale;
+    protected Vector2f position;
+    protected Vector2f scale;
     public float angle;
     public float layer;
 
@@ -202,12 +202,29 @@ public class Transform
 
     public Circle getCircleArea()
     {
-        return new Circle( new Vector3f(position, layer), Float.min(scale.x, scale.y));
+        return new Circle( new Vector2f(position), Float.min(scale.x, scale.y));
     }
 
     public Rectangle getRectArea()
     {
         return Rectangle.fromTransform(this);
+    }
+
+    public Vector2f[] dotsOfRectangle()
+    {
+        Vector2f[] res = {
+                new Vector2f(  .5f*scale.x, .5f*scale.y ),
+                new Vector2f( -.5f*scale.x, .5f*scale.y ),
+                new Vector2f( -.5f*scale.x, -.5f*scale.y ),
+                new Vector2f(  .5f*scale.x, -.5f*scale.y )
+        };
+        float sin = (float)Math.sin(angle), cos = (float)Math.cos(angle);
+        for (Vector2f dot:
+             res) {
+            dot.x = dot.x*cos - dot.y*sin + position.x;
+            dot.y = dot.x*cos + dot.y*sin + position.y;
+        }
+        return res;
     }
 
     public Transform(Transform transform)

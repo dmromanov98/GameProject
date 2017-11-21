@@ -2,7 +2,7 @@ package CreatorMapJavaFx;
 
         import CreatorMapJavaFx.Modules.TexturesInfo;
         import CreatorMapJavaFx.ObjectsInJavaFXWindow.WindowPathsCreator ;
-        import Editor.GameThread;
+        import Editor.EditorThread;
         import javafx.application.Application;
         import javafx.stage.Stage;
 
@@ -13,8 +13,8 @@ public class Main extends Application{
     public static void main(String[] args) {
         thread = new Thread(()-> launch(WindowPathsCreator.class, args));
 
-        GameThread gt;
-        gt = new GameThread(800,600,60, TexturesInfo.getAllTextures());
+        EditorThread gt;
+        gt = new EditorThread(800,600,60, TexturesInfo.getAllTextures());
 
         thread.start();
         gt.run();

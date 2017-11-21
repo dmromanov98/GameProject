@@ -1,23 +1,17 @@
 package CreatorMapJavaFx.ObjectsInJavaFXWindow;
 
 import CreatorMapJavaFx.Modules.*;
-import Editor.Brush;
-import Editor.GameThread;
-import Graphics.Texture;
+import Editor.EditorThread;
 import Main.Transform;
-import Utils.File;
 import Wraps.BackgroundWrap;
 import Wraps.DecalWrap;
 import com.jfoenix.controls.JFXTextField;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
-import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 
@@ -127,7 +121,7 @@ public class WindowController implements Initializable {
                 ci = (CustomImage) listBackgroundPaths.getFocusModel().getFocusedItem();
 
                 BackgroundWrap backgroundWrap = new BackgroundWrap(ci.getKey(), layout);
-                GameThread.toMode1(backgroundWrap);
+                EditorThread.toMode1(backgroundWrap);
 
             } else {
                 JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");
@@ -156,7 +150,7 @@ public class WindowController implements Initializable {
 
                 Transform transform = new Transform(layout, width, height);
                 DecalWrap wrap = new DecalWrap(transform, ci.getKey());
-                GameThread.toMode2(wrap);
+                EditorThread.toMode2(wrap);
 
             } else {
                 JOptionPane.showMessageDialog(null, "LAYOUT MUST BE A NUMBER! 1- < NUMBER < 1");

@@ -4,13 +4,18 @@ import Main.Actor;
 import Main.Camera;
 import Main.Game;
 import Patterns.Background;
+import Physics.CollideArea;
+import Physics.CollisionSpace;
 import Wraps.DecalWrap;
 import Wraps.Wrap;
 
+import java.util.HashMap;
 import java.util.Vector;
 
 public class Map
 {
+    public HashMap<String, CollisionSpace> collisionSpaces = new HashMap<>();
+
     public Map()
     {
         backgrounds = new Vector<>();
@@ -18,6 +23,25 @@ public class Map
         actors = new Vector<>();
         actorsRemBuffer = new Vector<>();
         decalsRemBuffer = new Vector<>();
+    }
+
+    public Map(Game game, MapWrap wrap)
+    {
+        backgrounds = new Vector<>();
+        decals = new Vector<>();
+        actors = new Vector<>();
+        actorsRemBuffer = new Vector<>();
+        decalsRemBuffer = new Vector<>();
+
+        for (Wrap w:
+                wrap.objects) {
+            if (Decal.class.equals( w.getOriginal() ) )
+                addDecal( w.getActor(game) );
+            else if (Background.class.equals( w.getOriginal() ) )
+                addBackground( w.getActor(game) );
+            else addActor( w.getActor(game) );
+        }
+        this.collisionSpaces = new HashMap<>(collisionSpaces);
     }
 
     protected Vector<Actor> backgrounds;
@@ -102,5 +126,18 @@ public class Map
         return res;
     }
 
-
+    public static Map fromWraps(Wrap wraps[], HashMap<String, CollisionSpace> collisionSpaces,Game game)
+    {
+        Map res = new Map();
+        for (Wrap w:
+                wraps) {
+            if (Decal.class.equals( w.getOriginal() ) )
+                res.addDecal( w.getActor(game) );
+            else if (Background.class.equals( w.getOriginal() ) )
+                res.addBackground( w.getActor(game) );
+            else res.addActor( w.getActor(game) );
+        }
+        res.collisionSpaces = collisionSpaces;
+        return res;
+    }
 }

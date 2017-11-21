@@ -1,5 +1,7 @@
 package Main;//import SpriteTest.Engine.MyMath.Vector2;
 
+import Wraps.Wrap;
+
 public abstract class Actor
 {
     public boolean alive = false;
@@ -20,4 +22,12 @@ public abstract class Actor
     }
 
     public Transform tryToGetTransform(){return null;}
+
+    public Actor setSource(Wrap wrap)
+    {
+        source = wrap.copy();
+        return this;
+    }
+
+    public Wrap source = null;
 }
