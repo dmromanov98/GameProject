@@ -228,7 +228,9 @@ public class WindowController implements Initializable {
     }
 
     public void btnEditOpenWindow() {
+        System.out.println("HERE 1");
         try {
+
             int height = Integer.parseInt(textEditWindowHeight.getText());
             int width = Integer.parseInt(textEditWindowWidth.getText());
             int fps = Integer.parseInt(textEditFPS.getText());
@@ -237,15 +239,21 @@ public class WindowController implements Initializable {
             gt = new EditorThread(width, height, fps, getTextures());
             gt.run();
 
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "HEIGHT,WIDTH,FPS - NUMBERS");
         }
     }
 
     public void listCollisionsSendCollider() {
-        String collision = (String) listCollisions.getFocusModel().getFocusedItem();
-        if (collision != null)
-            toMode4(collision);
+        try {
+
+            String collision = (String) listCollisions.getFocusModel().getFocusedItem();
+            if (collision != null)
+                toMode4(collision);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void btnCollisionAdd() {
