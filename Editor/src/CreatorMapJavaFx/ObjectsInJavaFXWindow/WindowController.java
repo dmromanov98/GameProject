@@ -245,15 +245,9 @@ public class WindowController implements Initializable {
     }
 
     public void listCollisionsSendCollider() {
-        try {
-
-            String collision = (String) listCollisions.getFocusModel().getFocusedItem();
-            if (collision != null)
-                toMode4(collision);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        String collision = (String) listCollisions.getFocusModel().getFocusedItem();
+        if (collision != null)
+            toMode4(collision);
     }
 
     public void btnCollisionAdd() {
