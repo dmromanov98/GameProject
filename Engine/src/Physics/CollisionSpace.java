@@ -45,6 +45,11 @@ public class CollisionSpace extends CollideArea
         return null;
     }
 
+    public void clear()
+    {
+        collisions.clear();
+    }
+
     @Override
     public CollideArea copy() {
         CollisionSpace res = new CollisionSpace();
