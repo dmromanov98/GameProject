@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="300.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="GUI.MenuController">
+    <children>
+        <ImageView fitHeight="300.0" fitWidth="400.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/menu.jpg"/>
+            </image>
+        </ImageView>
+        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="14.0" onAction="#startGame" prefHeight="42.0"
+                   prefWidth="144.0" style="-fx-background-color: ffffff;" text="Play Game"/>
+        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="66.0" onAction="#openServerWindow" prefHeight="42.0"
+                   prefWidth="144.0" style="-fx-background-color: ffffff;" text="Server"/>
+        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="119.0" onAction="#openMapEditorWindow" prefHeight="42.0"
+                   prefWidth="144.0" style="-fx-background-color: ffffff;" text="Map Editor"/>
+        <JFXButton buttonType="RAISED" layoutX="14.0" layoutY="172.0" onAction="#openSettings" prefHeight="42.0"
+                   prefWidth="144.0" style="-fx-background-color: ffffff;" text="Settings"/>
+    </children>
+</AnchorPane>

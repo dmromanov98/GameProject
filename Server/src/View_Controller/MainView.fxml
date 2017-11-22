@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/9" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View_Controller.MainViewController">
+   <children>
+      <SplitPane dividerPositions="0.5317725752508361" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="398.0" prefWidth="311.0">
+               <children>
+                  <TableView fx:id="TABLEOFCLIENTS" layoutY="85.0" prefHeight="236.0" prefWidth="421.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
+                    <columns>
+                      <TableColumn fx:id="ClientsIP" prefWidth="98.0" text="IP" />
+                      <TableColumn fx:id="ClientsPORT" prefWidth="112.0" text="PORT" />
+                        <TableColumn fx:id="ClientsNickName" prefWidth="121.0" text="NickName" />
+                        <TableColumn fx:id="ClientsSTATUS" prefWidth="69.0" text="STATUS" />
+                    </columns>
+                  </TableView>
+                  <Button id="btnDisconnectClient" layoutX="14.0" layoutY="359.0" mnemonicParsing="false" text="Dissconnect Client" />
+                  <Text layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about clients" textAlignment="CENTER" wrappingWidth="421.000000834465">
+                     <font>
+                        <Font name="Bell MT" size="24.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <Text layoutX="11.0" layoutY="47.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Information about server" textAlignment="CENTER" wrappingWidth="351.00001096725464">
+                     <font>
+                        <Font name="Bell MT" size="24.0" />
+                     </font>
+                  </Text>
+                  <Text layoutX="14.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Status : ">
+                     <font>
+                        <Font name="Bell MT" size="14.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="ServerStatus" fill="RED" layoutX="60.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Offline">
+                     <font>
+                        <Font name="Bell MT" size="14.0" />
+                     </font>
+                  </Text>
+                  <TableView fx:id="tableAboutServer" layoutX="11.0" layoutY="104.0" prefHeight="107.0" prefWidth="347.0" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="9.0">
+                    <columns>
+                      <TableColumn fx:id="serverNameColumn" prefWidth="174.0" text="NAME" />
+                      <TableColumn fx:id="serverIpColumn" prefWidth="175.0" text="IP" />
+                    </columns>
+                  </TableView>
+                  <Button fx:id="btnStartServer" layoutX="16.0" layoutY="359.0" mnemonicParsing="false" onAction="#startServerButton" text="Start Server" />
+                  <Button fx:id="btnCloseServer" layoutX="120.0" layoutY="359.0" mnemonicParsing="false" onAction="#closeServerButton" text="Close Server" />
+                  <Text layoutX="11.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Port:">
+                     <font>
+                        <Font name="Bell MT" size="24.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="textPort" layoutX="80.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="...">
+                     <font>
+                        <Font name="Bell MT" size="24.0" />
+                     </font>
+                  </Text>
+                  <Button layoutX="223.0" layoutY="359.0" mnemonicParsing="false" onAction="#btnOpenServerMasseges" text="Show Server Messages" />
+                  <Button onAction="#setPort" layoutX="16.0" layoutY="321.0" mnemonicParsing="false" text=" Set Port" />
+               </children></AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

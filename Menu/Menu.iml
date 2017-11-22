@@ -8,19 +8,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="jfoenix-9.0.0" level="project" />
+    <orderEntry type="module" module-name="Editor" />
     <orderEntry type="module" module-name="Engine" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/../Engine/libs/joml-1.9.4.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES>
-          <root url="jar://$MODULE_DIR$/../Engine/libs/joml-1.9.4-sources.jar!/" />
-          <root url="jar://$MODULE_DIR$/../Engine/libs/joml-1.9.4-sources.jar!/" />
-        </SOURCES>
-      </library>
-    </orderEntry>
-    <orderEntry type="library" name="com.google.code.gson:gson:2.8.2" level="project" />
+    <orderEntry type="module" module-name="Server" />
   </component>
 </module>
