@@ -81,7 +81,7 @@ public class Brush
     private DecalWrap decalWrap;
     private BackgroundWrap backgroundWrap;
 
-    private Vector<Shape> shapesOfCollisionAreas;
+    private Vector<Shape> shapesOfCollisionAreas = new Vector<>();
     private Vector<Shape> shapesOfCollisionAreasRemBuffer = new Vector<>();
 
     public String currentCollisionArea;
@@ -182,6 +182,7 @@ public class Brush
         rectRectA = null;
         rectRectB = null;
         currentCollisionArea = null;
+        shapesOfCollisionAreas.clear();
     }
 
     private void changeMode(short targetMode, Editor editor,Game game)
