@@ -26,14 +26,8 @@ public class TextureBank
         for (String str:
              textures) {
 
-            //ЭТО ИЗМЕНЕНО НА ТО ЧТО НИЖЕ!
-            //String name = str.substring(0, str.lastIndexOf('|')+1),
-            //path = str.substring(str.lastIndexOf('|'));
-
             String name = str.substring(0, str.lastIndexOf('|')),
                    path = str.substring(str.lastIndexOf('|')+1);
-
-            //System.out.println("Name : "+name+" Path : "+path);
 
             try {
                 addFromDisk(name, path);

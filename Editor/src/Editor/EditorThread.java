@@ -8,55 +8,45 @@ import Wraps.Wrap;
 
 import java.util.Vector;
 
-public class EditorThread extends Thread
-{
+public class EditorThread extends Thread {
     public Game game;
     public Editor editor;
 
     //TODO: гавно моча с этим моментом. но продумывать что-то лучше времени нет
-    public static synchronized void toMode0()
-    {
+    public static synchronized void toMode0() {
         Editor.brushMode = 0;
     }
 
-    public static synchronized  void toMode1(BackgroundWrap wrap)
-    {
+    public static synchronized void toMode1(BackgroundWrap wrap) {
         Editor.currentBackgroundWrap = wrap;
-        if (Editor.brushMode == 1){
+        if (Editor.brushMode == 1) {
             Editor.brushMode = -1;
-        }
-        else
+        } else
             Editor.brushMode = 1;
     }
 
-    public static synchronized void toMode2(DecalWrap wrap)
-    {
+    public static synchronized void toMode2(DecalWrap wrap) {
         Editor.currentDecalWrap = wrap;
-        if (Editor.brushMode == 2){
+        if (Editor.brushMode == 2) {
             Editor.brushMode = -2;
-        }
-        else
+        } else
             Editor.brushMode = 2;
 
     }
 
-    public static synchronized  void toMode3(Wrap wrap)
-    {
+    public static synchronized void toMode3(Wrap wrap) {
         Editor.currentWrap = wrap;
-        if (Editor.brushMode == 3){
+        if (Editor.brushMode == 3) {
             Editor.brushMode = -3;
-        }
-        else
+        } else
             Editor.brushMode = 3;
     }
 
-    public static synchronized  void toMode4(String nameOfCollisionSpace)
-    {
+    public static synchronized void toMode4(String nameOfCollisionSpace) {
         Editor.currentCollisionArea = nameOfCollisionSpace;
-        if (Editor.brushMode == 4){
+        if (Editor.brushMode == 4) {
             Editor.brushMode = -4;
-        }
-        else
+        } else
             Editor.brushMode = 4;
     }
 
@@ -78,8 +68,7 @@ public class EditorThread extends Thread
         mapWrap = null;
     }
 
-    private void init()
-    {
+    private void init() {
         game = new Game(width, height);
         game.init();
         game.fps = fps;
@@ -104,8 +93,7 @@ public class EditorThread extends Thread
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         super.run();
         init();
         game.mainloop();

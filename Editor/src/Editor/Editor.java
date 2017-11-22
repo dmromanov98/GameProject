@@ -14,8 +14,7 @@ import Wraps.BackgroundWrap;
 
 import java.util.Vector;
 
-public class Editor extends Map
-{
+public class Editor extends Map {
     public static Wrap currentWrap = null;
     public static DecalWrap currentDecalWrap = null;
     public static BackgroundWrap currentBackgroundWrap = null;
@@ -24,38 +23,33 @@ public class Editor extends Map
 
     private final Game game;
 
-    public Editor(Game game)
-    {
+    public Editor(Game game) {
         super();
         this.game = game;
         brush = new Brush(game);
         brush.initControls(game);
-        backgrounds.add(new Background(Texture.monoColor(200,255,255,255), .9999f));
+        backgrounds.add(new Background(Texture.monoColor(200, 255, 255, 255), .9999f));
         cameraController = new CameraController(game);
     }
 
-    public Editor(Game game, MapWrap wrap)
-    {
+    public Editor(Game game, MapWrap wrap) {
         super(game, wrap);
         this.game = game;
         brush = new Brush(game);
         brush.initControls(game);
-        backgrounds.add(new Background(Texture.monoColor(200,255,255,255), .9999f));
+        backgrounds.add(new Background(Texture.monoColor(200, 255, 255, 255), .9999f));
         cameraController = new CameraController(game);
     }
 
-    public Vector<Actor> getActors()
-    {
+    public Vector<Actor> getActors() {
         return actors;
     }
 
-    public Vector<Actor> getDecals()
-    {
+    public Vector<Actor> getDecals() {
         return decals;
     }
 
-    public Vector<Actor> getBackgrounds()
-    {
+    public Vector<Actor> getBackgrounds() {
         return backgrounds;
     }
 
@@ -68,7 +62,7 @@ public class Editor extends Map
 
     @Override
     public void drawAll() {
-        for (Actor back: backgrounds) {
+        for (Actor back : backgrounds) {
             if (back.renderIndex > -1)
                 back.draw();
         }
@@ -78,14 +72,14 @@ public class Editor extends Map
         //decals
         Decal.shader.enable();
         Camera.toShader(Decal.shader);
-        for (Actor decal: decals) {
+        for (Actor decal : decals) {
             decal.draw();
             if (decal.willBeRemoved())
                 decalsRemBuffer.add(decal);
         }
         Decal.shader.disable();
 
-        for (Actor a: actors)
+        for (Actor a : actors)
             if (a.renderIndex > -1)
                 a.draw();
 
@@ -97,37 +91,35 @@ public class Editor extends Map
             decals.removeAll(decalsRemBuffer);
     }
 
-    public static Editor fromWraps(Wrap wraps[], Game game)
-    {
+    public static Editor fromWraps(Wrap wraps[], Game game) {
         Editor res = new Editor(game);
-        for (Wrap w:
+        for (Wrap w :
                 wraps) {
-            if (Decal.class.equals( w.getOriginal() ) )
+            if (Decal.class.equals(w.getOriginal()))
                 res.getDecals().add(w.getActor(game));
-            else if (Background.class.equals( w.getOriginal() ) )
-                res.getBackgrounds().add( w.getActor(game) );
-            else res.addActor( w.getActor(game) );
+            else if (Background.class.equals(w.getOriginal()))
+                res.getBackgrounds().add(w.getActor(game));
+            else res.addActor(w.getActor(game));
         }
         return res;
     }
 
-    public Vector<Wrap> getWraps()
-    {
+    public Vector<Wrap> getWraps() {
         Vector<Wrap> res = new Vector<>();
 
-        for (Actor a:
-             actors) {
+        for (Actor a :
+                actors) {
             if (a.source != null)
                 res.add(a.source);
         }
 
-        for (Actor a:
+        for (Actor a :
                 decals) {
             if (a.source != null)
                 res.add(a.source);
         }
 
-        for (Actor a:
+        for (Actor a :
                 backgrounds) {
             if (a.source != null)
                 res.add(a.source);
@@ -136,8 +128,7 @@ public class Editor extends Map
         return res;
     }
 
-    public MapWrap getMapWrap()
-    {
+    public MapWrap getMapWrap() {
         return new MapWrap(getWraps(), collisionSpaces);
     }
 

@@ -14,6 +14,6 @@ public class BackgroundCreatorJavaFx {
     }
 
     public static void setBackgroundPaths() {
-        images = GettingImagesObj.getPaths(backgroundPath);
+        images = GettingImagesObj.getPaths(backgroundPath, "backgrounds");
     }
 }

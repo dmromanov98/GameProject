@@ -9,8 +9,8 @@ public class CustomImage extends ImageView {
     private String path;
     private String key;
 
-    public CustomImage(String path,String key) {
-        super(new Image("file:"+path));
+    public CustomImage(String path, String key) {
+        super(new Image("file:" + path));
         this.path = path;
         this.key = key;
     }

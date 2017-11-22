@@ -9,7 +9,7 @@ import java.nio.file.*;
 
 public class GettingImagesObj {
 
-    public static ObservableList<CustomImage> getPaths(String directoryPath){
+    public static ObservableList<CustomImage> getPaths(String directoryPath,String packageName){
 
         ObservableList<CustomImage> images = FXCollections.observableArrayList();
 
@@ -17,7 +17,7 @@ public class GettingImagesObj {
             for (Path file: stream) {
                 if(!file.toFile().isDirectory() ) {
                     String path = directoryPath+"\\"+file.getFileName();
-                    images.add(new CustomImage(path,"background\\"+file.getFileName()));
+                    images.add(new CustomImage(path,packageName+"\\"+file.getFileName()));
                 }
             }
         } catch (IOException | DirectoryIteratorException x) {

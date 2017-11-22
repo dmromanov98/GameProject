@@ -14,6 +14,12 @@ import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import static CreatorMapJavaFx.Modules.CollisionsNames.addCollision;
+import static CreatorMapJavaFx.Modules.TexturesInfo.getAllTextures;
+import static CreatorMapJavaFx.Modules.TexturesInfo.getTextures;
+import static Editor.EditorThread.toMode0;
+import static Editor.EditorThread.toMode4;
+
 
 public class WindowController implements Initializable {
 
@@ -51,20 +57,37 @@ public class WindowController implements Initializable {
     private JFXTextField textSpritesHeight;
 
     @FXML
+    private JFXTextField textCollisionName;
+
+    @FXML
+    private JFXTextField textEditFPS;
+
+    @FXML
+    private ListView listCollisions;
+
+    @FXML
     private JFXTextField textSpritesWidth;
 
     @FXML
-    private ListView list;
+    private JFXTextField textEditWindowHeight;
 
     @FXML
-    private ListView pathsList;
+    private JFXTextField textEditWindowWidth;
 
-    @FXML
-    private JFXTextField textPath;
-
+    private boolean modeNullEntered = false;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        getAllTextures();
+
+        textEditWindowHeight.setText("1024");
+        textEditWindowWidth.setText("1280");
+
+        textDecalsLayout.setText(".99");
+        textBackgroundLayout.setText(".99");
+        textSpritesLayout.setText(".99");
+
         updatePaths();
     }
 
@@ -72,27 +95,6 @@ public class WindowController implements Initializable {
         listBackgroundPaths.setItems(BackgroundCreatorJavaFx.getImages());
         listDecalsPaths.setItems(DecalsCreatorJavaFx.getImages());
         listSpritesTextures.setItems(SpritesCreatorJavaFx.getImages());
-
-//        list.setItems(FilesPaths.getImages());
-//        pathsList.setItems(FilesPaths.getPathsObs());
-    }
-
-    public void getInfoAboutObject() {
-//        CustomImage ci = (CustomImage) list.getFocusModel().getFocusedItem();
-//        String path = ci.getPath();
-//        TODO: вывод path
-//        System.out.println(ci.getPath());
-    }
-
-    public void deletePath() {
-//        String s = (String) pathsList.getFocusModel().getFocusedItem();
-//        FilesPaths.deleteFromListAndFile(s);
-//        updatePaths();
-    }
-
-    public void addPath() {
-        FilesPaths.addPathToListAndFile(textPath.getText());
-        updatePaths();
     }
 
     public void btnEditMapOpen() {
@@ -144,8 +146,8 @@ public class WindowController implements Initializable {
                 System.out.println(layout + " LAYOUT");
 
                 CustomImage ci = (CustomImage) listDecalsPaths.getFocusModel().getFocusedItem();
-                float height = Float.parseFloat( textDecalsHeight.getText() );//ci.getImage().getHeight();
-                float width = Float.parseFloat( textDecalsWidth.getText() ); //ci.getImage().getWidth();
+                float height = Float.parseFloat(textDecalsHeight.getText());//ci.getImage().getHeight();
+                float width = Float.parseFloat(textDecalsWidth.getText()); //ci.getImage().getWidth();
 
 
                 Transform transform = new Transform(layout, width, height);
@@ -191,19 +193,22 @@ public class WindowController implements Initializable {
     }
 
     public void setModeNull() {
-
+        if (!modeNullEntered) {
+            toMode0();
+            modeNullEntered = true;
+        }
     }
 
     public void setModeOne() {
-
+        modeNullEntered = false;
     }
 
     public void setModeTwo() {
-
+        modeNullEntered = false;
     }
 
     public void setModeThree() {
-
+        modeNullEntered = false;
     }
 
     public void listDecalsClick() {
@@ -221,4 +226,31 @@ public class WindowController implements Initializable {
         textSpritesHeight.setText(String.valueOf(height));
         textSpritesWidth.setText(String.valueOf(width));
     }
+
+    public void btnEditOpenWindow() {
+        try {
+            int height = Integer.parseInt(textEditWindowHeight.getText());
+            int width = Integer.parseInt(textEditWindowWidth.getText());
+            int fps = Integer.parseInt(textEditFPS.getText());
+
+            EditorThread gt;
+            gt = new EditorThread(width, height, fps, getTextures());
+            gt.run();
+
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "HEIGHT,WIDTH,FPS - NUMBERS");
+        }
+    }
+
+    public void listCollisionsSendCollider() {
+        String collision = (String) listCollisions.getFocusModel().getFocusedItem();
+        if (collision != null)
+            toMode4(collision);
+    }
+
+    public void btnCollisionAdd() {
+        addCollision(textCollisionName.getText());
+        listCollisions.setItems(CollisionsNames.getCollisions());
+    }
+
 }
