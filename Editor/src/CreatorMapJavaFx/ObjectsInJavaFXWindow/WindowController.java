@@ -81,8 +81,8 @@ public class WindowController implements Initializable {
 
         getAllTextures();
 
-        textEditWindowHeight.setText("1024");
-        textEditWindowWidth.setText("1280");
+        textEditWindowHeight.setText("600");
+        textEditWindowWidth.setText("800");
 
         textDecalsLayout.setText(".99");
         textBackgroundLayout.setText(".99");
