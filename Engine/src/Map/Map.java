@@ -80,11 +80,15 @@ public class Map
                 a.draw();
 
 
-        if (!actorsRemBuffer.isEmpty())
+        if (!actorsRemBuffer.isEmpty()) {
             actors.removeAll(actorsRemBuffer);
+            actorsRemBuffer.clear();
+        }
 
-        if (!decalsRemBuffer.isEmpty())
+        if (!decalsRemBuffer.isEmpty()) {
             decals.removeAll(decalsRemBuffer);
+            decalsRemBuffer.clear();
+        }
     }
 
     public void addActor(Actor a)

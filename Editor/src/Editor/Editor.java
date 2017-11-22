@@ -69,6 +69,10 @@ public class Editor extends Map {
 
         brush.draw();
 
+        if(brush.currentActor != null)
+            if (brush.currentActor.renderIndex > -1)
+                brush.currentActor.draw();
+
         //decals
         Decal.shader.enable();
         Camera.toShader(Decal.shader);
@@ -84,11 +88,15 @@ public class Editor extends Map {
                 a.draw();
 
 
-        if (!actorsRemBuffer.isEmpty())
+        if (!actorsRemBuffer.isEmpty()) {
             actors.removeAll(actorsRemBuffer);
+            actorsRemBuffer.clear();
+        }
 
-        if (!decalsRemBuffer.isEmpty())
+        if (!decalsRemBuffer.isEmpty()) {
             decals.removeAll(decalsRemBuffer);
+            decalsRemBuffer.clear();
+        }
     }
 
     public static Editor fromWraps(Wrap wraps[], Game game) {
