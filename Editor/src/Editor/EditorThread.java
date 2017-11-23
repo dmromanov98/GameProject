@@ -50,6 +50,10 @@ public class EditorThread extends Thread {
             Editor.brushMode = 4;
     }
 
+    public static MapWrap getOutputMapWrap() {
+        return outputMapWrap;
+    }
+
     public static MapWrap outputMapWrap;
 
     private int fps;
