@@ -52,12 +52,14 @@ public class CollisionSpace extends CollideArea
 
     @Override
     public CollideArea copy() {
+
         CollisionSpace res = new CollisionSpace();
         res.collisions = new Vector<>(collisions);
         for (CollideArea area:
              res.collisions) {
             area = area.copy();
         }
+
         return null;
     }
 }

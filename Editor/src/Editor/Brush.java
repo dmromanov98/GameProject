@@ -270,18 +270,10 @@ public class Brush
 
                 shape.hide();
                 currentActor = null; //пытаюсь найти новый объект
-                ////
-
-                System.out.println(editor.getActors().size()+" ACTORS SIZE");
-
-                ////
-
-
 
                 for (Actor a :
                         editor.getActors()) { //ищу среди живых объектов
 
-                    System.out.println(a+" SOUT ACTOR");
                     Transform transform = null;
                     if(a != null)
                         transform = a.tryToGetTransform();

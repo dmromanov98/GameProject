@@ -9,6 +9,10 @@ import java.util.Vector;
 
 public class MapWrap {
 
+    public MapWrap(){
+        objects = new Vector<>();
+        collideAreas = new HashMap<>();
+    }
 
     public MapWrap(Vector<Wrap> objects, HashMap<String, CollisionSpace> collideAreas) {
         this.collideAreas = new HashMap<>(collideAreas);
@@ -26,6 +30,6 @@ public class MapWrap {
         }
     }
 
-    public final Vector<Wrap> objects;
-    public final HashMap<String, CollisionSpace> collideAreas;
+    public Vector<Wrap> objects;
+    public HashMap<String, CollisionSpace> collideAreas;
 }

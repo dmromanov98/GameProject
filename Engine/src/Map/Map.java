@@ -4,9 +4,7 @@ import Main.Actor;
 import Main.Camera;
 import Main.Game;
 import Patterns.Background;
-import Physics.CollideArea;
 import Physics.CollisionSpace;
-import Wraps.DecalWrap;
 import Wraps.Wrap;
 
 import java.util.HashMap;

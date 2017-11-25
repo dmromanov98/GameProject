@@ -1,11 +1,15 @@
 package CreatorMapJavaFx.ObjectsInJavaFXWindow;
 
+import CreatorMapJavaFx.Deserializers.Deserialize;
+import CreatorMapJavaFx.Deserializers.DeserializeObject;
+import CreatorMapJavaFx.Deserializers.DeserializeTransform;
 import CreatorMapJavaFx.Modules.*;
 import Editor.EditorThread;
 import Main.Transform;
 import Map.MapWrap;
 import Wraps.BackgroundWrap;
 import Wraps.DecalWrap;
+import Wraps.Wrap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.jfoenix.controls.JFXTextField;
@@ -110,21 +114,28 @@ public class WindowController implements Initializable {
         String json = SaveOrOpenMap.openFile(textEditMapPath.getText());
 
         if (json != null) {
-            System.out.println(json);
 
-            MapWrap map = new Gson().fromJson(json, MapWrap.class);
-            try {
+            Gson gson = new GsonBuilder().
+                    registerTypeAdapter(MapWrap.class, new Deserialize())
+                    .registerTypeAdapter(Wrap.class, new DeserializeObject())
+                    .registerTypeAdapter(Transform.class, new DeserializeTransform())
+                    .create();
 
-                int height = Integer.parseInt(textEditWindowHeight.getText());
-                int width = Integer.parseInt(textEditWindowWidth.getText());
-                int fps = Integer.parseInt(textEditFPS.getText());
+            MapWrap map = gson.fromJson(json, MapWrap.class);
 
-                OpenGlGameThread = new EditorThread(width, height, fps,getTextures(),map);
-                OpenGlGameThread.run();
+            if (map != null)
+                try {
 
-            } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "HEIGHT,WIDTH,FPS - NUMBERS");
-            }
+                    int height = Integer.parseInt(textEditWindowHeight.getText());
+                    int width = Integer.parseInt(textEditWindowWidth.getText());
+                    int fps = Integer.parseInt(textEditFPS.getText());
+
+                    OpenGlGameThread = new EditorThread(width, height, fps, getTextures(), map);
+                    OpenGlGameThread.run();
+
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "HEIGHT,WIDTH,FPS - NUMBERS");
+                }
         }
     }
 
@@ -220,13 +231,8 @@ public class WindowController implements Initializable {
     public void btnEditSaveMap() {
         if (EditorThread.outputMapWrap != null) {
 
-            Gson gson = new GsonBuilder()
-                    .setPrettyPrinting()
-                    .create();
-
+            Gson gson = new GsonBuilder().create();
             String json = gson.toJson(EditorThread.getOutputMapWrap());
-
-            //MapWrap mw = new Gson().fromJson(json, MapWrap.class);
 
             SaveOrOpenMap.saveMap(json, textEditMapPath.getText());
         }
