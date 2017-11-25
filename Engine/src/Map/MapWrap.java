@@ -7,21 +7,21 @@ import Wraps.Wrap;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class MapWrap
-{
-    public MapWrap(Vector<Wrap> objects, HashMap<String, CollisionSpace> collideAreas)
-    {
+public class MapWrap {
+
+
+    public MapWrap(Vector<Wrap> objects, HashMap<String, CollisionSpace> collideAreas) {
         this.collideAreas = new HashMap<>(collideAreas);
 
-        for (CollideArea area:
-             this.collideAreas.values()) {
+        for (CollideArea area :
+                this.collideAreas.values()) {
             area = area.copy();
         }
 
         this.objects = new Vector<>(objects);
 
-        for (Wrap w:
-             this.objects) {
+        for (Wrap w :
+                this.objects) {
             w = w.copy();
         }
     }

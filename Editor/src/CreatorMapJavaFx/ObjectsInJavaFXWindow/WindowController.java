@@ -120,7 +120,7 @@ public class WindowController implements Initializable {
                 int fps = Integer.parseInt(textEditFPS.getText());
 
                 OpenGlGameThread = new EditorThread(width, height, fps,getTextures(),map);
-                //OpenGlGameThread.run();
+                OpenGlGameThread.run();
 
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(null, "HEIGHT,WIDTH,FPS - NUMBERS");
@@ -219,8 +219,15 @@ public class WindowController implements Initializable {
 
     public void btnEditSaveMap() {
         if (EditorThread.outputMapWrap != null) {
-            Gson gson = new Gson();
+
+            Gson gson = new GsonBuilder()
+                    .setPrettyPrinting()
+                    .create();
+
             String json = gson.toJson(EditorThread.getOutputMapWrap());
+
+            //MapWrap mw = new Gson().fromJson(json, MapWrap.class);
+
             SaveOrOpenMap.saveMap(json, textEditMapPath.getText());
         }
     }
