@@ -22,19 +22,20 @@ public class DeserializeObject implements JsonDeserializer<Wrap> {
         if(wName.equals("decals")){
 
             Transform transform = jsonDeserializationContext.deserialize(element, Transform.class);
+
+            //transform.layer = .99f;
+
             wrap = new DecalWrap(transform,wrapName);
 
         }else if (wName.equals("backgrounds")){
-            System.out.println(JsonObj.get("layer").getAsFloat()+" BACKGROUND LAYER");
             wrap = new BackgroundWrap(wrapName,JsonObj.get("layer").getAsFloat());
-
+            //wrap = new BackgroundWrap(wrapName,.99f);
         }else if(wName.equals("sprites")){
 
             //TODO: SPRITES DESERIALIZER
 
         }
 
-        System.out.println(wName);
         return wrap;
     }
 }

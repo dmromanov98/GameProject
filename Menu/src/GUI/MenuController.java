@@ -1,6 +1,5 @@
 package GUI;
 
-
 import CreatorMapJavaFx.ObjectsInJavaFXWindow.WindowPathsCreator;
 import View_Controller.MainView;
 
@@ -24,5 +23,6 @@ public class MenuController {
     }
 
     public void openSettings() {
+        guis.initSettings();
     }
 }

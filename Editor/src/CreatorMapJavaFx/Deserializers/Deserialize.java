@@ -1,7 +1,6 @@
 package CreatorMapJavaFx.Deserializers;
 
 import Map.MapWrap;
-import Map.Map;
 import Wraps.Wrap;
 import com.google.gson.*;
 
@@ -18,6 +17,13 @@ public class Deserialize implements JsonDeserializer<MapWrap> {
         for(JsonElement obj:array){
             Wrap wr = jsonDeserializationContext.deserialize(obj, Wrap.class);
             map.objects.add(wr);
+        }
+
+        array = JsonObj.getAsJsonArray("collideAreas");
+
+        for(JsonElement obj:array){
+
+            //TODO: collideAreasDESERIALIZATION
         }
 
         return map;
