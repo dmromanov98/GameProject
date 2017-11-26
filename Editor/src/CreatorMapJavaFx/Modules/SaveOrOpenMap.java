@@ -19,7 +19,7 @@ public class SaveOrOpenMap {
             path = defaultPath + "/" + path;
             if (new File(path).exists()) {
                 int b = JOptionPane.showConfirmDialog(null,
-                        "WARNING", "This file is already exist in current directory.Do you want to continue?", JOptionPane.YES_NO_OPTION);
+                         "This file is already exist in current directory.Do you want to continue?","WARNING", JOptionPane.YES_NO_OPTION);
                 //1-no
                 //0-yes
                 if (b == 0) {
@@ -68,5 +68,4 @@ public class SaveOrOpenMap {
         }
         return res;
     }
-
 }

@@ -9,7 +9,8 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreatorMapJavaFx.ViewController.WindowController">
+<AnchorPane prefHeight="400.0" prefWidth="572.0" xmlns="http://javafx.com/javafx/9.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="CreatorMapJavaFx.ViewController.WindowController">
     <children>
         <TabPane prefHeight="400.0" prefWidth="572.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
@@ -17,19 +18,36 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <JFXTextField fx:id="textEditMapPath" labelFloat="true" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="376.0" promptText="Map Name:" unFocusColor="#00ff40" />
-                                <JFXButton buttonType="RAISED" layoutX="440.0" layoutY="14.0" onAction="#btnEditMapOpen" style="-fx-background-color: ffffff;" text="Open map" />
-                                <JFXButton buttonType="RAISED" layoutX="440.0" layoutY="50.0" onAction="#btnEditMapNewMap" style="-fx-background-color: ffffff;" text="Make new map" />
-                                <JFXButton buttonType="RAISED" layoutX="222.0" layoutY="54.0" onAction="#btnEditSaveMap" prefHeight="71.0" prefWidth="140.0" style="-fx-background-color: ffffff;" text="Save" />
-                                <JFXTextField fx:id="textEditWindowHeight" labelFloat="true" layoutX="14.0" layoutY="186.0" prefHeight="25.0" prefWidth="110.0" promptText="Height:" unFocusColor="#00ff40" />
-                                <JFXTextField fx:id="textEditWindowWidth" labelFloat="true" layoutX="14.0" layoutY="230.0" prefHeight="25.0" prefWidth="110.0" promptText="Width:" unFocusColor="#00ff40" />
-                                <JFXTextField fx:id="textEditFPS" labelFloat="true" layoutX="14.0" layoutY="274.0" prefHeight="25.0" prefWidth="110.0" promptText="FPS:" text="60" unFocusColor="#00ff40" />
-                                <JFXButton buttonType="RAISED" layoutX="150.0" layoutY="186.0" onAction="#btnEditOpenWindow" prefHeight="119.0" prefWidth="120.0" style="-fx-background-color: ffffff;" text="Open window" />
-                        <Label layoutX="14.0" layoutY="50.0" prefHeight="81.0" prefWidth="200.0" text="You can only save your card after closing the OpenGl window" textAlignment="CENTER" wrapText="true">
-                           <font>
-                              <Font name="System Bold" size="14.0" />
-                           </font>
-                        </Label>
+                                <JFXTextField fx:id="textEditMapPath" labelFloat="true" layoutX="14.0" layoutY="14.0"
+                                              prefHeight="25.0" prefWidth="376.0" promptText="Map Name:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXButton buttonType="RAISED" layoutX="440.0" layoutY="14.0" onAction="#btnEditMapOpen"
+                                           style="-fx-background-color: ffffff;" text="Open map"/>
+                                <JFXButton buttonType="RAISED" layoutX="440.0" layoutY="50.0"
+                                           onAction="#btnEditMapNewMap" style="-fx-background-color: ffffff;"
+                                           text="Make new map"/>
+                                <JFXButton buttonType="RAISED" layoutX="222.0" layoutY="54.0" onAction="#btnEditSaveMap"
+                                           prefHeight="71.0" prefWidth="140.0" style="-fx-background-color: ffffff;"
+                                           text="Save"/>
+                                <JFXTextField fx:id="textEditWindowHeight" labelFloat="true" layoutX="14.0"
+                                              layoutY="186.0" prefHeight="25.0" prefWidth="110.0" promptText="Height:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXTextField fx:id="textEditWindowWidth" labelFloat="true" layoutX="14.0"
+                                              layoutY="230.0" prefHeight="25.0" prefWidth="110.0" promptText="Width:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXTextField fx:id="textEditFPS" labelFloat="true" layoutX="14.0" layoutY="274.0"
+                                              prefHeight="25.0" prefWidth="110.0" promptText="FPS:" text="60"
+                                              unFocusColor="#00ff40"/>
+                                <JFXButton buttonType="RAISED" layoutX="150.0" layoutY="186.0"
+                                           onAction="#btnEditOpenWindow" prefHeight="119.0" prefWidth="120.0"
+                                           style="-fx-background-color: ffffff;" text="Open window"/>
+                                <Label layoutX="14.0" layoutY="50.0" prefHeight="81.0" prefWidth="200.0"
+                                       text="You can only save your card after closing the OpenGl window"
+                                       textAlignment="CENTER" wrapText="true">
+                                    <font>
+                                        <Font name="System Bold" size="14.0"/>
+                                    </font>
+                                </Label>
                             </children>
                         </AnchorPane>
                     </content>
@@ -38,10 +56,17 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <ListView fx:id="listBackgroundPaths" layoutX="14.0" layoutY="14.0" prefHeight="345.0" prefWidth="262.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0" />
-                                <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="14.0" onAction="#btnBackgroundDelete" style="-fx-background-color: ffffff;" text="Delete all" />
-                                <JFXTextField fx:id="textBackgroundLayout" labelFloat="true" layoutX="286.0" layoutY="73.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:" unFocusColor="#00ff40" />
-                                <JFXButton buttonType="RAISED" layoutX="431.0" layoutY="73.0" onAction="#btnBackgroundAdd" style="-fx-background-color: ffffff;" text="Add to background" />
+                                <ListView fx:id="listBackgroundPaths" layoutX="14.0" layoutY="14.0" prefHeight="345.0"
+                                          prefWidth="262.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0"/>
+                                <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="14.0"
+                                           onAction="#btnBackgroundDelete" style="-fx-background-color: ffffff;"
+                                           text="Delete all"/>
+                                <JFXTextField fx:id="textBackgroundLayout" labelFloat="true" layoutX="286.0"
+                                              layoutY="73.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXButton buttonType="RAISED" layoutX="431.0" layoutY="73.0"
+                                           onAction="#btnBackgroundAdd" style="-fx-background-color: ffffff;"
+                                           text="Add to background"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -50,11 +75,21 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <ListView fx:id="listDecalsPaths" layoutX="14.0" layoutY="13.0" onMouseClicked="#listDecalsClick" prefHeight="345.0" prefWidth="262.0" AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0" />
-                                <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="159.0" onAction="#btnDecalsAdd" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: ffffff;" text="Add" />
-                                <JFXTextField fx:id="textDecalsLayout" labelFloat="true" layoutX="286.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:" unFocusColor="#00ff40" />
-                                <JFXTextField fx:id="textDecalsHeight" labelFloat="true" layoutX="286.0" layoutY="61.0" prefHeight="25.0" prefWidth="122.0" promptText="Height:" unFocusColor="#00ff40" />
-                                <JFXTextField fx:id="textDecalsWidth" labelFloat="true" layoutX="286.0" layoutY="110.0" prefHeight="25.0" prefWidth="122.0" promptText="Width:" unFocusColor="#00ff40" />
+                                <ListView fx:id="listDecalsPaths" layoutX="14.0" layoutY="13.0"
+                                          onMouseClicked="#listDecalsClick" prefHeight="345.0" prefWidth="262.0"
+                                          AnchorPane.bottomAnchor="13.0" AnchorPane.topAnchor="13.0"/>
+                                <JFXButton buttonType="RAISED" layoutX="286.0" layoutY="159.0" onAction="#btnDecalsAdd"
+                                           prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: ffffff;"
+                                           text="Add"/>
+                                <JFXTextField fx:id="textDecalsLayout" labelFloat="true" layoutX="286.0" layoutY="14.0"
+                                              prefHeight="25.0" prefWidth="122.0" promptText="Layout:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXTextField fx:id="textDecalsHeight" labelFloat="true" layoutX="286.0" layoutY="61.0"
+                                              prefHeight="25.0" prefWidth="122.0" promptText="Height:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXTextField fx:id="textDecalsWidth" labelFloat="true" layoutX="286.0" layoutY="110.0"
+                                              prefHeight="25.0" prefWidth="122.0" promptText="Width:"
+                                              unFocusColor="#00ff40"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -63,12 +98,23 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <ListView fx:id="listSpritesClasses" layoutX="14.0" layoutY="13.0" prefHeight="346.0" prefWidth="129.0" AnchorPane.bottomAnchor="13.0" />
-                                <ListView fx:id="listSpritesTextures" layoutX="157.0" layoutY="13.0" onMouseClicked="#listSpritesTextureClick" prefHeight="346.0" prefWidth="271.0" />
-                                <JFXButton buttonType="RAISED" layoutX="436.0" layoutY="158.0" onAction="#btnSpritesAdd" prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: ffffff;" text="Add" />
-                                <JFXTextField fx:id="textSpritesLayout" labelFloat="true" layoutX="436.0" layoutY="14.0" prefHeight="25.0" prefWidth="122.0" promptText="Layout:" unFocusColor="#00ff40" />
-                                <JFXTextField fx:id="textSpritesHeight" labelFloat="true" layoutX="436.0" layoutY="64.0" prefHeight="25.0" prefWidth="122.0" promptText="Height:" unFocusColor="#00ff40" />
-                                <JFXTextField fx:id="textSpritesWidth" labelFloat="true" layoutX="436.0" layoutY="114.0" prefHeight="25.0" prefWidth="122.0" promptText="Width:" unFocusColor="#00ff40" />
+                                <ListView fx:id="listSpritesClasses" layoutX="14.0" layoutY="13.0" prefHeight="346.0"
+                                          prefWidth="129.0" AnchorPane.bottomAnchor="13.0"/>
+                                <ListView fx:id="listSpritesTextures" layoutX="157.0" layoutY="13.0"
+                                          onMouseClicked="#listSpritesTextureClick" prefHeight="346.0"
+                                          prefWidth="271.0"/>
+                                <JFXButton buttonType="RAISED" layoutX="436.0" layoutY="158.0" onAction="#btnSpritesAdd"
+                                           prefHeight="54.0" prefWidth="79.0" style="-fx-background-color: ffffff;"
+                                           text="Add"/>
+                                <JFXTextField fx:id="textSpritesLayout" labelFloat="true" layoutX="436.0" layoutY="14.0"
+                                              prefHeight="25.0" prefWidth="122.0" promptText="Layout:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXTextField fx:id="textSpritesHeight" labelFloat="true" layoutX="436.0" layoutY="64.0"
+                                              prefHeight="25.0" prefWidth="122.0" promptText="Height:"
+                                              unFocusColor="#00ff40"/>
+                                <JFXTextField fx:id="textSpritesWidth" labelFloat="true" layoutX="436.0" layoutY="114.0"
+                                              prefHeight="25.0" prefWidth="122.0" promptText="Width:"
+                                              unFocusColor="#00ff40"/>
                             </children>
                         </AnchorPane>
                     </content>
@@ -77,9 +123,15 @@
                     <content>
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                             <children>
-                                <ListView fx:id="listCollisions" layoutX="14.0" layoutY="13.0" onMouseClicked="#listCollisionsSendCollider" prefHeight="345.0" prefWidth="262.0" />
-                                <JFXButton buttonType="RAISED" layoutX="520.0" layoutY="14.0" onAction="#btnCollisionAdd" style="-fx-background-color: ffffff;" text="Add" />
-                                <JFXTextField fx:id="textCollisionName" labelFloat="true" layoutX="292.0" layoutY="14.0" prefHeight="25.0" prefWidth="217.0" promptText="Name:" unFocusColor="#00ff40" />
+                                <ListView fx:id="listCollisions" layoutX="14.0" layoutY="13.0"
+                                          onMouseClicked="#listCollisionsSendCollider" prefHeight="345.0"
+                                          prefWidth="262.0"/>
+                                <JFXButton buttonType="RAISED" layoutX="520.0" layoutY="14.0"
+                                           onAction="#btnCollisionAdd" style="-fx-background-color: ffffff;"
+                                           text="Add"/>
+                                <JFXTextField fx:id="textCollisionName" labelFloat="true" layoutX="292.0" layoutY="14.0"
+                                              prefHeight="25.0" prefWidth="217.0" promptText="Name:"
+                                              unFocusColor="#00ff40"/>
                             </children>
                         </AnchorPane>
                     </content>

@@ -140,9 +140,11 @@ public class WindowController implements Initializable {
     }
 
     public void btnEditMapNewMap() {
+        JOptionPane.showMessageDialog(null,"This function isnt work");
     }
 
     public void btnBackgroundDelete() {
+        JOptionPane.showMessageDialog(null,"This function isnt work");
     }
 
     //добавление бэкграунда
@@ -204,9 +206,10 @@ public class WindowController implements Initializable {
 
     public void btnSpritesAdd() {
         String path = "";
-        int layout;
+        float layout;
         try {
-            layout = Integer.parseInt(textSpritesLayout.getText());
+            layout = Float.parseFloat(textSpritesLayout.getText());
+
             if (layout < 1 && layout > -1) {
 
                 textBackgroundLayout.setText(String.valueOf(layout));

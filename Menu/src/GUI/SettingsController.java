@@ -5,8 +5,12 @@ import Client.Client;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
+import Module.GameCharacters;
+import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,6 +32,9 @@ public class SettingsController implements Initializable {
 
     @FXML
     private JFXTextField textFPS;
+
+    @FXML
+    private ImageView imageViewCharacter;
 
     private static GUIs guis;
 
@@ -74,5 +81,11 @@ public class SettingsController implements Initializable {
         textWindowWidth.setText("800");
         textWindowHeight.setText("600");
         textFPS.setText("60");
+        GameCharacters.setCharactersPaths();
+        imageViewCharacter.setImage(GameCharacters.setNextCharacter().getImage());
+    }
+
+    public void nextCharacter() {
+        imageViewCharacter.setImage(GameCharacters.setNextCharacter().getImage());
     }
 }
