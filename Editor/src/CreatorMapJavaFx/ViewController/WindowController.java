@@ -1,4 +1,4 @@
-package CreatorMapJavaFx.ObjectsInJavaFXWindow;
+package CreatorMapJavaFx.ViewController;
 
 import CreatorMapJavaFx.Deserializers.Deserialize;
 import CreatorMapJavaFx.Deserializers.DeserializeObject;

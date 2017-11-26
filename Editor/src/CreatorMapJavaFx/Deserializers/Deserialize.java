@@ -19,12 +19,12 @@ public class Deserialize implements JsonDeserializer<MapWrap> {
             map.objects.add(wr);
         }
 
-        array = JsonObj.getAsJsonArray("collideAreas");
-
-        for(JsonElement obj:array){
-
-            //TODO: collideAreasDESERIALIZATION
-        }
+//        array = JsonObj.getAsJsonArray("collideAreas");
+//
+//        for(JsonElement obj:array){
+//
+//            //TODO: collideAreasDESERIALIZATION
+//        }
 
         return map;
     }

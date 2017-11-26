@@ -1,6 +1,6 @@
 package GUI;
 
-import CreatorMapJavaFx.ObjectsInJavaFXWindow.WindowPathsCreator;
+import CreatorMapJavaFx.ViewController.WindowPathsCreator;
 import View_Controller.MainView;
 
 public class MenuController {

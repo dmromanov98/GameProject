@@ -19,7 +19,7 @@ public class SaveOrOpenMap {
             path = defaultPath + "/" + path;
             if (new File(path).exists()) {
                 int b = JOptionPane.showConfirmDialog(null,
-                        "This file is already exist in current directory", "Do you want to continue?", JOptionPane.YES_NO_OPTION);
+                        "WARNING", "This file is already exist in current directory.Do you want to continue?", JOptionPane.YES_NO_OPTION);
                 //1-no
                 //0-yes
                 if (b == 0) {
@@ -37,7 +37,7 @@ public class SaveOrOpenMap {
             }
 
         } else {
-            JOptionPane.showConfirmDialog(null, "write map name");
+            JOptionPane.showMessageDialog(null, "Enter the name of the card!");
         }
     }
 
@@ -61,10 +61,10 @@ public class SaveOrOpenMap {
                 List<String> lines = Files.readAllLines(Paths.get(path), StandardCharsets.UTF_8);
                 res = lines.get(0);
             } catch (IOException e) {
-                JOptionPane.showConfirmDialog(null, "Error reading file");
+                JOptionPane.showMessageDialog(null, "Error read/find file");
             }
         } else {
-            JOptionPane.showConfirmDialog(null, "write map name");
+            JOptionPane.showMessageDialog(null, "Enter the name of the card!");
         }
         return res;
     }

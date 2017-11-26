@@ -1,4 +1,4 @@
-package CreatorMapJavaFx.ObjectsInJavaFXWindow;
+package CreatorMapJavaFx.ViewController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
