@@ -32,4 +32,5 @@ public class MapWrap {
 
     public Vector<Wrap> objects;
     public HashMap<String, CollisionSpace> collideAreas;
+
 }
