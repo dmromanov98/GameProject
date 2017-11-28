@@ -7,7 +7,12 @@ import Patterns.Background;
 
 public class BackgroundWrap extends Wrap
 {
-    public int ID = Wrap.backgroundID; // Default background ID
+    private int ID = Wrap.backgroundID; // Default background ID
+
+    @Override
+    public int getID() {
+        return ID;
+    }
 
     public String texName;
     public float layer;

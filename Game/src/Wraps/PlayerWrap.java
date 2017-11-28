@@ -6,7 +6,12 @@ import Player.Player;
 
 public class PlayerWrap extends Wrap
 {
-    public int ID = Wrap.spriteID;
+    private int ID = Wrap.spriteID;
+
+    @Override
+    public int getID() {
+        return ID;
+    }
 
     public PlayerWrap()
     {
