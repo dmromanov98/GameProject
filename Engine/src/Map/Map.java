@@ -38,7 +38,7 @@ public class Map
                     addDecal( w.getActor(game) ); break;
                 case Wrap.backgroundID:
                     addBackground( w.getActor(game) ); break;
-                case Wrap.spriteID:
+                case Wrap.actorID: case Wrap.spriteID:
                     addActor( w.getActor(game) ); break;
             }
         }

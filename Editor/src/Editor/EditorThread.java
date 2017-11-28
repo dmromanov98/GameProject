@@ -6,8 +6,6 @@ import Wraps.BackgroundWrap;
 import Wraps.DecalWrap;
 import Wraps.Wrap;
 
-import java.util.Vector;
-
 public class EditorThread extends Thread {
     public Game game;
     public Editor editor;
@@ -72,7 +70,8 @@ public class EditorThread extends Thread {
         mapWrap = null;
     }
 
-    private void init() {
+    private void init()
+    {
         game = new Game(width, height);
         game.init();
         game.fps = fps;
