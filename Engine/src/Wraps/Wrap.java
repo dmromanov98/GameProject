@@ -9,7 +9,7 @@ public abstract class Wrap {
                             decalID = 2,
                             backgroundID = 3;
 
-    public int ID = 0; // Default actor ID
+    public int ID = Wrap.actorID; // Default actor ID
 
     public abstract Actor getActor(Game game);
 
