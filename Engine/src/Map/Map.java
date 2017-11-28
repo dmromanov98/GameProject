@@ -33,11 +33,14 @@ public class Map
 
         for (Wrap w:
                 wrap.objects) {
-            if (Decal.class.equals( w.getOriginal() ) )
-                addDecal( w.getActor(game) );
-            else if (Background.class.equals( w.getOriginal() ) )
-                addBackground( w.getActor(game) );
-            else addActor( w.getActor(game) );
+            switch (w.ID){
+                case Wrap.decalID:
+                    addDecal( w.getActor(game) ); break;
+                case Wrap.backgroundID:
+                    addBackground( w.getActor(game) ); break;
+                case Wrap.spriteID:
+                    addActor( w.getActor(game) ); break;
+            }
         }
         this.collisionSpaces = new HashMap<>(collisionSpaces);
     }
@@ -112,34 +115,5 @@ public class Map
     private void addBackground(Actor back)
     {
         backgrounds.add(back);
-    }
-
-    public static Map fromWraps(Wrap wraps[], Game game)
-    {
-        Map res = new Map();
-        for (Wrap w:
-             wraps) {
-            if (Decal.class.equals( w.getOriginal() ) )
-                res.addDecal( w.getActor(game) );
-            else if (Background.class.equals( w.getOriginal() ) )
-                res.addBackground( w.getActor(game) );
-            else res.addActor( w.getActor(game) );
-        }
-        return res;
-    }
-
-    public static Map fromWraps(Wrap wraps[], HashMap<String, CollisionSpace> collisionSpaces,Game game)
-    {
-        Map res = new Map();
-        for (Wrap w:
-                wraps) {
-            if (Decal.class.equals( w.getOriginal() ) )
-                res.addDecal( w.getActor(game) );
-            else if (Background.class.equals( w.getOriginal() ) )
-                res.addBackground( w.getActor(game) );
-            else res.addActor( w.getActor(game) );
-        }
-        res.collisionSpaces = collisionSpaces;
-        return res;
     }
 }
