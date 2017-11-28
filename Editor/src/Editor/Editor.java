@@ -99,19 +99,6 @@ public class Editor extends Map {
         }
     }
 
-    public static Editor fromWraps(Wrap wraps[], Game game) {
-        Editor res = new Editor(game);
-        for (Wrap w :
-                wraps) {
-            if (Decal.class.equals(w.getOriginal()))
-                res.getDecals().add(w.getActor(game));
-            else if (Background.class.equals(w.getOriginal()))
-                res.getBackgrounds().add(w.getActor(game));
-            else res.addActor(w.getActor(game));
-        }
-        return res;
-    }
-
     public Vector<Wrap> getWraps() {
         Vector<Wrap> res = new Vector<>();
 

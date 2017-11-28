@@ -170,11 +170,10 @@ public class Transform
         return this;
     }
 
-    //структура такова: x, y, layer, angle, scale. Раскладываю на vector3  float  vector2
-    private SpriteSpecification oglResult = new SpriteSpecification();//чтобы не пересоздавать лишний раз
     //for OpenGL
     public SpriteSpecification spriteOpenGLOut()
     {
+        SpriteSpecification oglResult = new SpriteSpecification();
         oglResult.position[0] = position.x;
         oglResult.position[1] = position.y;
         oglResult.position[2] = layer;
