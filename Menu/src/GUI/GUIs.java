@@ -21,14 +21,14 @@ public class GUIs extends Application {
         initWindow();
     }
 
-    public void initWindow(){
-        try{
-            FXMLLoader loader =new FXMLLoader();
+    public void initWindow() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
             loader.setLocation(GUIs.class.getResource("Menu.fxml"));
 
-            if(anchorPane !=null)
+            if (anchorPane != null)
                 anchorPane.getChildren().clear();
-            else{
+            else {
                 anchorPane = new AnchorPane();
                 scene = new Scene(anchorPane);
             }
@@ -36,21 +36,21 @@ public class GUIs extends Application {
             MenuController.setGuis(this);
 
             ImageView iv = new ImageView(new Image("file:Menu/resources/menu.jpg"));
-            anchorPane.getChildren().addAll(iv,loader.load());
+            anchorPane.getChildren().addAll(iv, loader.load());
 
             primaryStage.setResizable(false);
             primaryStage.setScene(scene);
             primaryStage.setTitle("GameMenu");
             primaryStage.show();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void initSettings(){
-        try{
-            FXMLLoader loader =new FXMLLoader();
+    public void initSettings() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
             loader.setLocation(GUIs.class.getResource("Settings.fxml"));
 
             anchorPane.getChildren().clear();
@@ -63,7 +63,7 @@ public class GUIs extends Application {
             primaryStage.setTitle("Setting");
             primaryStage.show();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -6,9 +6,9 @@ import Main.Game;
 public abstract class Wrap {
 
     public static final int actorID = 0,
-                            spriteID = 1,
-                            decalID = 2,
-                            backgroundID = 3;
+            spriteID = 1,
+            decalID = 2,
+            backgroundID = 3;
 
     //private int ID = Wrap.actorID; // Default actor ID
 

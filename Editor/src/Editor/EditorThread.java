@@ -10,7 +10,7 @@ public class EditorThread extends Thread {
     public Game game;
     public Editor editor;
 
-    //TODO: гавно моча с этим моментом. но продумывать что-то лучше времени нет
+    //TODO: Нужно придумать что то лучше , чем это
     public static synchronized void toMode0() {
         Editor.brushMode = 0;
     }
@@ -70,8 +70,7 @@ public class EditorThread extends Thread {
         mapWrap = null;
     }
 
-    private void init()
-    {
+    private void init() {
         game = new Game(width, height);
         game.init();
         game.fps = fps;

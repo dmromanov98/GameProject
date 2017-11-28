@@ -1,6 +1,7 @@
 package Graphics;
 
 import Utils.BufferUtils;
+
 import Utils.File;
 
 import static org.lwjgl.opengl.GL11.*;

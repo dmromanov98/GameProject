@@ -3,12 +3,10 @@ package Objects;
 import Main.Actor;
 import Main.Transform;
 
-public class Spawner extends Actor
-{
+public class Spawner extends Actor {
     public Transform transform;
 
-    public Spawner(Transform transform)
-    {
+    public Spawner(Transform transform) {
         renderIndex = -1;
 
     }
@@ -19,5 +17,6 @@ public class Spawner extends Actor
     }
 
     @Override
-    public void draw() {}
+    public void draw() {
+    }
 }

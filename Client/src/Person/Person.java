@@ -29,7 +29,7 @@ public class Person {
         Pos = pos;
     }
 
-    public Person(String NickName,String Status,int[] Pos){
+    public Person(String NickName, String Status, int[] Pos) {
         this.NickName = NickName;
         this.Pos = Pos;
         this.Status = Status;

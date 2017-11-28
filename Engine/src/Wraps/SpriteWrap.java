@@ -5,8 +5,7 @@ import Main.Game;
 import Main.Transform;
 import Patterns.Sprite;
 
-public class SpriteWrap extends Wrap
-{
+public class SpriteWrap extends Wrap {
     private int ID = Wrap.spriteID; // Default sprite ID
 
     @Override
@@ -18,23 +17,20 @@ public class SpriteWrap extends Wrap
     public String texName;
     public Runnable updateMeth;
 
-    public SpriteWrap(Transform transform, String texName, Runnable updateMeth)
-    {
+    public SpriteWrap(Transform transform, String texName, Runnable updateMeth) {
         this.transform = new Transform(transform);
         this.texName = texName;
         this.updateMeth = updateMeth;
     }
 
-    public SpriteWrap(SpriteWrap wrap)
-    {
+    public SpriteWrap(SpriteWrap wrap) {
         this.transform = new Transform(wrap.transform);
         this.texName = wrap.texName;
         this.updateMeth = wrap.updateMeth;
     }
 
     @Override
-    public SpriteWrap copy()
-    {
+    public SpriteWrap copy() {
         return new SpriteWrap(this);
     }
 
@@ -49,7 +45,9 @@ public class SpriteWrap extends Wrap
         res.transform = transform;
         try {
             res.texture = game.textureBank.Get(texName).getTexture();
-        } catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return res.setSource(this);
     }
 

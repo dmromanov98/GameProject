@@ -6,19 +6,18 @@ import Main.Camera;
 import Main.Transform;
 import org.joml.Vector2f;
 
-public abstract class Sprite extends Actor
-{
+public abstract class Sprite extends Actor {
     private static VertexArray mesh;
-    private static void createDrawConfiguration()
-    {
+
+    private static void createDrawConfiguration() {
         mesh = VertexArray.quad;
     }
 
     private static Shader defaultShader;
 
     private static Texture defaultTexture;
-    public static void init() throws Error
-    {
+
+    public static void init() throws Error {
         createDrawConfiguration();
         try {
             defaultShader = ShaderProgramsList.getShaderProgram("default/sprite");
@@ -34,8 +33,7 @@ public abstract class Sprite extends Actor
     public Shader shader;
     public Texture texture = defaultTexture;
 
-    public Sprite(Vector2f position, float layer)
-    {
+    public Sprite(Vector2f position, float layer) {
         transform = new Transform();
         transform.translate(position);
         transform.layer = layer;
@@ -43,8 +41,7 @@ public abstract class Sprite extends Actor
         this.renderIndex = 2;
     }
 
-    public Sprite()
-    {
+    public Sprite() {
         transform = new Transform();
         shader = defaultShader;
         this.renderIndex = 2;
@@ -62,5 +59,7 @@ public abstract class Sprite extends Actor
     }
 
     @Override
-    public Transform tryToGetTransform(){return transform;}
+    public Transform tryToGetTransform() {
+        return transform;
+    }
 }

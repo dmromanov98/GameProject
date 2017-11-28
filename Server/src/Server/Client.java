@@ -3,13 +3,12 @@ package Server;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Client{
+public class Client {
     private StringProperty IP;
     private StringProperty PORT;
     private StringProperty NickName;
     private StringProperty Status;
     private int[] Pos;
-
 
     public String getPORT() {
         return PORT.get();

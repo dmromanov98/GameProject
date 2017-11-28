@@ -8,12 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Vector;
 
-public class File
-{
-    private File(){}
+public class File {
+    private File() {
+    }
 
-    public static String loadAsString(String file)
-    {
+    public static String loadAsString(String file) {
         StringBuilder result = new StringBuilder();
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -28,14 +27,12 @@ public class File
         return result.toString();
     }
 
-    public static class Image
-    {
+    public static class Image {
         public final int WIDTH, HEIGHT;
         public final String path;
         public final int[] data;
 
-        public Image(String path)
-        {
+        public Image(String path) {
             int width = 1, height = 1;
             this.path = path;
             int[] pixels = null;
@@ -70,21 +67,20 @@ public class File
         }
     }
 
-   /* Эти листы я буду использовать для мгновенной загрузки кучи всяких шейдеров.
-    * Пишу в одном месте список, потом подгружаю.
-    * названия в списке будут и названиями файлов, и путями к ним.
-    */
-    public static Vector<Textfile> loadTextfilesFromAList(String file)
-    {
+    /* Эти листы я буду использовать для мгновенной загрузки кучи всяких шейдеров.
+     * Пишу в одном месте список, потом подгружаю.
+     * названия в списке будут и названиями файлов, и путями к ним.
+     */
+    public static Vector<Textfile> loadTextfilesFromAList(String file) {
         Vector<Textfile> res = new Vector<>();
-        String prefix = file.substring(0, file.lastIndexOf('/')+1);
+        String prefix = file.substring(0, file.lastIndexOf('/') + 1);
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
             String buffer;
             while ((buffer = reader.readLine()) != null) {
-                res.add( new Textfile( buffer.substring(0, buffer.lastIndexOf('.')),
-                        loadAsString(prefix + buffer)) );
+                res.add(new Textfile(buffer.substring(0, buffer.lastIndexOf('.')),
+                        loadAsString(prefix + buffer)));
             }
             reader.close();
         } catch (IOException e) {

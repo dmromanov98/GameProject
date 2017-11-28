@@ -1,6 +1,5 @@
 package Map;
 
-import Physics.CollideArea;
 import Physics.CollisionSpace;
 import Wraps.Wrap;
 
@@ -9,7 +8,7 @@ import java.util.Vector;
 
 public class MapWrap {
 
-    public MapWrap(){
+    public MapWrap() {
         objects = new Vector<>();
         collideAreas = new HashMap<>();
     }

@@ -69,7 +69,7 @@ public class Editor extends Map {
 
         brush.draw();
 
-        if(brush.currentActor != null)
+        if (brush.currentActor != null)
             if (brush.currentActor.renderIndex > -1)
                 brush.currentActor.draw();
 
@@ -124,7 +124,7 @@ public class Editor extends Map {
     }
 
     public MapWrap getMapWrap() {
-        brush.changeMode((short)0, this, game);
+        brush.changeMode((short) 0, this, game);
         return new MapWrap(getWraps(), collisionSpaces);
     }
 

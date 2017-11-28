@@ -18,17 +18,17 @@ public class DeserializeObject implements JsonDeserializer<Wrap> {
         String wName = wrapName.substring(0, wrapName.lastIndexOf('\\'));
         JsonElement element = JsonObj.get("transform");
 
-        if(wName.equals("decals")){
+        if (wName.equals("decals")) {
 
             Transform transform = jsonDeserializationContext.deserialize(element, Transform.class);
-            wrap = new DecalWrap(transform,wrapName);
+            wrap = new DecalWrap(transform, wrapName);
             wrap.setID(JsonObj.get("ID").getAsInt());
 
-        }else if (wName.equals("backgrounds")){
-            wrap = new BackgroundWrap(wrapName,JsonObj.get("layer").getAsFloat());
+        } else if (wName.equals("backgrounds")) {
+            wrap = new BackgroundWrap(wrapName, JsonObj.get("layer").getAsFloat());
             wrap.setID(JsonObj.get("ID").getAsInt());
-            //wrap = new BackgroundWrap(wrapName,.99f);
-        }else if(wName.equals("sprites")){
+
+        } else if (wName.equals("sprites")) {
 
             //TODO: SPRITES DESERIALIZER
 

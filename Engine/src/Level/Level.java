@@ -5,10 +5,8 @@ import Map.Map;
 
 import java.util.Vector;
 
-public class Level
-{
-    public Level(Map map, Vector<Actor> objects)
-    {
+public class Level {
+    public Level(Map map, Vector<Actor> objects) {
         this.map = map;
         startObjects = objects;
     }
@@ -18,8 +16,7 @@ public class Level
     private Map map;
     private Vector<Actor> actors;
 
-    public void startLevel()
-    {
+    public void startLevel() {
         actors = new Vector<>();
         actors.addAll(startObjects);
     }

@@ -5,12 +5,10 @@ import Objects.Player;
 
 import java.util.Vector;
 
-public class PlayersController extends Actor
-{
+public class PlayersController extends Actor {
     public Vector<Player> players, playersDelBuffer;
 
-    public PlayersController()
-    {
+    public PlayersController() {
         renderIndex = 2;
         this.players = new Vector<>();
     }
@@ -24,18 +22,16 @@ public class PlayersController extends Actor
     }
 
     @Override
-    public void update()
-    {
-        for (Player p:
+    public void update() {
+        for (Player p :
                 getOrAddPlayer(null)) {
             p.update();
         }
     }
 
     @Override
-    public void draw()
-    {
-        for (Player p:
+    public void draw() {
+        for (Player p :
                 getOrAddPlayer(null)) {
             p.draw();
         }

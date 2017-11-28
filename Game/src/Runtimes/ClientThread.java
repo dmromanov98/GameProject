@@ -3,8 +3,7 @@ package Runtimes;
 import Map.MapWrap;
 import Wraps.PlayerWrap;
 
-public class ClientThread extends Thread
-{
+public class ClientThread extends Thread {
     public PlayersController playersController = new PlayersController();
 
     public synchronized void addPlayer(PlayerWrap wrap) //получаем магическим образом с серва врап, дальше тыркаем вот этот метод
@@ -12,7 +11,8 @@ public class ClientThread extends Thread
 
     }
 
-    public ClientThread(){}
+    public ClientThread() {
+    }
 
     @Override
     public void run() {
@@ -21,12 +21,10 @@ public class ClientThread extends Thread
         /*TODO: run client*/
     }
 
-    public synchronized MapWrap getMap()
-    {
+    public synchronized MapWrap getMap() {
         /*TODO: getting map from the server*/
         return null;
     }
-
 
 
 }

@@ -4,33 +4,30 @@ import Patterns.Sprite;
 import org.joml.Vector2f;
 import Main.Mouse;
 
-public class SquaredGuys extends Sprite
-{
+public class SquaredGuys extends Sprite {
     private static float scale = 50;
 
     public static boolean mouseHold = false;
 
     private Mouse mouse;
 
-    public SquaredGuys(Vector2f pos, Mouse mouse)
-    {
+    public SquaredGuys(Vector2f pos, Mouse mouse) {
         super(pos, 0);
         this.alive = true;
 
         this.mouse = mouse;
 
-        transform.setScale( new Vector2f( scale, scale));
+        transform.setScale(new Vector2f(scale, scale));
         //this.setRotation(Math.PI);
     }
 
-    private void moveForward()
-    {
-        this.transform.moveForward(forwardSpeed*5);
+    private void moveForward() {
+        this.transform.moveForward(forwardSpeed * 5);
     }
 
     private static double delRadius = 30;
-    private void deleteThis(Vector2f pos)
-    {
+
+    private void deleteThis(Vector2f pos) {
         if (transform.getPosition().sub(pos).length() < delRadius)
             this.delete();
     }
@@ -39,13 +36,13 @@ public class SquaredGuys extends Sprite
     private static int[] frames_in_state = {60, 60, 1};
     private int state = 0;
     private int frames = 0;
+
     @Override
-    public void update()
-    {
+    public void update() {
         frames++;
-        switch (state){
+        switch (state) {
             case 0:
-                this.transform.turn( (float)Math.PI / frames_in_state[0] / 2 );
+                this.transform.turn((float) Math.PI / frames_in_state[0] / 2);
                 break;
             case 1:
                 this.transform.moveForward(forwardSpeed);
@@ -56,7 +53,7 @@ public class SquaredGuys extends Sprite
                 break;
         }
 
-        if (frames == frames_in_state[state]){
+        if (frames == frames_in_state[state]) {
             state++;
             frames = 0;
         }

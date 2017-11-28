@@ -14,6 +14,6 @@ public class DecalsCreatorJavaFx {
     }
 
     public static void setDecalsPaths() {
-        images = GettingImagesObj.getPaths(decalsPath,"decals");
+        images = GettingImagesObj.getPaths(decalsPath, "decals");
     }
 }

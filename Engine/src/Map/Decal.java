@@ -8,9 +8,8 @@ import Main.Actor;
 import Main.Transform;
 import MyMath.Matrix4f;
 
-//TODO: странный баг: декали крашат программу, когда нет бэкграунда. почему? хуй тебе в жопу, вот почему!!!!
-public class Decal extends Actor
-{
+//TODO: странный баг: декали крашат программу, когда нет бэкграунда. почему?!!!!
+public class Decal extends Actor {
     private final Texture texture;
     private final Matrix4f matrix;
     public final Transform sourceTransform;//чтобы восстановить изначальные данные
@@ -18,16 +17,17 @@ public class Decal extends Actor
 
     public static Shader shader;
 
-    public static void init()
-    {
+    public static void init() {
         try {
             shader = ShaderProgramsList.getShaderProgram("default/decal");
-        }catch (Exception e){e.printStackTrace(); shader = null;}
+        } catch (Exception e) {
+            e.printStackTrace();
+            shader = null;
+        }
         mesh = VertexArray.quad;
     }
 
-    public Decal(Transform transform, Texture texture)
-    {
+    public Decal(Transform transform, Texture texture) {
         this.texture = texture;
         matrix = transform.getMatrix();
         sourceTransform = transform;
@@ -36,11 +36,11 @@ public class Decal extends Actor
     }
 
     @Override
-    public void update() {}
+    public void update() {
+    }
 
     @Override
-    public void draw()
-    {
+    public void draw() {
         shader.setUniformMat4f("model", matrix);
         texture.bind(shader);
         mesh.draw();

@@ -6,8 +6,7 @@ import Main.Game;
 import Main.Transform;
 import Map.Decal;
 
-public class DecalWrap extends Wrap
-{
+public class DecalWrap extends Wrap {
     private int ID = Wrap.decalID; // Default decal ID
 
     @Override
@@ -23,21 +22,18 @@ public class DecalWrap extends Wrap
     public Transform transform;
     public String texName;
 
-    public DecalWrap(Transform transform, String texName)
-    {
+    public DecalWrap(Transform transform, String texName) {
         this.transform = new Transform(transform);
         this.texName = texName;
     }
 
-    public DecalWrap(DecalWrap wrap)
-    {
+    public DecalWrap(DecalWrap wrap) {
         this.transform = new Transform(wrap.transform);
         this.texName = wrap.texName;
     }
 
     @Override
-    public DecalWrap copy()
-    {
+    public DecalWrap copy() {
         return new DecalWrap(this);
     }
 
@@ -46,7 +42,10 @@ public class DecalWrap extends Wrap
         Texture texture;
         try {
             texture = game.textureBank.Get(texName).getTexture();
-        } catch (Exception e){e.printStackTrace(); texture = Texture.monoColor(255,255,255,255);}
+        } catch (Exception e) {
+            e.printStackTrace();
+            texture = Texture.monoColor(255, 255, 255, 255);
+        }
 
         return new Decal(new Transform(transform), texture).setSource(this);
     }

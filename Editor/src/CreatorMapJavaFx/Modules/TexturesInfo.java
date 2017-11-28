@@ -1,9 +1,10 @@
 package CreatorMapJavaFx.Modules;
 
 import java.util.ArrayList;
+
 import Module.GameCharacters;
 
-//текстуры для opengl
+//текстуры
 public class TexturesInfo {
     private static String[] textures;
 
@@ -13,6 +14,7 @@ public class TexturesInfo {
 
     public static void getAllTextures() {
         ArrayList<String> allTextures = new ArrayList<>();
+
         BackgroundCreatorJavaFx.setBackgroundPaths();
         DecalsCreatorJavaFx.setDecalsPaths();
         SpritesCreatorJavaFx.setSpritesPaths();
@@ -20,7 +22,7 @@ public class TexturesInfo {
         GameCharacters.setCharactersPaths();
 
         int n = BackgroundCreatorJavaFx.getImages().size() +
-                DecalsCreatorJavaFx.getImages().size() + SpritesCreatorJavaFx.getImages().size()+
+                DecalsCreatorJavaFx.getImages().size() + SpritesCreatorJavaFx.getImages().size() +
                 GameCharacters.getImages().size();
 
         textures = new String[n];

@@ -1,6 +1,5 @@
 package Module;
 
-
 import CreatorMapJavaFx.Modules.CustomImage;
 import CreatorMapJavaFx.Modules.GettingImagesObj;
 import javafx.collections.FXCollections;
@@ -14,16 +13,16 @@ public class GameCharacters {
 
     private static final String charactersPath = "Editor/resources/characters";
 
-    public static CustomImage setNextCharacter(){
+    public static CustomImage setNextCharacter() {
         currentCharacter++;
 
-        if(currentCharacter == characters.size()-1)
+        if (currentCharacter == characters.size() - 1)
             currentCharacter = 0;
 
         return characters.get(currentCharacter);
     }
 
-    public static CustomImage getCurrentCharacter(){
+    public static CustomImage getCurrentCharacter() {
         return characters.get(currentCharacter);
     }
 
@@ -32,6 +31,6 @@ public class GameCharacters {
     }
 
     public static void setCharactersPaths() {
-        characters = GettingImagesObj.getPaths(charactersPath,"characters");
+        characters = GettingImagesObj.getPaths(charactersPath, "characters");
     }
 }

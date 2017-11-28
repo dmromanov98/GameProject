@@ -4,10 +4,10 @@ import Patterns.Sprite;
 import Main.Mouse;
 import org.joml.Vector2f;
 
-public class Hui extends Sprite
+public class FunObject extends Sprite
 {
     Mouse mouse;
-    public Hui( Mouse mouse)
+    public FunObject(Mouse mouse)
     {
         super( new Vector2f(0,0), .9999f);
         this.alive = true;

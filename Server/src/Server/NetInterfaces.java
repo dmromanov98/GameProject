@@ -8,7 +8,7 @@ public class NetInterfaces {
     private StringProperty IP;
     private StringProperty Name;
 
-    public NetInterfaces(String IP,String Name){
+    public NetInterfaces(String IP, String Name) {
         this.IP = new SimpleStringProperty(IP);
         this.Name = new SimpleStringProperty(Name);
     }

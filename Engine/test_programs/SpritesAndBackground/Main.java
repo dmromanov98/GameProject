@@ -3,7 +3,6 @@ package SpritesAndBackground;
 import Graphics.Texture;
 import Main.Game;
 import Main.Transform;
-import Main.TextureBank;
 import Main.Input;
 import Main.Mouse;
 import Map.Decal;
@@ -27,8 +26,7 @@ public class Main implements Runnable {
     private Random random = new Random();
     private float scaleMul = 3;
 
-    public Map createMap(int dickCount, int planetCount)
-    {
+    public Map createMap(int dickCount, int planetCount) {
         Map res = new Map();
 
         try {
@@ -47,8 +45,8 @@ public class Main implements Runnable {
 
             int len = planetTexs.length;
             for (int i = 0; i < planetCount; i++) {
-                x = scaleMul*(random.nextFloat() * WIDTH - .5f * WIDTH);
-                y = scaleMul*(random.nextFloat() * HEIGHT - .5f * HEIGHT);
+                x = scaleMul * (random.nextFloat() * WIDTH - .5f * WIDTH);
+                y = scaleMul * (random.nextFloat() * HEIGHT - .5f * HEIGHT);
                 scale = 30 + random.nextFloat() * 30;
                 Transform transform = new Transform().rotate((float) (2 * Math.PI * random.nextDouble()))
                         .translate(new Vector2f(x, y))
@@ -58,8 +56,8 @@ public class Main implements Runnable {
             }
 
             for (int i = 0; i < dickCount; i++) {
-                x = scaleMul*(random.nextFloat() * WIDTH - .5f * WIDTH);
-                y = scaleMul*(random.nextFloat() * HEIGHT - .5f * HEIGHT);
+                x = scaleMul * (random.nextFloat() * WIDTH - .5f * WIDTH);
+                y = scaleMul * (random.nextFloat() * HEIGHT - .5f * HEIGHT);
                 SquaredGuys a = new SquaredGuys(new Vector2f(x, y), game.mouse);
                 a.transform.rotate((float) (2 * Math.PI * random.nextDouble()));
                 a.texture = dickTex;
@@ -67,13 +65,16 @@ public class Main implements Runnable {
                 res.addActor(a);
             }
 
-            Hui hui = new Hui(game.mouse);
-            hui.texture = game.textureBank.Get("shape").getTexture();
-            res.addActor(hui);
+            FunObject funObject = new FunObject(game.mouse);
+            funObject.texture = game.textureBank.Get("shape").getTexture();
+            res.addActor(funObject);
 
             res.addBackground(new MyBack(game.textureBank.Get("space").getTexture()));
 
-        } catch (Exception e){e.printStackTrace(); throw new Error("something gone wrong");}
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new Error("something gone wrong");
+        }
         return res;
     }
 
@@ -91,15 +92,18 @@ public class Main implements Runnable {
             game.textureBank.addFromDisk("planet3", "Engine/test_resources/planet3.png");
             game.textureBank.addFromDisk("planet4", "Engine/test_resources/planet4.png");
             game.textureBank.addFromDisk("shape", "Engine/test_resources/shape.png");
-        } catch (Exception e) { e.printStackTrace(); return;}
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
 
         System.out.println(game.textureBank);
 
         game.input.addKeyAction(new Input.KeyAction(GLFW.GLFW_KEY_Q, Input.KEY_PRESS,
-                ()-> game.mouse.setMousePos(new Vector2f(0,0))));
+                () -> game.mouse.setMousePos(new Vector2f(0, 0))));
 
         game.mouse.addMouseAction(new Mouse.MouseAction(Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_HOLD,
-                ()-> SquaredGuys.mouseHold = true));
+                () -> SquaredGuys.mouseHold = true));
 
         game.map = createMap(100, 300);
 

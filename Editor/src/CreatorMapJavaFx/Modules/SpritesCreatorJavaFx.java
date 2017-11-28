@@ -14,7 +14,7 @@ public class SpritesCreatorJavaFx {
     }
 
     public static void setSpritesPaths() {
-        images = GettingImagesObj.getPaths(spritesPath,"sprites");
+        images = GettingImagesObj.getPaths(spritesPath, "sprites");
     }
 
 }

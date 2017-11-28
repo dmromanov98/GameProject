@@ -13,7 +13,7 @@ public class Main {
 
         Thread.sleep(5000);
 
-        Person p1 = new Person("Dmitry","Connected",new int[]{15,32});
+        Person p1 = new Person("Dmitry", "Connected", new int[]{15, 32});
         String PackedObj = pack(p1);
         client.sentToServer(PackedObj);
 

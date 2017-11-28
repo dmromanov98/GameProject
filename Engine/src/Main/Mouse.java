@@ -157,7 +157,7 @@ public class Mouse {
         mouseActionsBuffer.add(mouseAction);
     }
 
-    //TODO: захуярить через буфер, но пока поебать
+    //TODO: нужно сделать через буфер, пока будет так
     public void addWheelAction(WheelAction wheelAction) {
         wheelActions.add(wheelAction);
     }
@@ -178,30 +178,26 @@ public class Mouse {
                 (-mousePos.pos.y + .5f * screenSize[1]) / scale.y);
     }
 
-    public Vector2f getRawMousePos()
-    {
+    public Vector2f getRawMousePos() {
         return new Vector2f(
                 (mousePos.pos.x - .5f * screenSize[0]),
                 (-mousePos.pos.y + .5f * screenSize[1]));
     }
 
-    public float getWheelPos()
-    {
+    public float getWheelPos() {
         return mouseWheel.mouseWheel;
     }
 
-    public void setMousePos(Vector2f pos)
-    {
-        mousePos.setMousePos(pos.x + .5f*screenSize[0], pos.y + .5f*screenSize[1]);
+    public void setMousePos(Vector2f pos) {
+        mousePos.setMousePos(pos.x + .5f * screenSize[0], pos.y + .5f * screenSize[1]);
     }
 
-    public void updateMouse()
-    {
+    public void updateMouse() {
         //button hold
-        for (MouseAction mouseAction:
+        for (MouseAction mouseAction :
                 mouseActions) {
-            if (mouseAction.action == BUTTON_HOLD){
-                switch (mouseAction.button){
+            if (mouseAction.action == BUTTON_HOLD) {
+                switch (mouseAction.button) {
                     case GLFW.GLFW_MOUSE_BUTTON_RIGHT:
                         if (mouseButton.holdRB)
                             mouseAction.mouseMethod.run();
@@ -214,19 +210,20 @@ public class Mouse {
                         if (mouseButton.holdMB)
                             mouseAction.mouseMethod.run();
                         break;
-                }}
+                }
+            }
         }
 
         //deleting
-        if (!mouseActionsBuffer.isEmpty()){
+        if (!mouseActionsBuffer.isEmpty()) {
             mouseActions.addAll(mouseActionsBuffer);
             mouseActionsBuffer.clear();
         }
 
         //updating wheel
         mouseWheel.mouseWheel += mouseWheel.delta;
-        for (WheelAction action:
-             wheelActions) {
+        for (WheelAction action :
+                wheelActions) {
             action.run(mouseWheel);
         }
         mouseWheel.delta = 0;

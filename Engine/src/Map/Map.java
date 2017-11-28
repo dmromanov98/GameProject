@@ -10,12 +10,10 @@ import Wraps.Wrap;
 import java.util.HashMap;
 import java.util.Vector;
 
-public class Map
-{
+public class Map {
     public HashMap<String, CollisionSpace> collisionSpaces = new HashMap<>();
 
-    public Map()
-    {
+    public Map() {
         backgrounds = new Vector<>();
         decals = new Vector<>();
         actors = new Vector<>();
@@ -23,23 +21,26 @@ public class Map
         decalsRemBuffer = new Vector<>();
     }
 
-    public Map(Game game, MapWrap wrap)
-    {
+    public Map(Game game, MapWrap wrap) {
         backgrounds = new Vector<>();
         decals = new Vector<>();
         actors = new Vector<>();
         actorsRemBuffer = new Vector<>();
         decalsRemBuffer = new Vector<>();
 
-        for (Wrap w:
+        for (Wrap w :
                 wrap.objects) {
-            switch (w.getID()){
+            switch (w.getID()) {
                 case Wrap.decalID:
-                    addDecal( w.getActor(game) ); break;
+                    addDecal(w.getActor(game));
+                    break;
                 case Wrap.backgroundID:
-                    addBackground( w.getActor(game) ); break;
-                case Wrap.actorID: case Wrap.spriteID:
-                    addActor( w.getActor(game) ); break;
+                    addBackground(w.getActor(game));
+                    break;
+                case Wrap.actorID:
+                case Wrap.spriteID:
+                    addActor(w.getActor(game));
+                    break;
             }
         }
         this.collisionSpaces = new HashMap<>(collisionSpaces);
@@ -49,8 +50,7 @@ public class Map
     protected Vector<Actor> decals, decalsRemBuffer;
     protected Vector<Actor> actors, actorsRemBuffer;
 
-    public void update()
-    {
+    public void update() {
         for (Actor a : actors) {
             if (a.alive)
                 a.update();
@@ -59,24 +59,23 @@ public class Map
         }
     }
 
-    public void drawAll()
-    {
-        for (Actor back: backgrounds) {
+    public void drawAll() {
+        for (Actor back : backgrounds) {
             if (back.renderIndex > -1)
-            back.draw();
+                back.draw();
         }
 
         //decals
         Decal.shader.enable();
         Camera.toShader(Decal.shader);
-        for (Actor decal: decals) {
+        for (Actor decal : decals) {
             decal.draw();
             if (decal.willBeRemoved())
                 decalsRemBuffer.add(decal);
         }
         Decal.shader.disable();
 
-        for (Actor a: actors)
+        for (Actor a : actors)
             if (a.renderIndex > -1)
                 a.draw();
 
@@ -92,28 +91,23 @@ public class Map
         }
     }
 
-    public void addActor(Actor a)
-    {
+    public void addActor(Actor a) {
         actors.add(a);
     }
 
-    public void addDecal(Decal decal)
-    {
+    public void addDecal(Decal decal) {
         decals.add(decal);
     }
 
-    private void addDecal(Actor decal)
-    {
+    private void addDecal(Actor decal) {
         decals.add(decal);
     }
 
-    public void addBackground(Background back)
-    {
+    public void addBackground(Background back) {
         backgrounds.add(back);
     }
 
-    private void addBackground(Actor back)
-    {
+    private void addBackground(Actor back) {
         backgrounds.add(back);
     }
 }

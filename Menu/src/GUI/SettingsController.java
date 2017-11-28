@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
 import Module.GameCharacters;
-import javafx.scene.input.MouseEvent;
 
 import javax.swing.*;
 
@@ -53,8 +52,8 @@ public class SettingsController implements Initializable {
 
         try {
             Client.setPORT(Integer.parseInt(textServerPort.getText()));
-        }catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(null,"PORT MUST BE A NUMBER!");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "PORT MUST BE A NUMBER!");
         }
 
         try {
@@ -63,8 +62,8 @@ public class SettingsController implements Initializable {
             height = Integer.parseInt(textWindowHeight.getText());
             fps = Integer.parseInt(textFPS.getText());
 
-        }catch (NumberFormatException ex){
-            JOptionPane.showMessageDialog(null,"WIDTH,HEIGHT,FPS MUST BE A NUMBERS!");
+        } catch (NumberFormatException ex) {
+            JOptionPane.showMessageDialog(null, "WIDTH,HEIGHT,FPS MUST BE A NUMBERS!");
         }
 
     }

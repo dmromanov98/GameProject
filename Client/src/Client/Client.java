@@ -9,8 +9,8 @@ public class Client extends Thread {
     private DatagramPacket SendPacket; //пакет принятия данных
     private InetAddress inetAddress;
 
-    private static String IP="127.0.0.1";
-    private static int PORT=9879;
+    private static String IP = "127.0.0.1";
+    private static int PORT = 9879;
     private byte[] ReceivedData;
     private byte[] SendData;
 
@@ -77,7 +77,7 @@ public class Client extends Thread {
 
             }
 
-        } catch (SocketTimeoutException e){
+        } catch (SocketTimeoutException e) {
             System.out.println("Timeout exception");
         } catch (SocketException e) {
             //sentToServer("Disconnected");
@@ -87,16 +87,16 @@ public class Client extends Thread {
             //sentToServer("Disconnected");
             //e.printStackTrace();
             System.out.println("-->!!!!!! Socket cant recieve packet");
-        }finally {
+        } finally {
             sentToServer("Disconnected");
             Socket.close();
         }
 
     }
 
-    public void fromServer(String jp){
+    public void fromServer(String jp) {
         System.out.println(jp);
-        switch (jp){
+        switch (jp) {
             case "Server ofline":
                 System.out.println(jp);
                 Socket.close();
@@ -106,10 +106,10 @@ public class Client extends Thread {
         }
     }
 
-    public void sentToServer(String packedObj){
+    public void sentToServer(String packedObj) {
         System.out.println(packedObj);
         SendData = packedObj.getBytes();
-        SendPacket = new DatagramPacket(SendData,SendData.length,inetAddress,PORT);
+        SendPacket = new DatagramPacket(SendData, SendData.length, inetAddress, PORT);
 
         try {
             Socket.send(SendPacket);

@@ -21,7 +21,7 @@ public class Server extends Thread {
     private int PORT;
     private byte[] RecieveData;
     private MainViewController mw;
-    private Map<String,Client> ListOfClients;
+    private Map<String, Client> ListOfClients;
     private byte[] SendData;
     private DatagramPacket SendPacket;
 
@@ -36,7 +36,7 @@ public class Server extends Thread {
     }
 
     public Server(String port, MainViewController mw) {
-        ListOfClients = new Map<String,Client>() {
+        ListOfClients = new Map<String, Client>() {
             @Override
             public int size() {
                 return 0;
@@ -93,7 +93,7 @@ public class Server extends Thread {
             }
 
             @Override
-            public Set<Entry<String,Client>> entrySet() {
+            public Set<Entry<String, Client>> entrySet() {
                 return null;
             }
         };
@@ -107,7 +107,7 @@ public class Server extends Thread {
         try {
 
             //запуск соединения
-            ServerMessagesController.add("Server : Starting server. PORT : "+PORT);
+            ServerMessagesController.add("Server : Starting server. PORT : " + PORT);
             ServerMessagesController.add("Server : Connecting socket...");
             Socket = new DatagramSocket(PORT);
             ServerMessagesController.add("Connected...");
@@ -120,27 +120,27 @@ public class Server extends Thread {
 
 
                     Socket.receive(RecievePacket);
-                    fromClient(new String(RecievePacket.getData(), 0, RecievePacket.getLength()),RecievePacket);
+                    fromClient(new String(RecievePacket.getData(), 0, RecievePacket.getLength()), RecievePacket);
 
 
                 }
             } catch (SocketTimeoutException e) {
-               ServerMessagesController.add("-->!!!!!! SERVER : Clients who managed to connect!  TIMEOUT EXCEPTION \n\t-->"+e);
+                ServerMessagesController.add("-->!!!!!! SERVER : Clients who managed to connect!  TIMEOUT EXCEPTION \n\t-->" + e);
             } catch (IOException e) {
-                ServerMessagesController.add("-->!!!!!! SERVER : Cant recieve data! (Maybe socket was closed) \n\t-->"+e);
+                ServerMessagesController.add("-->!!!!!! SERVER : Cant recieve data! (Maybe socket was closed) \n\t-->" + e);
             }
         } catch (SocketException e) {
-            ServerMessagesController.add("-->!!!!!! SERVER : ERROR initialization socket(Socket already using) \n\t-->"+e);
-        } catch (IllegalArgumentException e){
-            ServerMessagesController.add("Port number out of range. \n\t-->"+e);
+            ServerMessagesController.add("-->!!!!!! SERVER : ERROR initialization socket(Socket already using) \n\t-->" + e);
+        } catch (IllegalArgumentException e) {
+            ServerMessagesController.add("Port number out of range. \n\t-->" + e);
         } finally {
             closeServer();
             mw.closeServer();
         }
     }
 
-    public void fromClient(String jp,DatagramPacket packet){
-        switch (jp){
+    public void fromClient(String jp, DatagramPacket packet) {
+        switch (jp) {
             case "Disconnected":
                 mw.deleteFromClientList(packet.getAddress().getHostAddress());
                 break;
@@ -159,13 +159,13 @@ public class Server extends Thread {
         try {
             sendToClient("Server offline");
             Socket.close();
-        }catch (NullPointerException e){
-            ServerMessagesController.add("-->!!!!!! SERVER : is not initialize \n\t-->"+e);
+        } catch (NullPointerException e) {
+            ServerMessagesController.add("-->!!!!!! SERVER : is not initialize \n\t-->" + e);
         }
     }
 
-    public void sendToClient(String s){
-        if(mw.getClients().size()>0) {
+    public void sendToClient(String s) {
+        if (mw.getClients().size() > 0) {
             SendData = s.getBytes();
             for (Client cl : mw.getClients()) {
                 try {

@@ -15,44 +15,38 @@ import org.joml.Vector2f;
 
 import java.util.Vector;
 
-public class Brush
-{
-    public static void init(Game game)
-    {
+public class Brush {
+    public static void init(Game game) {
         try {
             game.textureBank.addFromDisk("shape", "Editor\\src\\Editor\\shape.png");
-            Shape.defRectTex = Texture.monoColor(255,0,0,150);
+            Shape.defRectTex = Texture.monoColor(255, 0, 0, 150);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static class Shape extends Sprite
-    {
+    public static class Shape extends Sprite {
         public static Texture defRectTex;
-        public Shape()
-        {
+
+        public Shape() {
             super(new Vector2f(0, 0), 0f);
         }
 
-        public Shape(Rectangle rect)
-        {
+        public Shape(Rectangle rect) {
             super(new Vector2f(0, 0), 0f);
             texture = defRectTex;
             circle(rect);
             renderIndex = 2;
         }
 
-        public void circle(Rectangle rect)
-        {
+        public void circle(Rectangle rect) {
             this.transform = rect.toTransform();
             if (renderIndex == -1) {
                 renderIndex = 2;
             }
         }
 
-        public void circle(Transform transform)
-        {
+        public void circle(Transform transform) {
             this.transform = new Transform(transform);
             this.transform.layer = 0f;
             if (renderIndex == -1) {
@@ -60,14 +54,14 @@ public class Brush
             }
         }
 
-        public void hide()
-        {
+        public void hide() {
             renderIndex = -1;
             transform = null;
         }
 
         @Override
-        public void update() {}
+        public void update() {
+        }
     }
 
     private static final float deltaLayer = -0.00001f;
@@ -99,61 +93,57 @@ public class Brush
     private byte rectangleStageOfCreate = 0;
     private Vector2f rectShift, rectRectA, rectRectB;
 
-    public Brush(Game game)
-    {
+    public Brush(Game game) {
         shape = new Shape();
         try {
             shape.texture = game.textureBank.Get("shape").getTexture();
-        } catch (Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void initControls(Game game)
-    {
-        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_PRESS,
-                () -> leftMouseHold() ) );
+    public void initControls(Game game) {
+        game.mouse.addMouseAction(new Mouse.MouseAction(Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_PRESS,
+                () -> leftMouseHold()));
 
-        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_RELEASE,
-                () -> objectIsMoving = false ) );
+        game.mouse.addMouseAction(new Mouse.MouseAction(Mouse.MOUSE_BUTTON_LEFT, Mouse.BUTTON_RELEASE,
+                () -> objectIsMoving = false));
 
-        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_RIGHT, Mouse.BUTTON_PRESS,
-                () -> rightMouseClick() ) );
+        game.mouse.addMouseAction(new Mouse.MouseAction(Mouse.MOUSE_BUTTON_RIGHT, Mouse.BUTTON_PRESS,
+                () -> rightMouseClick()));
 
-        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_MIDDLE, Mouse.BUTTON_PRESS,
-                () -> middleMouseClick( game.mouse.getAbsoluteMousePos() ) ) );
+        game.mouse.addMouseAction(new Mouse.MouseAction(Mouse.MOUSE_BUTTON_MIDDLE, Mouse.BUTTON_PRESS,
+                () -> middleMouseClick(game.mouse.getAbsoluteMousePos())));
 
-        game.mouse.addMouseAction( new Mouse.MouseAction( Mouse.MOUSE_BUTTON_MIDDLE, Mouse.BUTTON_RELEASE,
-                () -> middleMouseRelease() ) );
+        game.mouse.addMouseAction(new Mouse.MouseAction(Mouse.MOUSE_BUTTON_MIDDLE, Mouse.BUTTON_RELEASE,
+                () -> middleMouseRelease()));
     }
 
-    public void leftMouseHold()
-    {
+    public void leftMouseHold() {
         objectIsChosen = true;
         haveToFindObject = true;
     }
 
-    public void rightMouseClick()
-    {
+    public void rightMouseClick() {
         haveToDeleteObject = true;
     }
 
     private Vector2f firstPos;
-    public void middleMouseClick(Vector2f pos)
-    {
+
+    public void middleMouseClick(Vector2f pos) {
         firstPos = pos;
         objectIsRotating = true;
     }
 
-    public void middleMouseRelease()
-    {
+    public void middleMouseRelease() {
         firstPos = null;
         objectIsRotating = false;
     }
 
-    public void createShapesFromCollisionSpace(CollisionSpace space)
-    {
+    public void createShapesFromCollisionSpace(CollisionSpace space) {
         shapesOfCollisionAreas.clear();
         layerShift = 0;
-        for (Rectangle rect:
+        for (Rectangle rect :
                 space.getRectangles()) {
             Shape shp = new Shape(rect);
             layerShift += deltaLayer;
@@ -162,8 +152,7 @@ public class Brush
         }
     }
 
-    public void cleanBrush()
-    {
+    public void cleanBrush() {
         currentActor = null;
         objectIsRotating = false;
         objectIsChosen = false;
@@ -185,12 +174,11 @@ public class Brush
         shapesOfCollisionAreas.clear();
     }
 
-    public void changeMode(short targetMode, Editor editor,Game game)
-    {
-        if (Math.abs(mode) == 4){
+    public void changeMode(short targetMode, Editor editor, Game game) {
+        if (Math.abs(mode) == 4) {
             CollisionSpace space = editor.collisionSpaces.get(currentCollisionArea);
             space.clear();
-            for (Shape shp:
+            for (Shape shp :
                     shapesOfCollisionAreas) {
                 space.addArea(shp.transform.getRectArea());
             }
@@ -198,7 +186,7 @@ public class Brush
 
         cleanBrush();
         mode = targetMode;
-        switch (Math.abs(targetMode)){
+        switch (Math.abs(targetMode)) {
             case 1:
                 backgroundWrap = Editor.currentBackgroundWrap.copy();
                 break;
@@ -220,10 +208,9 @@ public class Brush
         }
     }
 
-    Vector2f lastMousePos = new Vector2f(0,0);
+    Vector2f lastMousePos = new Vector2f(0, 0);
 
-    public void update(Editor editor, Game game)
-    {
+    public void update(Editor editor, Game game) {
         if (mode != Editor.brushMode) {
             changeMode(Editor.brushMode, editor, game);
         }
@@ -237,7 +224,7 @@ public class Brush
                     } else {
                         if (objectIsRotating) {
                             Vector2f pos = game.mouse.getAbsoluteMousePos(),
-                                     dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
+                                    dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
                             if (!objectIsDecal) {
                                 Transform transform = currentActor.tryToGetTransform();
                                 transform.angle = (float) Math.atan2(dif.y, dif.x);
@@ -275,7 +262,7 @@ public class Brush
                         editor.getActors()) { //ищу среди живых объектов
 
                     Transform transform = null;
-                    if(a != null)
+                    if (a != null)
                         transform = a.tryToGetTransform();
 
                     if (transform != null)
@@ -301,7 +288,7 @@ public class Brush
 
                 if (currentActor != null) { //если нашел, сообщаю об этом
                     shape.circle(currentActor.tryToGetTransform());
-                    if (haveToFindObject || haveToDeleteObject){
+                    if (haveToFindObject || haveToDeleteObject) {
                         objectIsChosen = true;
                     }
                 } else {
@@ -309,8 +296,8 @@ public class Brush
                 }
                 break;
             case 1: //создание бэкграундов
-                if (backgroundWrap != null && haveToFindObject){
-                    editor.getBackgrounds().add( backgroundWrap.getActor(game) );
+                if (backgroundWrap != null && haveToFindObject) {
+                    editor.getBackgrounds().add(backgroundWrap.getActor(game));
                     backgroundWrap = null;
                 }
                 if (haveToDeleteObject) {
@@ -319,10 +306,10 @@ public class Brush
                 }
                 break;
             case 2:
-                if (decalWrap != null){
+                if (decalWrap != null) {
                     if (objectIsRotating) { //вращаем?
                         Vector2f pos = game.mouse.getAbsoluteMousePos(),
-                                 dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
+                                dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
                         decalWrap.transform.angle = (float) Math.atan2(dif.y, dif.x);
                         shape.circle(decalWrap.transform);
                         break; //когда крутим нам не нужно перемещать объект
@@ -332,8 +319,8 @@ public class Brush
                     shape.circle(decalWrap.transform);
 
                     if (haveToFindObject) {
-                        decalWrap.transform.layer += layerShift; //чтобы при множественном создании объектов они не были как говно
-                        editor.getDecals().add( decalWrap.getActor(game) );
+                        decalWrap.transform.layer += layerShift; //чтобы при множественном создании объектов они не были как не знаю что
+                        editor.getDecals().add(decalWrap.getActor(game));
                         layerShift -= deltaLayer;
                     }
                 }
@@ -343,8 +330,8 @@ public class Brush
                 }
                 break;
             case 3:
-                if (actorWrap != null && currentActor != null){
-                    Transform transform  = currentActor.tryToGetTransform();
+                if (actorWrap != null && currentActor != null) {
+                    Transform transform = currentActor.tryToGetTransform();
                     if (objectIsRotating) { //вращаем?
                         Vector2f pos = game.mouse.getAbsoluteMousePos(),
                                 dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
@@ -357,14 +344,14 @@ public class Brush
                     transform.translate(game.mouse.getAbsoluteMousePos());
 
                     if (haveToFindObject) {
-                        transform.layer += layerShift; //чтобы при множественном создании объектов они не были как говно
+                        transform.layer += layerShift; //чтобы при множественном создании объектов они не были как не знаю что
                         Actor actor = actorWrap.getActor(game);
                         actor.tryToGetTransform().
                                 setPosition(transform.getPosition()).
                                 setScale(transform.getScale()).
                                 setAngle(transform.angle).
                                 setLayer(transform.layer);
-                        editor.getActors().add( actor );
+                        editor.getActors().add(actor);
                         layerShift -= deltaLayer;
                     }
                 }
@@ -374,7 +361,7 @@ public class Brush
                 }
                 break;
             case 4:
-                for (Shape shp:
+                for (Shape shp :
                         shapesOfCollisionAreas) {
                     if (shp.willBeRemoved())
                         shapesOfCollisionAreasRemBuffer.add(shp);
@@ -385,7 +372,7 @@ public class Brush
                     shapesOfCollisionAreasRemBuffer.clear();
                 }
 
-                if(rectangleIsCreating){ //если мы тыкнули в пустое поле, то запускается процесс созания нового прямоугольника
+                if (rectangleIsCreating) { //если мы тыкнули в пустое поле, то запускается процесс созания нового прямоугольника
                     //TODO: этот код работает неккоректно. на самом деле область получается какая-то не такая.
                     /*if(haveToFindObject || rectangleStageOfCreate == 0){
                         rectangleStageOfCreate += 1;
@@ -411,7 +398,7 @@ public class Brush
                         rectRectB = game.mouse.getAbsoluteMousePos().add(-rectShift.x - rectRectA.x, -rectShift.y - rectRectA.y);
                         shape.circle(new Rectangle(rectShift, rectRectA, rectRectB));
                     }*/
-                    if(haveToFindObject || rectangleStageOfCreate == 0) {
+                    if (haveToFindObject || rectangleStageOfCreate == 0) {
                         rectangleStageOfCreate += 1;
                         switch (rectangleStageOfCreate) {
                             case 1:
@@ -427,8 +414,8 @@ public class Brush
                                 Shape shp = new Shape();
                                 shp.renderIndex = 2;
                                 shp.transform.setPosition(rectShift)
-                                             .setScale(rectRectA.x, rectRectA.x)
-                                             .setLayer(layerShift);
+                                        .setScale(rectRectA.x, rectRectA.x)
+                                        .setLayer(layerShift);
                                 layerShift += deltaLayer;
                                 shp.transform.layer = layerShift;
                                 shp.texture = Shape.defRectTex;
@@ -439,7 +426,7 @@ public class Brush
                         }
                     }
 
-                    if (rectangleStageOfCreate == 1){
+                    if (rectangleStageOfCreate == 1) {
                         rectRectA = game.mouse.getAbsoluteMousePos().add(-rectShift.x, -rectShift.y);
                         currentActor.tryToGetTransform().setScale(rectRectA.x, rectRectA.x).setLayer(layerShift + deltaLayer);
                     }
@@ -455,8 +442,8 @@ public class Brush
                         if (objectIsRotating) {
                             Vector2f pos = game.mouse.getAbsoluteMousePos(),
                                     dif = new Vector2f(pos.x - firstPos.x, pos.y - firstPos.y);
-                                transform.angle = (float) Math.atan2(dif.y, dif.x);
-                                shape.circle(transform);
+                            transform.angle = (float) Math.atan2(dif.y, dif.x);
+                            shape.circle(transform);
                             break; //вертим? ну тогда нам явно не стоит объект перемещать
                         }
 
@@ -495,12 +482,12 @@ public class Brush
 
                 if (currentActor != null) { //если нашел, сообщаю об этом
                     shape.circle(currentActor.tryToGetTransform());
-                    if (haveToFindObject || haveToDeleteObject){
+                    if (haveToFindObject || haveToDeleteObject) {
                         objectIsChosen = true;
                     }
                 } else { //не нашли? тогда переходим в режим создания новых областей
                     shape.hide();
-                    if (haveToFindObject){
+                    if (haveToFindObject) {
                         rectangleIsCreating = true;
                         rectangleStageOfCreate = 0;
                     }
@@ -508,15 +495,15 @@ public class Brush
                 break;
         }
         lastMousePos = game.mouse.getAbsoluteMousePos();//для рассчета дельты
-        haveToFindObject = false; //очищаю клик мышкb
+        haveToFindObject = false; //очищаю клик мышки
     }
 
     public void draw() {
         if (shape.renderIndex > -1)
             shape.draw();
         if (mode == 4)
-            for (Shape shp:
-                 shapesOfCollisionAreas) {
+            for (Shape shp :
+                    shapesOfCollisionAreas) {
                 if (shp.renderIndex > -1)
                     shp.draw();
             }

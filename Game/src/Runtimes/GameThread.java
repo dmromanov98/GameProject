@@ -16,15 +16,13 @@ import Map.Map;
 import Objects.Player;
 import Objects.Snowball;
 
-public class GameThread extends Thread
-{
+public class GameThread extends Thread {
     private int fps;
     private int width, height;
     private String[] textureList;
     private MapWrap mapWrap;
 
-    public GameThread(int width, int height, int fps, String[] textureList)
-    {
+    public GameThread(int width, int height, int fps, String[] textureList) {
         super("Game");
         setPriority(MAX_PRIORITY);
         this.fps = fps;
@@ -36,8 +34,7 @@ public class GameThread extends Thread
 
     public Game game;
 
-    private void init()
-    {
+    private void init() {
         game = new Game(width, height);
         game.init();
         game.fps = fps;
@@ -45,8 +42,7 @@ public class GameThread extends Thread
     }
 
     @Override
-    public void run()
-    {
+    public void run() {
         super.run();
         init();
 

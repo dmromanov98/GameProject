@@ -10,14 +10,12 @@ import Utils.File;
 import Patterns.Sprite;
 
 import org.lwjgl.glfw.GLFWVidMode;
+
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL.*;
 import static org.lwjgl.opengl.GL11.*;
 
 import static org.lwjgl.system.MemoryUtil.NULL;
-
-//import static org.lwjgl.opengl.GL11.*;
-//import static org.lwjgl.opengl.GL13.GL_TEXTURE1;
 
 public class Game {
     private final String[] defaultClasses = {"sprite", "background", "decal"};
@@ -34,25 +32,23 @@ public class Game {
     public Map map;
 
 
-    public Game(int width, int height)
-    {
-        this.screenSize[0] = width; this.screenSize[1] = height;
+    public Game(int width, int height) {
+        this.screenSize[0] = width;
+        this.screenSize[1] = height;
     }
 
-    private void initClasses()
-    {
+    private void initClasses() {
         VertexArray.init();//preparing common meshes
         Sprite.init();
         Decal.init();
         Background.init();
     }
 
-    private void loadAndInitDefaultShaderPrograms()
-    {
-        ShaderCompiler.addShadersFromAList( File.loadTextfilesFromAList("Engine/shaders/shader_list.txt") );
+    private void loadAndInitDefaultShaderPrograms() {
+        ShaderCompiler.addShadersFromAList(File.loadTextfilesFromAList("Engine/shaders/shader_list.txt"));
         ShaderCompiler.printAllShaders();
-        for (String className:
-             defaultClasses) {
+        for (String className :
+                defaultClasses) {
             int[] shaders = {
                     ShaderCompiler.getShader("default/" + className + "/vertex.default"),
                     ShaderCompiler.getShader("default/" + className + "/fragment.default")
@@ -62,8 +58,7 @@ public class Game {
         }
     }
 
-    public void init() throws Error
-    {
+    public void init() throws Error {
         if (!glfwInit()) {
             throw new Error("Could not initialize GLFW!");
         }
@@ -89,7 +84,7 @@ public class Game {
         //moving the window to the window of the screen
         GLFWVidMode vidmode = glfwGetVideoMode(glfwGetPrimaryMonitor());
         glfwSetWindowPos(window, (vidmode.width() - screenSize[0]) / 2,
-                                 (vidmode.height() - screenSize[1]) / 2);
+                (vidmode.height() - screenSize[1]) / 2);
 
         //another initializing of OpenGL
         glfwMakeContextCurrent(window);
@@ -121,8 +116,7 @@ public class Game {
         glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     }
 
-    private void update()
-    {
+    private void update() {
         glfwPollEvents();
         input.updateInput();
         mouse.updateMouse();
@@ -130,8 +124,7 @@ public class Game {
         Camera.update();
     }
 
-    private void render()
-    {
+    private void render() {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         map.drawAll();
@@ -143,8 +136,7 @@ public class Game {
         glfwSwapBuffers(window);
     }
 
-    public void mainloop()
-    {
+    public void mainloop() {
         glfwShowWindow(window);
         System.out.println("Window is showed.");
 
@@ -154,7 +146,7 @@ public class Game {
             throw new Error("There is no map. Check your source code.");
 
         System.out.println("Mainloop started.");
-        while (true){
+        while (true) {
             update();
             render();
 
@@ -166,8 +158,7 @@ public class Game {
         }
     }
 
-    public void closeGame()
-    {
+    public void closeGame() {
         glfwDestroyWindow(window);
         glfwTerminate();
     }
@@ -178,7 +169,7 @@ public class Game {
             while (System.nanoTime() < targetNanos) {
                 Thread.sleep(1);
             }
+        } catch (InterruptedException ignore) {
         }
-        catch (InterruptedException ignore) {}
     }
 }

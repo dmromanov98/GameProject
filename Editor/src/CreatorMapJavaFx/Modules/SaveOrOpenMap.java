@@ -19,7 +19,7 @@ public class SaveOrOpenMap {
             path = defaultPath + "/" + path;
             if (new File(path).exists()) {
                 int b = JOptionPane.showConfirmDialog(null,
-                         "This file is already exist in current directory.Do you want to continue?","WARNING", JOptionPane.YES_NO_OPTION);
+                        "This file is already exist in current directory.Do you want to continue?", "WARNING", JOptionPane.YES_NO_OPTION);
                 //1-no
                 //0-yes
                 if (b == 0) {
@@ -40,6 +40,7 @@ public class SaveOrOpenMap {
             JOptionPane.showMessageDialog(null, "Enter the name of the card!");
         }
     }
+
 
     public static void rewriteFile(String json, String path) {
         BufferedWriter bw;

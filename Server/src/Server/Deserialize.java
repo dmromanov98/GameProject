@@ -6,7 +6,6 @@ import java.lang.reflect.Type;
 
 public class Deserialize implements JsonDeserializer<Client> {
 
-
     @Override
     public Client deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
 

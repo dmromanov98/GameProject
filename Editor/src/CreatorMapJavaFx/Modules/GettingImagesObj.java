@@ -9,19 +9,20 @@ import java.nio.file.*;
 
 public class GettingImagesObj {
 
-    public static ObservableList<CustomImage> getPaths(String directoryPath,String packageName){
+    //получение путей к Images
+    public static ObservableList<CustomImage> getPaths(String directoryPath, String packageName) {
 
         ObservableList<CustomImage> images = FXCollections.observableArrayList();
 
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(directoryPath))) {
-            for (Path file: stream) {
-                if(!file.toFile().isDirectory() ) {
-                    String path = directoryPath+"\\"+file.getFileName();
-                    images.add(new CustomImage(path,packageName+"\\"+file.getFileName()));
+            for (Path file : stream) {
+                if (!file.toFile().isDirectory()) {
+                    String path = directoryPath + "\\" + file.getFileName();
+                    images.add(new CustomImage(path, packageName + "\\" + file.getFileName()));
                 }
             }
         } catch (IOException | DirectoryIteratorException x) {
-            JOptionPane.showMessageDialog(null,(x.getMessage()+"Directory of path is incorrect"));
+            JOptionPane.showMessageDialog(null, (x.getMessage() + "Directory of path is incorrect"));
         }
         return images;
     }

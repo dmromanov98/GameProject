@@ -21,11 +21,8 @@ import javafx.scene.control.ListView;
 
 import javax.swing.*;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.logging.Handler;
 
 import static CreatorMapJavaFx.Modules.CollisionsNames.addCollision;
 import static CreatorMapJavaFx.Modules.TexturesInfo.getAllTextures;
@@ -124,7 +121,7 @@ public class WindowController implements Initializable {
                     registerTypeAdapter(MapWrap.class, new Deserialize())
                     .registerTypeAdapter(Wrap.class, new DeserializeObject())
                     .registerTypeAdapter(Transform.class, new DeserializeTransform())
-                    .registerTypeAdapter(Rectangle.class,new DeserializeRectangles())
+                    .registerTypeAdapter(Rectangle.class, new DeserializeRectangles())
                     .create();
 
 
@@ -150,11 +147,11 @@ public class WindowController implements Initializable {
     }
 
     public void btnEditMapNewMap() {
-        JOptionPane.showMessageDialog(null,"This function isnt work");
+        JOptionPane.showMessageDialog(null, "This function isnt work");
     }
 
     public void btnBackgroundDelete() {
-        JOptionPane.showMessageDialog(null,"This function isnt work");
+        JOptionPane.showMessageDialog(null, "This function isnt work");
     }
 
     public void btnBackgroundAdd() {

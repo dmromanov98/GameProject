@@ -16,15 +16,15 @@ public class WindowPathsCreator extends Application {
         initWindow();
     }
 
-    public static void initWindow(){
-        try{
+    public static void initWindow() {
+        try {
 
-            FXMLLoader loader =new FXMLLoader();
+            FXMLLoader loader = new FXMLLoader();
             loader.setLocation(WindowPathsCreator.class.getResource("Window.fxml"));
             anchorPane = loader.load();
             Scene scene = new Scene(anchorPane);
 
-            if(primaryStage == null)
+            if (primaryStage == null)
                 primaryStage = new Stage();
 
             primaryStage.setResizable(false);
@@ -32,7 +32,7 @@ public class WindowPathsCreator extends Application {
             primaryStage.setTitle("Map Editor");
             primaryStage.show();
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
