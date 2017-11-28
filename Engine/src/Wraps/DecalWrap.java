@@ -15,6 +15,11 @@ public class DecalWrap extends Wrap
         return ID;
     }
 
+    @Override
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
     public Transform transform;
     public String texName;
 

@@ -4,6 +4,7 @@ import Main.Actor;
 import Main.Game;
 
 public abstract class Wrap {
+
     public static final int actorID = 0,
                             spriteID = 1,
                             decalID = 2,
@@ -13,7 +14,11 @@ public abstract class Wrap {
 
     public abstract int getID();
 
+
     public abstract Actor getActor(Game game);
 
+    public abstract void setID(int ID);
+
     public abstract Wrap copy();
+
 }

@@ -1,4 +1,4 @@
-package CreatorMapJavaFx.Deserializers;
+package CreatorMapJavaFx.Deserialize;
 
 import Main.Transform;
 import com.google.gson.*;

@@ -49,6 +49,10 @@ public class EditorThread extends Thread {
     }
 
     public static MapWrap getOutputMapWrap() {
+
+        //TODO:OUT TEST
+        System.out.println(outputMapWrap.collideAreas.get("1").getRectangles());
+
         return outputMapWrap;
     }
 

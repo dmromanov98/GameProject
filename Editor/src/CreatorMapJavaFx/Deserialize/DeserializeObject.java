@@ -1,7 +1,6 @@
-package CreatorMapJavaFx.Deserializers;
+package CreatorMapJavaFx.Deserialize;
 
 import Main.Transform;
-import Map.MapWrap;
 import Wraps.BackgroundWrap;
 import Wraps.DecalWrap;
 import Wraps.Wrap;
@@ -22,13 +21,12 @@ public class DeserializeObject implements JsonDeserializer<Wrap> {
         if(wName.equals("decals")){
 
             Transform transform = jsonDeserializationContext.deserialize(element, Transform.class);
-
-            //transform.layer = .99f;
-
             wrap = new DecalWrap(transform,wrapName);
+            wrap.setID(JsonObj.get("ID").getAsInt());
 
         }else if (wName.equals("backgrounds")){
             wrap = new BackgroundWrap(wrapName,JsonObj.get("layer").getAsFloat());
+            wrap.setID(JsonObj.get("ID").getAsInt());
             //wrap = new BackgroundWrap(wrapName,.99f);
         }else if(wName.equals("sprites")){
 

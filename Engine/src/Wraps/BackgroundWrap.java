@@ -45,4 +45,9 @@ public class BackgroundWrap extends Wrap
 
         return new Background(texture, layer).setSource(this);
     }
+
+    @Override
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 }

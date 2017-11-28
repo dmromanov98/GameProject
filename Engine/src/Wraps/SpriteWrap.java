@@ -52,4 +52,9 @@ public class SpriteWrap extends Wrap
         } catch (Exception e){e.printStackTrace();}
         return res.setSource(this);
     }
+
+    @Override
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 }

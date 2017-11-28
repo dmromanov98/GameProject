@@ -1,4 +1,4 @@
-package CreatorMapJavaFx.Deserializers;
+package CreatorMapJavaFx.Deserialize;
 
 import Map.MapWrap;
 import Wraps.Wrap;
@@ -19,7 +19,10 @@ public class Deserialize implements JsonDeserializer<MapWrap> {
             map.objects.add(wr);
         }
 
-//        array = JsonObj.getAsJsonArray("collideAreas");
+//        JsonObject jsonObject = JsonObj.getAsJsonObject("collideAreas");
+//        System.out.println(jsonObject);
+//        JsonObject collisions = jsonElement.getAsJsonObject();
+//        array = collisions.getAsJsonArray("collideAreas");
 //
 //        for(JsonElement obj:array){
 //

@@ -1,9 +1,10 @@
 package CreatorMapJavaFx.ViewController;
 
-import CreatorMapJavaFx.Deserializers.Deserialize;
-import CreatorMapJavaFx.Deserializers.DeserializeObject;
-import CreatorMapJavaFx.Deserializers.DeserializeTransform;
+import CreatorMapJavaFx.Deserialize.Deserialize;
+import CreatorMapJavaFx.Deserialize.DeserializeObject;
+import CreatorMapJavaFx.Deserialize.DeserializeTransform;
 import CreatorMapJavaFx.Modules.*;
+//import CreatorMapJavaFx.Serialize.MapWrapSerializer;
 import Editor.EditorThread;
 import Main.Transform;
 import Map.MapWrap;
@@ -121,6 +122,7 @@ public class WindowController implements Initializable {
                     .registerTypeAdapter(Transform.class, new DeserializeTransform())
                     .create();
 
+
             MapWrap map = gson.fromJson(json, MapWrap.class);
 
             if (map != null)
@@ -147,7 +149,6 @@ public class WindowController implements Initializable {
         JOptionPane.showMessageDialog(null,"This function isnt work");
     }
 
-    //добавление бэкграунда
     public void btnBackgroundAdd() {
         float layout = 0;
         CustomImage ci = null;
@@ -234,7 +235,10 @@ public class WindowController implements Initializable {
     public void btnEditSaveMap() {
         if (EditorThread.outputMapWrap != null) {
 
-            Gson gson = new GsonBuilder().create();
+            //Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
             String json = gson.toJson(EditorThread.getOutputMapWrap());
 
             SaveOrOpenMap.saveMap(json, textEditMapPath.getText());
