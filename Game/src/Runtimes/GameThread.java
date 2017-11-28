@@ -13,6 +13,8 @@ package Runtimes;
 import Main.Game;
 import Map.MapWrap;
 import Map.Map;
+import Objects.Player;
+import Objects.Snowball;
 
 public class GameThread extends Thread
 {
@@ -48,6 +50,9 @@ public class GameThread extends Thread
         super.run();
         init();
 
+        Player.gameThread = this;
+        Snowball.gameThread = this;
+
         ClientThread clientThread = new ClientThread();
         clientThread.playersController = new PlayersController();
         clientThread.start();
@@ -57,7 +62,8 @@ public class GameThread extends Thread
         game.map.addActor(clientThread.playersController);
 
         /*TODO: game begins*/
-
+        game.mainloop();
+        game.closeGame();
     }
 
 

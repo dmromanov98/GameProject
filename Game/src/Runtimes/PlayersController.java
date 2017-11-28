@@ -1,7 +1,7 @@
 package Runtimes;
 
 import Main.Actor;
-import Player.Player;
+import Objects.Player;
 
 import java.util.Vector;
 

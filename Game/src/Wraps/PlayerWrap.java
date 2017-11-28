@@ -2,7 +2,7 @@ package Wraps;
 
 import Main.Actor;
 import Main.Game;
-import Player.Player;
+import Objects.Player;
 
 public class PlayerWrap extends Wrap
 {
