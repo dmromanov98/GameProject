@@ -1,8 +1,7 @@
-import Map.MapWrap;
-import Player.Player;
-import Wraps.PlayerWrap;
+package Runtimes;
 
-import java.util.Vector;
+import Map.MapWrap;
+import Wraps.PlayerWrap;
 
 public class ClientThread extends Thread
 {

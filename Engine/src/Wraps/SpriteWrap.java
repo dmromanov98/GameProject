@@ -7,7 +7,12 @@ import Patterns.Sprite;
 
 public class SpriteWrap extends Wrap
 {
-    public int ID = Wrap.spriteID; // Default sprite ID
+    private int ID = Wrap.spriteID; // Default sprite ID
+
+    @Override
+    public int getID() {
+        return ID;
+    }
 
     public Transform transform;
     public String texName;

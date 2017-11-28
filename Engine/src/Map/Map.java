@@ -33,7 +33,7 @@ public class Map
 
         for (Wrap w:
                 wrap.objects) {
-            switch (w.ID){
+            switch (w.getID()){
                 case Wrap.decalID:
                     addDecal( w.getActor(game) ); break;
                 case Wrap.backgroundID:

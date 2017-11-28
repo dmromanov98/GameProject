@@ -8,7 +8,12 @@ import Map.Decal;
 
 public class DecalWrap extends Wrap
 {
-    public int ID = Wrap.decalID; // Default decal ID
+    private int ID = Wrap.decalID; // Default decal ID
+
+    @Override
+    public int getID() {
+        return ID;
+    }
 
     public Transform transform;
     public String texName;
