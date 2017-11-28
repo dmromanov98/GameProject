@@ -1,10 +1,14 @@
 package CreatorMapJavaFx.Deserialize;
 
 import Map.MapWrap;
+import Physics.CollisionSpace;
+import Physics.Rectangle;
 import Wraps.Wrap;
 import com.google.gson.*;
 
 import java.lang.reflect.Type;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Deserialize implements JsonDeserializer<MapWrap> {
     @Override
@@ -14,20 +18,25 @@ public class Deserialize implements JsonDeserializer<MapWrap> {
         JsonObject JsonObj = jsonElement.getAsJsonObject();
         JsonArray array = JsonObj.getAsJsonArray("objects");
 
-        for(JsonElement obj:array){
+        for (JsonElement obj : array) {
             Wrap wr = jsonDeserializationContext.deserialize(obj, Wrap.class);
             map.objects.add(wr);
         }
 
-//        JsonObject jsonObject = JsonObj.getAsJsonObject("collideAreas");
-//        System.out.println(jsonObject);
-//        JsonObject collisions = jsonElement.getAsJsonObject();
-//        array = collisions.getAsJsonArray("collideAreas");
-//
-//        for(JsonElement obj:array){
-//
-//            //TODO: collideAreasDESERIALIZATION
-//        }
+        JsonObject collisions = JsonObj.getAsJsonObject("collideAreas");
+
+        map.collideAreas = new HashMap<>();
+
+        for (Map.Entry<String, JsonElement> entry : collisions.entrySet()) {
+            JsonObject obj = entry.getValue().getAsJsonObject();
+            JsonArray collisionArray = obj.getAsJsonArray("collisions");
+            CollisionSpace cs = new CollisionSpace();
+            for (JsonElement element : collisionArray) {
+                Rectangle rect = jsonDeserializationContext.deserialize(element, Rectangle.class);
+                cs.addArea(rect);
+            }
+            map.collideAreas.put(entry.getKey(), cs);
+        }
 
         return map;
     }

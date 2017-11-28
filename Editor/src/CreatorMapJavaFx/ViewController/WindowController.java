@@ -2,12 +2,13 @@ package CreatorMapJavaFx.ViewController;
 
 import CreatorMapJavaFx.Deserialize.Deserialize;
 import CreatorMapJavaFx.Deserialize.DeserializeObject;
+import CreatorMapJavaFx.Deserialize.DeserializeRectangles;
 import CreatorMapJavaFx.Deserialize.DeserializeTransform;
 import CreatorMapJavaFx.Modules.*;
-//import CreatorMapJavaFx.Serialize.MapWrapSerializer;
 import Editor.EditorThread;
 import Main.Transform;
 import Map.MapWrap;
+import Physics.Rectangle;
 import Wraps.BackgroundWrap;
 import Wraps.DecalWrap;
 import Wraps.Wrap;
@@ -20,8 +21,11 @@ import javafx.scene.control.ListView;
 
 import javax.swing.*;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.logging.Handler;
 
 import static CreatorMapJavaFx.Modules.CollisionsNames.addCollision;
 import static CreatorMapJavaFx.Modules.TexturesInfo.getAllTextures;
@@ -120,6 +124,7 @@ public class WindowController implements Initializable {
                     registerTypeAdapter(MapWrap.class, new Deserialize())
                     .registerTypeAdapter(Wrap.class, new DeserializeObject())
                     .registerTypeAdapter(Transform.class, new DeserializeTransform())
+                    .registerTypeAdapter(Rectangle.class,new DeserializeRectangles())
                     .create();
 
 
@@ -138,6 +143,9 @@ public class WindowController implements Initializable {
                 } catch (NumberFormatException e) {
                     JOptionPane.showMessageDialog(null, "HEIGHT,WIDTH,FPS - NUMBERS");
                 }
+
+            System.out.println(map.collideAreas.get("1"));
+
         }
     }
 
@@ -235,9 +243,7 @@ public class WindowController implements Initializable {
     public void btnEditSaveMap() {
         if (EditorThread.outputMapWrap != null) {
 
-            //Gson gson = new GsonBuilder().setPrettyPrinting().create();
-
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            Gson gson = new GsonBuilder().create();
 
             String json = gson.toJson(EditorThread.getOutputMapWrap());
 
