@@ -51,7 +51,7 @@ public class EditorThread extends Thread {
     public static MapWrap getOutputMapWrap() {
 
         //TODO:OUT TEST
-        System.out.println(outputMapWrap.collideAreas.get("1").getRectangles());
+        System.out.println(outputMapWrap.collideAreas);
 
         return outputMapWrap;
     }
@@ -105,6 +105,7 @@ public class EditorThread extends Thread {
         init();
         game.mainloop();
         outputMapWrap = editor.getMapWrap();
+        System.out.println(outputMapWrap.collideAreas);
         game.closeGame();
     }
 
