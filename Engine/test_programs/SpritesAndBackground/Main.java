@@ -85,7 +85,9 @@ public class Main implements Runnable {
         game.init();
 
         try {
-            game.textureBank.addFromDisk("dick", "Engine/test_resources/dick.png");
+
+            game.textureBank.addFromDisk("", "");
+
             game.textureBank.addFromDisk("space", "Engine/test_resources/cassiopeia1280.jpeg");
             game.textureBank.addFromDisk("planet1", "Engine/test_resources/planet1.png");
             game.textureBank.addFromDisk("planet2", "Engine/test_resources/planet2.png");
