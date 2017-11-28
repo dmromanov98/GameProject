@@ -18,7 +18,7 @@ public class Client extends Thread {
     private final int RECEIVESIZE = 256; //количество байт
 
     //временно
-    private static String Nickname = "Player";
+    private static String Nickname = "Objects";
 
     public static int getTIMEOUT() {
         return TIMEOUT;

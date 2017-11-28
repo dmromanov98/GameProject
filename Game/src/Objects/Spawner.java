@@ -1,4 +1,4 @@
-package Player;
+package Objects;
 
 import Main.Actor;
 import Main.Transform;

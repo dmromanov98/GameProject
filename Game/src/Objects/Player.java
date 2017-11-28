@@ -1,4 +1,4 @@
-package Player;
+package Objects;
 
 import Patterns.Sprite;
 import Physics.PhysTransform;
@@ -8,6 +8,8 @@ public class Player extends Sprite
 {
     public static GameThread gameThread;
     public float life;
+
+    public PhysTransform transform;
 
     public Player()
     {}
