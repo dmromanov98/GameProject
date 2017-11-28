@@ -185,7 +185,7 @@ public class Brush
         shapesOfCollisionAreas.clear();
     }
 
-    private void changeMode(short targetMode, Editor editor,Game game)
+    public void changeMode(short targetMode, Editor editor,Game game)
     {
         if (Math.abs(mode) == 4){
             CollisionSpace space = editor.collisionSpaces.get(currentCollisionArea);

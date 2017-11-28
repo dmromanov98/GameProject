@@ -124,6 +124,7 @@ public class Editor extends Map {
     }
 
     public MapWrap getMapWrap() {
+        brush.changeMode((short)0, this, game);
         return new MapWrap(getWraps(), collisionSpaces);
     }
 
