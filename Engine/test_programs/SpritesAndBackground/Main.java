@@ -26,7 +26,7 @@ public class Main implements Runnable {
     private Random random = new Random();
     private float scaleMul = 3;
 
-    public Map createMap(int dickCount, int planetCount) {
+    public Map createMap(int shipCount, int planetCount) {
         Map res = new Map();
 
         try {
@@ -41,7 +41,7 @@ public class Main implements Runnable {
                     game.textureBank.Get("planet4").getTexture()
             };
 
-            Texture dickTex = game.textureBank.Get("dick").getTexture();
+            Texture shipTex = game.textureBank.Get("ship").getTexture();
 
             int len = planetTexs.length;
             for (int i = 0; i < planetCount; i++) {
@@ -55,13 +55,13 @@ public class Main implements Runnable {
                 res.addDecal(new Decal(transform, planetTexs[random.nextInt(len)]));
             }
 
-            for (int i = 0; i < dickCount; i++) {
+            for (int i = 0; i < shipCount; i++) {
                 x = scaleMul * (random.nextFloat() * WIDTH - .5f * WIDTH);
                 y = scaleMul * (random.nextFloat() * HEIGHT - .5f * HEIGHT);
                 SquaredGuys a = new SquaredGuys(new Vector2f(x, y), game.mouse);
                 a.transform.rotate((float) (2 * Math.PI * random.nextDouble()));
-                a.texture = dickTex;
-                a.transform.layer = (float) i / dickCount / 2 + .5f;
+                a.texture = shipTex;
+                a.transform.layer = (float) i / shipCount / 2 + .5f;
                 res.addActor(a);
             }
 
@@ -85,9 +85,7 @@ public class Main implements Runnable {
         game.init();
 
         try {
-
-            game.textureBank.addFromDisk("", "");
-
+            game.textureBank.addFromDisk("ship", "Engine/test_resources/ship.png");
             game.textureBank.addFromDisk("space", "Engine/test_resources/cassiopeia1280.jpeg");
             game.textureBank.addFromDisk("planet1", "Engine/test_resources/planet1.png");
             game.textureBank.addFromDisk("planet2", "Engine/test_resources/planet2.png");

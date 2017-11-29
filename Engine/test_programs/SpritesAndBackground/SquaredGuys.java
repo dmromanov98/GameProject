@@ -5,7 +5,7 @@ import org.joml.Vector2f;
 import Main.Mouse;
 
 public class SquaredGuys extends Sprite {
-    private static float scale = 50;
+    private static float scale = 90;
 
     public static boolean mouseHold = false;
 
