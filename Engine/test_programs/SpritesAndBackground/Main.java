@@ -16,7 +16,28 @@ import java.util.Random;
 public class Main implements Runnable {
     private Thread thread;
     private Game game;
-    private final int WIDTH = 800, HEIGHT = 600;
+
+    private static  int WIDTH = 800, HEIGHT = 600,FPS = 60;
+
+    public static void setWIDTH(int WIDTH) {
+        Main.WIDTH = WIDTH;
+    }
+
+    public static void setHEIGHT(int HEIGHT) {
+        Main.HEIGHT = HEIGHT;
+    }
+
+    public static void setFPS(int FPS) {
+        Main.FPS = FPS;
+    }
+
+    public Main(){}
+
+    public Main(int WIDTH,int HEIGHT,int FPS){
+        this.WIDTH = WIDTH;
+        this.HEIGHT = HEIGHT;
+        this.FPS = FPS;
+    }
 
     public void start() {
         thread = new Thread(this, "Game");
@@ -107,7 +128,7 @@ public class Main implements Runnable {
 
         game.map = createMap(100, 300);
 
-        game.fps = 60;
+        game.fps = this.FPS;
         game.mainloop();
         game.closeGame();
     }

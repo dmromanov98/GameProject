@@ -2,6 +2,7 @@ package GUI;
 
 
 import Client.Client;
+import SpritesAndBackground.Main;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,6 +62,9 @@ public class SettingsController implements Initializable {
             width = Integer.parseInt(textWindowWidth.getText());
             height = Integer.parseInt(textWindowHeight.getText());
             fps = Integer.parseInt(textFPS.getText());
+            Main.setFPS(fps);
+            Main.setHEIGHT(height);
+            Main.setWIDTH(width);
 
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "WIDTH,HEIGHT,FPS MUST BE A NUMBERS!");

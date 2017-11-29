@@ -1,6 +1,7 @@
 package GUI;
 
 import CreatorMapJavaFx.ViewController.WindowPathsCreator;
+import SpritesAndBackground.Main;
 import View_Controller.MainView;
 
 public class MenuController {
@@ -12,6 +13,7 @@ public class MenuController {
     }
 
     public void startGame() {
+        new Main().run();
     }
 
     public void openServerWindow() {
